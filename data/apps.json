@@ -1,0 +1,52 @@
+{
+  "checked": "2026-11-06",
+  "apps": {
+    "klaviyo": {
+      "name": "Klaviyo",
+      "category": "Email & SMS marketing",
+      "source": "https://www.klaviyo.com/pricing",
+      "billing_unit": "active profiles (contacts who can receive marketing email)",
+      "plans": [
+        {"name": "Free", "price": "$0", "includes": "250 active profiles, 500 email sends/month, $5 of SMS/MMS credit/month"},
+        {"name": "Email", "price": "from $20/mo", "includes": "500 active profiles, expanded email send capacity"},
+        {"name": "Email + SMS", "price": "from $35/mo", "includes": "500 active profiles, email plus SMS/MMS credits"}
+      ],
+      "notes": [
+        "Every plan is priced by contact count, not by seats: above the entry tier the price rises with active profiles and is shown only in Klaviyo's own pricing calculator.",
+        "Exceeding the free plan's 250 profiles or 500 sends switches the account to a paid plan, it does not just throttle sending."
+      ]
+    },
+    "gorgias": {
+      "name": "Gorgias",
+      "category": "Helpdesk for ecommerce",
+      "source": "https://www.gorgias.com/pricing",
+      "billing_unit": "support tickets per month",
+      "plans": [
+        {"name": "Starter", "price": "$10/mo", "includes": "50 tickets/month included; $0.40 per-ticket overage; monthly billing only"},
+        {"name": "Basic", "price": "$60/mo ($50/mo billed annually)", "includes": "300 tickets/month included; $0.40 per-ticket overage"},
+        {"name": "Pro", "price": "$360/mo ($300/mo billed annually)", "includes": "2,000 tickets/month included; $0.36 per-ticket overage"},
+        {"name": "Enterprise", "price": "custom quote", "includes": "5,000 tickets/month included; $0.36 per-ticket overage"}
+      ],
+      "notes": [
+        "AI Agent interactions are billed on top of the plan: $0.90 each on annual plans, $1.00 each on monthly plans.",
+        "A ticket is not the same unit as an AI interaction, and each AI interaction also counts against ticket volume — a detail most pricing roundups leave out."
+      ]
+    },
+    "vitals": {
+      "name": "Vitals",
+      "category": "All-in-one Shopify app bundle",
+      "source": "https://www.vitals.app/pricing",
+      "billing_unit": "monthly orders in the store",
+      "plans": [
+        {"name": "Up to 200 orders", "price": "$29.99/mo", "includes": "All 40+ Vitals apps"},
+        {"name": "201–1,000 orders", "price": "$79/mo", "includes": "All 40+ Vitals apps"},
+        {"name": "1,001–5,000 orders", "price": "$179/mo", "includes": "All 40+ Vitals apps"},
+        {"name": "5,001+ orders", "price": "$299/mo", "includes": "All 40+ Vitals apps"}
+      ],
+      "notes": [
+        "Vitals bills by order volume, not by feature: the feature set does not change between tiers, only the price.",
+        "Because it bundles 40+ apps, the comparison that matters is Vitals against the sum of the individual apps it replaces, not against any single app."
+      ]
+    }
+  }
+}
