@@ -133,7 +133,7 @@ page("guides/gorgias-cost-at-volume/index.html",
 
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
-<div class="verified">Eight verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo. Last checked {checked}.</div>
+<div class="verified">Nine verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout. Last checked {checked}.</div>
 <h2>Start here</h2>
 <ul>
 <li><a href="apps/klaviyo/">Klaviyo pricing</a> — billed by active profiles, not seats</li>
@@ -144,6 +144,7 @@ body = f"""<h1>What Shopify apps actually cost</h1>
 <li><a href="apps/weglot/">Weglot pricing</a> — priced in EUR and USD, VAT excluded</li>
 <li><a href="apps/postscript/">Postscript pricing</a> — $0 headline plan that still costs $49/month minimum</li>
 <li><a href="apps/yotpo/">Yotpo pricing</a> — products priced separately, free capped at 50 orders</li>
+<li><a href="apps/help-scout/">Help Scout pricing</a> — per seat, so team size drives the bill</li>
 </ul>
 <p><a href="pricing-index/">See the full pricing index →</a></p>
 <h2>Cost at your size</h2>

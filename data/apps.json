@@ -236,6 +236,38 @@
         "Yotpo is not one price: each product line is priced separately, so a store using reviews and loyalty pays two subscriptions.",
         "Its 'free plan' is capped by monthly order volume (50), which means a growing store crosses into paid without changing anything."
       ]
+    },
+    "help-scout": {
+      "name": "Help Scout",
+      "category": "Support helpdesk (incl. Shopify integration)",
+      "source": "https://www.helpscout.com/pricing/",
+      "billing_unit": "user seats, plus paid add-ons for extra inboxes and docs sites",
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0",
+          "includes": "Core shared inbox for a very small team"
+        },
+        {
+          "name": "Standard",
+          "price": "$25 per user/mo",
+          "includes": "Multiple inboxes, live chat and SMS, one basic SLA, AI inbox assistant"
+        },
+        {
+          "name": "Plus",
+          "price": "$45 per user/mo",
+          "includes": "Advanced workflows, two advanced SLAs, customer portal, unlimited AI drafts"
+        },
+        {
+          "name": "Pro",
+          "price": "$75 per user/mo",
+          "includes": "Unlimited workflows and SLA policies, highest scale and security tier"
+        }
+      ],
+      "notes": [
+        "Help Scout bills per seat, not per conversation: a five-person support team on Plus pays $225/mo before any add-ons, and Gorgias at the same volume can be far cheaper or far more expensive depending on ticket count.",
+        "Extra inboxes cost $10/mo each and extra docs sites $20/mo each, on top of the per-seat price; annual billing takes about 16% off."
+      ]
     }
   }
 }
