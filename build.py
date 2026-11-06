@@ -180,6 +180,38 @@ page("compare/gorgias-vs-help-scout/index.html",
      "A verified cost comparison of Gorgias (per ticket) and Help Scout (per seat), with the points where the cheaper option flips.",
      vs_body, "../../")
 
+
+# --- billing models page (derived from verified data only) ---
+groups = {
+ "Per ticket": ["gorgias"],
+ "Per seat": ["help-scout"],
+ "Per order volume": ["vitals", "upsell.com"],
+ "Per contact": ["klaviyo"],
+ "Flat fee": ["judge.me"],
+ "Flat fee plus metered messages": ["postscript"],
+ "Per word / plan": ["weglot"],
+ "Product line plus volume": ["yotpo"],
+}
+sections = []
+for model, slugs in groups.items():
+    items = "".join(f"<li><a href=\"../../apps/{sl}/\">{html.escape(apps[sl]['name'])}</a> — {html.escape(apps[sl]['billing_unit'])}</li>" for sl in slugs if sl in apps)
+    sections.append(f"<h2>{model}</h2><ul>{items}</ul>")
+billing_body = f"""<h1>The billing models behind Shopify app prices</h1>
+<p class="lede">Two apps with the same headline price can bill you completely differently. Every app we have verified, grouped by what actually drives the number.</p>
+<div class="verified">All nine apps below were checked on {checked}. The grouping is ours; the billing units are quoted from each vendor's pricing page.</div>
+{"".join(sections)}
+<h2>Why this matters more than the price</h2>
+<ul>
+<li>Per-seat pricing punishes team growth; per-ticket pricing punishes campaign spikes. A quiet month and a Black Friday month can cost wildly different amounts on the same plan.</li>
+<li>Flat-fee apps are the only ones where your bill is predictable, which is why Judge.me's $15 and Postscript's $699 are easier to budget than a per-ticket helpdesk.</li>
+<li>Metered add-ons are where budgets break: Postscript charges per message on top of the plan, Gorgias charges per AI interaction, Klaviyo moves you to a higher tier when contacts grow.</li>
+<li>Yotpo is the warning case: one vendor, several product lines, each billed separately. A store can be on two Yotpo plans at once without realising it.</li>
+</ul>"""
+page("guides/how-shopify-apps-bill/index.html",
+     "How Shopify apps bill: per ticket, per seat, per order, flat fee",
+     "Nine verified Shopify apps grouped by billing model, and why the billing unit matters more than the headline price.",
+     billing_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Nine verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout. Last checked {checked}.</div>
@@ -199,6 +231,7 @@ body = f"""<h1>What Shopify apps actually cost</h1>
 <h2>Cost at your size</h2>
 <ul>
 <li><a href="guides/gorgias-cost-at-volume/">Gorgias at 100 to 5,000 tickets/month</a> — where the cheaper plan stops being cheaper</li>
+<li><a href="guides/how-shopify-apps-bill/">How these apps bill</a> — per ticket, per seat, per order or flat fee</li>
 <li><a href="compare/gorgias-vs-help-scout/">Gorgias vs Help Scout</a> — per ticket versus per seat, and which one wins at your size</li>
 </ul>"""
 page("index.html",
@@ -211,7 +244,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
