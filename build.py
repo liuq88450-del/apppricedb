@@ -19,6 +19,7 @@ TEMPLATE = """<!doctype html>
   <a class="brand" href="{p}index.html">AppPriceDB</a>
   <a href="{p}pricing-index/">Pricing index</a>
   <a href="{p}methodology.html">Method</a>
+  <a href="{p}changelog.html">Changelog</a>
   <a href="{p}about.html">About</a>
 </header>
 <main>
@@ -42,7 +43,14 @@ for slug, a in apps.items():
         f"<tr><td><strong>{html.escape(pl['name'])}</strong></td><td>{html.escape(pl['price'])}</td><td>{html.escape(pl['includes'])}</td></tr>"
         for pl in a["plans"])
     notes = "\n".join(f"<li>{html.escape(n)}</li>" for n in a["notes"])
-    body = f"""<h1>{html.escape(a['name'])} pricing: what you actually pay</h1>
+    import json as _json
+    ld = {"@context":"https://schema.org","@type":"ItemList","name":f"{a['name']} pricing plans",
+          "dateModified": checked,
+          "url": f"https://liuq88450-del.github.io/apppricedb/apps/{slug}/",
+          "itemListElement":[{"@type":"Offer","name":pl["name"],"price":pl["price"],
+                              "description":pl["includes"]} for pl in a["plans"]]}
+    ld_script = f'<script type="application/ld+json">{_json.dumps(ld, ensure_ascii=False)}</script>'
+    body = ld_script + f"""<h1>{html.escape(a['name'])} pricing: what you actually pay</h1>
 <p class="lede">{html.escape(a['category'])}. Billed by {html.escape(a['billing_unit'])}.</p>
 <div class="verified">Every figure below was read from <a href="{a['source']}" rel="nofollow noopener" target="_blank">the vendor's own pricing page</a> on {checked}. Nothing here is inferred.</div>
 <h2>Plans</h2>
@@ -75,6 +83,18 @@ page("pricing-index/index.html",
      "Shopify app pricing index — verified prices and billing units",
      "A verified index of Shopify app prices: the billing unit, the published tiers, and the date each figure was checked.",
      body, "../")
+
+changelog_body = """<h1>Changelog</h1>
+<p class="lede">What changed on this site, and what changed in the vendors' prices. Newest first.</p>
+<h2>2026-11-06</h2>
+<ul>
+<li><b>Klaviyo</b> — verified three tiers: Free $0, Email from $20/mo, Email + SMS from $35/mo.</li>
+<li><b>Gorgias</b> — verified four tiers ($10 / $60 / $360 / custom), ticket overage $0.40 and $0.36, AI interactions $0.90–$1.00 each.</li>
+<li><b>Vitals</b> — verified four order-volume tiers ($29.99 / $79 / $179 / $299).</li>
+<li><b>Judge.me</b> — verified flat pricing: Free $0, Awesome $15/mo, no volume tiers.</li>
+<li>Site launches with the pricing index, methodology and this changelog.</li>
+</ul>"""
+page("changelog.html", "Changelog — price changes and site updates", "Every price we re-check and every page we add, dated.", changelog_body, "")
 
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
