@@ -238,6 +238,40 @@ page("compare/judge-me-vs-fera/index.html",
      "A verified cost comparison of Judge.me (flat $15) and Fera (order-volume tiers), and why the flat fee wins for large stores.",
      vs2_body, "../../")
 
+
+# --- price-change archive page (the narrow wedge) ---
+import glob as _glob
+hist = sorted(_glob.glob(str(root/"data/history/*.json")))
+snapshots = [(pathlib.Path(h).stem, json.loads(pathlib.Path(h).read_text())) for h in hist]
+first_date = snapshots[0][0] if snapshots else checked
+change_rows = []
+for slug, a in apps.items():
+    prices = []
+    for date, snap in snapshots:
+        if slug in snap.get("apps", {}):
+            prices.append((date, [pl["price"] for pl in snap["apps"][slug]["plans"]]))
+    changed = len({tuple(v) for _, v in prices}) > 1
+    status = "changed" if changed else "unchanged since first record"
+    change_rows.append(f"<tr><td><a href=\"../apps/{slug}/\">{html.escape(a['name'])}</a></td><td>{html.escape(a['billing_unit'])}</td><td>{status}</td><td>{len(prices)}</td></tr>")
+changes_body = f"""<h1>Price-change archive</h1>
+<p class="lede">Review sites publish today's price and move on. This page keeps every snapshot we take, so a price increase is visible instead of quietly rewritten.</p>
+<div class="verified">Archive started {first_date}. {len(apps)} apps tracked, {len(snapshots)} snapshot(s). Every entry below was read from the vendor's own pricing page on the date of the snapshot.</div>
+<h2>Tracked apps</h2>
+<table><thead><tr><th>App</th><th>Billed by</th><th>Status</th><th>Snapshots</th></tr></thead><tbody>
+{chr(10).join(change_rows)}
+</tbody></table>
+<h2>Why this page exists</h2>
+<ul>
+<li>An affiliate site has little incentive to publish a price rise: it hurts the sale. A price archive has no such conflict.</li>
+<li>History cannot be retro-fitted. A competitor can copy today's price table tomorrow, but not the record of what changed by month.</li>
+<li>Every app page links here, and this page links back, so the archive is part of the site rather than a hidden file.</li>
+</ul>
+<p class="muted">Snapshots are taken on every working session and stored in the site repository as dated JSON.</p>"""
+page("changes/index.html",
+     "Shopify app price-change archive — dated snapshots",
+     "Dated price snapshots of Shopify apps, so increases and plan changes are visible rather than quietly rewritten.",
+     changes_body, "../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -255,6 +289,10 @@ body = f"""<h1>What Shopify apps actually cost</h1>
 <li><a href="apps/fera.ai/">Fera pricing</a> — $9 floor, no permanent free plan</li>
 </ul>
 <p><a href="pricing-index/">See the full pricing index →</a></p>
+<h2>The archive</h2>
+<ul>
+<li><a href="changes/">Price-change archive</a> — every snapshot, so increases cannot be quietly rewritten</li>
+</ul>
 <h2>Cost at your size</h2>
 <ul>
 <li><a href="guides/gorgias-cost-at-volume/">Gorgias at 100 to 5,000 tickets/month</a> — where the cheaper plan stops being cheaper</li>
@@ -272,7 +310,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
