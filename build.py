@@ -212,6 +212,32 @@ page("guides/how-shopify-apps-bill/index.html",
      "Nine verified Shopify apps grouped by billing model, and why the billing unit matters more than the headline price.",
      billing_body, "../../")
 
+
+# --- Judge.me vs Fera comparison (verified inputs) ---
+ferah = [(200, 9), (2000, 29), (20000, 99), (50000, 199), (100000, 299)]
+jm_rows = []
+for cap, price in ferah:
+    jm = 15
+    winner = "Fera" if price < jm else "Judge.me"
+    jm_rows.append(f"<tr><td>Up to {cap:,} orders</td><td>${price}/mo</td><td>$15/mo</td><td>{winner}</td></tr>")
+vs2_body = f"""<h1>Judge.me vs Fera: which review app is cheaper at your order volume</h1>
+<p class="lede">Judge.me charges one flat fee regardless of size. Fera charges by order volume. That combination produces a counter-intuitive answer: the flat fee wins for large stores, not small ones.</p>
+<div class="verified">Inputs checked {checked}: Judge.me Awesome at $15/mo from <a href="https://judge.me/pricing" rel="nofollow noopener" target="_blank">judge.me/pricing</a>; Fera order tiers from <a href="https://fera.ai/pricing" rel="nofollow noopener" target="_blank">fera.ai/pricing</a>. Monthly billing; features differ and are noted below.</div>
+<h2>Cost by order volume</h2>
+<table><thead><tr><th>Store size</th><th>Fera</th><th>Judge.me</th><th>Cheaper</th></tr></thead><tbody>
+{chr(10).join(jm_rows)}
+</tbody></table>
+<h2>What this means</h2>
+<ul>
+<li>Fera is cheapest only below 200 orders a month ($9 vs $15), a very small window.</li>
+<li>Between 200 and 2,000 orders Judge.me's $15 undercuts Fera's $29; above 2,000 the gap widens to $15 against $99.</li>
+<li>Price is not the whole decision: Fera bundles AI review moderation and AI replies at every tier, while Judge.me's $15 plan sells automation and integrations rather than AI handling.</li>
+</ul>"""
+page("compare/judge-me-vs-fera/index.html",
+     "Judge.me vs Fera: review app cost by order volume",
+     "A verified cost comparison of Judge.me (flat $15) and Fera (order-volume tiers), and why the flat fee wins for large stores.",
+     vs2_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -233,6 +259,7 @@ body = f"""<h1>What Shopify apps actually cost</h1>
 <ul>
 <li><a href="guides/gorgias-cost-at-volume/">Gorgias at 100 to 5,000 tickets/month</a> — where the cheaper plan stops being cheaper</li>
 <li><a href="guides/how-shopify-apps-bill/">How these apps bill</a> — per ticket, per seat, per order or flat fee</li>
+<li><a href="compare/judge-me-vs-fera/">Judge.me vs Fera</a> — flat fee against order-volume tiers</li>
 <li><a href="compare/gorgias-vs-help-scout/">Gorgias vs Help Scout</a> — per ticket versus per seat, and which one wins at your size</li>
 </ul>"""
 page("index.html",
@@ -245,7 +272,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
