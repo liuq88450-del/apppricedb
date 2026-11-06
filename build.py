@@ -96,6 +96,35 @@ changelog_body = """<h1>Changelog</h1>
 </ul>"""
 page("changelog.html", "Changelog — price changes and site updates", "Every price we re-check and every page we add, dated.", changelog_body, "")
 
+
+# --- cost-at-volume page (arithmetic from verified overage rates) ---
+plans = [("Starter", 10, 50, 0.40), ("Basic", 60, 300, 0.40), ("Pro", 360, 2000, 0.36)]
+volumes = [100, 300, 500, 1000, 2000, 5000]
+rows = []
+for label, base, included, over in plans:
+    cells = []
+    for v in volumes:
+        cost = base + max(0, v - included) * over
+        cells.append(f"${cost:,.2f}" if v > included else f"${base:,.2f} (included)")
+    rows.append("<tr><td><strong>" + label + "</strong></td>" + "".join(f"<td>{c}</td>" for c in cells) + "</tr>")
+head = "".join(f"<th>{v:,} tickets</th>" for v in volumes)
+cost_body = f"""<h1>What Gorgias costs at your ticket volume</h1>
+<p class="lede">Computed from Gorgias's published plan prices and overage rates, checked {checked}. Monthly billing; AI interactions are separate and not included.</p>
+<div class="verified">Base prices and overage rates come from <a href="https://www.gorgias.com/pricing" rel="nofollow noopener" target="_blank">gorgias.com/pricing</a>. The arithmetic is ours; the inputs are theirs.</div>
+<table><thead><tr><th>Plan</th>{head}</tr></thead><tbody>
+{chr(10).join(rows)}
+</tbody></table>
+<h2>What this tells you</h2>
+<ul>
+<li>Starter's $10 headline only holds up to about 175 tickets. At 500 tickets it costs $190, while Basic costs $140 for the same load.</li>
+<li>Pro overtakes Basic at roughly 1,050 tickets: below that Basic is cheaper, above it Pro's lower overage rate wins despite a base price six times higher.</li>
+<li>AI interactions are billed separately ($0.90–$1.00 each) and each one also consumes ticket volume, so the real bill is higher than this table for any store using the AI agent.</li>
+</ul>"""
+page("guides/gorgias-cost-at-volume/index.html",
+     "Gorgias cost at 100 to 5,000 tickets per month (calculated)",
+     "A ticket-volume cost table for Gorgias, computed from its published prices and overage rates, with the crossover point between plans.",
+     cost_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Current verified set: Klaviyo, Gorgias, Vitals, Judge.me. Last checked {checked}.</div>
@@ -106,7 +135,11 @@ body = f"""<h1>What Shopify apps actually cost</h1>
 <li><a href="apps/vitals/">Vitals pricing</a> — billed by order volume, same features at every tier</li>
 <li><a href="apps/judge.me/">Judge.me pricing</a> — flat $15/mo, no volume tiers</li>
 </ul>
-<p><a href="pricing-index/">See the full pricing index →</a></p>"""
+<p><a href="pricing-index/">See the full pricing index →</a></p>
+<h2>Cost at your size</h2>
+<ul>
+<li><a href="guides/gorgias-cost-at-volume/">Gorgias at 100 to 5,000 tickets/month</a> — where the cheaper plan stops being cheaper</li>
+</ul>"""
 page("index.html",
      "Shopify App Pricing Database — verified prices, checked and dated",
      "What Shopify apps actually cost: billing units, published tiers and overage rates, read from vendor pricing pages and stamped with a check date.",
