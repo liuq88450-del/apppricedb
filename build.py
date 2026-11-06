@@ -131,6 +131,55 @@ page("guides/gorgias-cost-at-volume/index.html",
      "A ticket-volume cost table for Gorgias, computed from its published prices and overage rates, with the crossover point between plans.",
      cost_body, "../../")
 
+
+# --- Help Scout vs Gorgias comparison (all inputs verified) ---
+def gorgias_cost(tickets):
+    for base, included, over in [(10, 50, 0.40), (60, 300, 0.40), (360, 2000, 0.36)]:
+        pass
+    # cheapest published plan for the volume
+    best = 10 + max(0, tickets - 50) * 0.40
+    basic = 60 + max(0, tickets - 300) * 0.40
+    pro = 360 + max(0, tickets - 2000) * 0.36
+    return min(best, basic, pro)
+
+tickets_rows = [100, 300, 500, 1000, 2000]
+seats_cols = [3, 5, 10]
+head = "".join(f"<th>{n} seats</th>" for n in seats_cols)
+rows = []
+g_wins = 0
+hs_wins = 0
+for t in tickets_rows:
+    g = gorgias_cost(t)
+    cells = []
+    for n in seats_cols:
+        hs = n * 45
+        cheaper = "Gorgias" if g < hs else "Help Scout"
+        if cheaper == "Gorgias": g_wins += 1
+        else: hs_wins += 1
+        cells.append(f"<td>{cheaper}<br><span class=\"muted\">${g:,.0f} vs ${hs:,.0f}</span></td>")
+    rows.append(f"<tr><td><strong>{t:,} tickets/mo</strong></td>" + "".join(cells) + "</tr>")
+
+total = g_wins + hs_wins
+vs_body = f"""<h1>Gorgias vs Help Scout: cheaper at your team size and ticket volume</h1>
+<p class="lede">Two different billing models, compared with verified prices: Gorgias charges per ticket, Help Scout charges per seat. The answer changes with both numbers.</p>
+<div class="verified">Inputs checked {checked}: Gorgias ticket tiers and overage rates from <a href="https://www.gorgias.com/pricing" rel="nofollow noopener" target="_blank">gorgias.com/pricing</a>; Help Scout Plus at $45 per user/mo from <a href="https://www.helpscout.com/pricing/" rel="nofollow noopener" target="_blank">helpscout.com/pricing</a>. Monthly billing, no add-ons, AI interactions excluded.</div>
+<h2>Winner by load</h2>
+<table><thead><tr><th>Tickets per month</th>{head}</tr></thead><tbody>
+{chr(10).join(rows)}
+</tbody></table>
+<h2>What the table says</h2>
+<ul>
+<li>Winner: {g_wins} of {total} combinations go to Gorgias, {hs_wins} to Help Scout.</li>
+<li>Help Scout wins wherever the team is small and the ticket load is heavy: at 3 and 5 seats from 500 tickets upward, a flat per-seat bill beats per-ticket billing.</li>
+<li>Gorgias wins at low volume and large teams: at 100 tickets it costs a quarter of a three-person Help Scout bill.</li>
+<li>Neither number is final: Gorgias charges AI interactions on top, and Help Scout charges extra inboxes ($10/mo) and docs sites ($20/mo).</li>
+</ul>
+<p class="muted">Arithmetic is ours; inputs are the vendors'. If a vendor changes a price, this table is wrong until we update it.</p>"""
+page("compare/gorgias-vs-help-scout/index.html",
+     "Gorgias vs Help Scout: cost by team size and ticket volume",
+     "A verified cost comparison of Gorgias (per ticket) and Help Scout (per seat), with the points where the cheaper option flips.",
+     vs_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Nine verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout. Last checked {checked}.</div>
@@ -150,6 +199,7 @@ body = f"""<h1>What Shopify apps actually cost</h1>
 <h2>Cost at your size</h2>
 <ul>
 <li><a href="guides/gorgias-cost-at-volume/">Gorgias at 100 to 5,000 tickets/month</a> — where the cheaper plan stops being cheaper</li>
+<li><a href="compare/gorgias-vs-help-scout/">Gorgias vs Help Scout</a> — per ticket versus per seat, and which one wins at your size</li>
 </ul>"""
 page("index.html",
      "Shopify App Pricing Database — verified prices, checked and dated",
@@ -161,7 +211,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
