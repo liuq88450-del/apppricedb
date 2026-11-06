@@ -177,6 +177,65 @@
         "Weglot prices in EUR and USD side by side, both excluding VAT — a store in the EU pays the VAT on top, which changes the real cost by roughly a fifth.",
         "The free tier is a 14-day trial of the paid product rather than a permanent plan, unlike Klaviyo or Judge.me."
       ]
+    },
+    "postscript": {
+      "name": "Postscript",
+      "category": "SMS & RCS marketing",
+      "source": "https://www.postscript.io/pricing",
+      "billing_unit": "flat plan fee plus a monthly minimum spend and per-message rates",
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$0/mo + $49 monthly minimum spend",
+          "includes": "2 opt-in keywords, branded short-link subdomain"
+        },
+        {
+          "name": "Growth",
+          "price": "$100/mo",
+          "includes": "Starter features plus unlimited opt-in keywords, live chat and email support"
+        },
+        {
+          "name": "Professional",
+          "price": "$500/mo",
+          "includes": "Carrier fees, dedicated toll-free number, migration and onboarding"
+        },
+        {
+          "name": "Postscript AI",
+          "price": "$699/mo",
+          "includes": "Bundle of all Postscript AI products, per-message rates still apply"
+        }
+      ],
+      "notes": [
+        "The plan fee is not the bill: messages are charged at per-message rates on top, and the Starter tier also carries a $49 monthly minimum spend.",
+        "A $0/mo headline plan is the one most likely to mislead a store owner comparing SMS apps by sticker price."
+      ]
+    },
+    "yotpo": {
+      "name": "Yotpo",
+      "category": "Reviews, loyalty and UGC",
+      "source": "https://www.yotpo.com/pricing/",
+      "billing_unit": "product line plus monthly order volume",
+      "plans": [
+        {
+          "name": "Reviews & UGC",
+          "price": "free up to 50 monthly orders, paid from $15/mo",
+          "includes": "Review collection and display"
+        },
+        {
+          "name": "Loyalty & Referrals",
+          "price": "free plan, paid tiers from $199/mo",
+          "includes": "Points, referrals and VIP tiers"
+        },
+        {
+          "name": "Discover",
+          "price": "custom quote",
+          "includes": "Yotpo's discovery/shopping product"
+        }
+      ],
+      "notes": [
+        "Yotpo is not one price: each product line is priced separately, so a store using reviews and loyalty pays two subscriptions.",
+        "Its 'free plan' is capped by monthly order volume (50), which means a growing store crosses into paid without changing anything."
+      ]
     }
   }
 }
