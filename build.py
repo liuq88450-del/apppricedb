@@ -86,6 +86,12 @@ page("pricing-index/index.html",
 
 changelog_body = """<h1>Changelog</h1>
 <p class="lede">What changed on this site, and what changed in the vendors' prices. Newest first.</p>
+<h2>2026-11-06 (same-day batch)</h2>
+<ul>
+<li><b>Upsell.com</b> — verified four tiers: free start, $299/mo Scale, $899/mo Elite, custom Enterprise; annual billing lowers the paid tiers to $249 and $749.</li>
+<li><b>Weglot</b> — verified four tiers in EUR and USD, both excluding VAT; the free tier is a 14-day trial, not a permanent plan.</li>
+<li><b>Gorgias cost guide</b> — ticket-volume cost table with the plan crossover points.</li>
+</ul>
 <h2>2026-11-06</h2>
 <ul>
 <li><b>Klaviyo</b> — verified three tiers: Free $0, Email from $20/mo, Email + SMS from $35/mo.</li>
@@ -146,3 +152,33 @@ page("index.html",
      "Shopify App Pricing Database — verified prices, checked and dated",
      "What Shopify apps actually cost: billing units, published tiers and overage rates, read from vendor pricing pages and stamped with a check date.",
      body, "")
+
+
+# --- sitemap ---
+base = "https://liuq88450-del.github.io/apppricedb"
+urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
+        ("methodology.html", "0.5"), ("about.html", "0.4"),
+        ("guides/gorgias-cost-at-volume/", "0.8")]
+for slug in apps:
+    urls.append((f"apps/{slug}/", "0.8"))
+sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+for u, pri in urls:
+    sm.append(f"  <url><loc>{base}/{u}</loc><lastmod>{checked}</lastmod><priority>{pri}</priority></url>")
+sm.append("</urlset>")
+(root/"sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8")
+(root/"robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n", encoding="utf-8")
+print("sitemap written:", len(urls), "urls")
+
+# --- changelog append for this batch ---
+cl = root/"changelog.html"
+txt = cl.read_text(encoding="utf-8")
+add = """<h2>2026-11-06 (later the same day)</h2>
+<ul>
+<li><b>Upsell.com</b> — verified four tiers: free start, $299/mo Scale, $899/mo Elite, custom Enterprise; annual billing lowers the two paid tiers to $249 and $749.</li>
+<li><b>Weglot</b> — verified four tiers in EUR and USD, both excluding VAT; free tier is a 14-day trial, not a permanent plan.</li>
+<li><b>Gorgias cost guide</b> — added a ticket-volume cost table computed from the verified prices, with the plan crossover points.</li>
+</ul>
+<h2>2026-11-06</h2>"""
+txt = txt.replace("<h2>2026-11-06</h2>", add, 1)
+cl.write_text(txt, encoding="utf-8")
+print("changelog updated")
