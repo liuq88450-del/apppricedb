@@ -78,12 +78,13 @@ page("pricing-index/index.html",
 
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
-<div class="verified">Current verified set: Klaviyo, Gorgias, Vitals. Last checked {checked}.</div>
+<div class="verified">Current verified set: Klaviyo, Gorgias, Vitals, Judge.me. Last checked {checked}.</div>
 <h2>Start here</h2>
 <ul>
 <li><a href="apps/klaviyo/">Klaviyo pricing</a> — billed by active profiles, not seats</li>
 <li><a href="apps/gorgias/">Gorgias pricing</a> — billed by tickets, with AI interactions on top</li>
 <li><a href="apps/vitals/">Vitals pricing</a> — billed by order volume, same features at every tier</li>
+<li><a href="apps/judge.me/">Judge.me pricing</a> — flat $15/mo, no volume tiers</li>
 </ul>
 <p><a href="pricing-index/">See the full pricing index →</a></p>"""
 page("index.html",
