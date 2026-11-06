@@ -268,6 +268,44 @@
         "Help Scout bills per seat, not per conversation: a five-person support team on Plus pays $225/mo before any add-ons, and Gorgias at the same volume can be far cheaper or far more expensive depending on ticket count.",
         "Extra inboxes cost $10/mo each and extra docs sites $20/mo each, on top of the per-seat price; annual billing takes about 16% off."
       ]
+    },
+    "fera.ai": {
+      "name": "Fera",
+      "category": "Product reviews",
+      "source": "https://fera.ai/pricing",
+      "billing_unit": "monthly order volume, with every feature included at every tier",
+      "plans": [
+        {
+          "name": "Startup",
+          "price": "$9/mo",
+          "includes": "Up to 200 orders/mo, unlimited reviews, unlimited users, AI review moderation"
+        },
+        {
+          "name": "Small",
+          "price": "$29/mo",
+          "includes": "Up to 2,000 orders/mo, plus AI review replies"
+        },
+        {
+          "name": "Medium",
+          "price": "$99/mo",
+          "includes": "Up to 20,000 orders/mo, plus product grouping"
+        },
+        {
+          "name": "Semi-large",
+          "price": "$199/mo",
+          "includes": "Up to 50,000 orders/mo, all features"
+        },
+        {
+          "name": "Large",
+          "price": "$299/mo",
+          "includes": "Up to 100,000 orders/mo, all features"
+        }
+      ],
+      "notes": [
+        "Fera's free trial is temporary: there is no permanent free plan, unlike Judge.me or Klaviyo, so the $9 Startup tier is the real floor.",
+        "Yearly billing takes 30% off, which is the largest published annual discount among the review apps we have checked.",
+        "Order-volume tiers are wide (200 to 2,000 orders is a single step), so most growing stores jump from $9 to $29 in one month."
+      ]
     }
   }
 }

@@ -169,7 +169,7 @@ vs_body = f"""<h1>Gorgias vs Help Scout: cheaper at your team size and ticket vo
 </tbody></table>
 <h2>What the table says</h2>
 <ul>
-<li>Winner: {g_wins} of {total} combinations go to Gorgias, {hs_wins} to Help Scout.</li>
+<li>Winner: {g_wins} of {total} combinations go to Gorgias, {hs_wins} to Help Scout, Fera.</li>
 <li>Help Scout wins wherever the team is small and the ticket load is heavy: at 3 and 5 seats from 500 tickets upward, a flat per-seat bill beats per-ticket billing.</li>
 <li>Gorgias wins at low volume and large teams: at 100 tickets it costs a quarter of a three-person Help Scout bill.</li>
 <li>Neither number is final: Gorgias charges AI interactions on top, and Help Scout charges extra inboxes ($10/mo) and docs sites ($20/mo).</li>
@@ -214,7 +214,7 @@ page("guides/how-shopify-apps-bill/index.html",
 
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
-<div class="verified">Nine verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout. Last checked {checked}.</div>
+<div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
 <h2>Start here</h2>
 <ul>
 <li><a href="apps/klaviyo/">Klaviyo pricing</a> — billed by active profiles, not seats</li>
@@ -226,6 +226,7 @@ body = f"""<h1>What Shopify apps actually cost</h1>
 <li><a href="apps/postscript/">Postscript pricing</a> — $0 headline plan that still costs $49/month minimum</li>
 <li><a href="apps/yotpo/">Yotpo pricing</a> — products priced separately, free capped at 50 orders</li>
 <li><a href="apps/help-scout/">Help Scout pricing</a> — per seat, so team size drives the bill</li>
+<li><a href="apps/fera.ai/">Fera pricing</a> — $9 floor, no permanent free plan</li>
 </ul>
 <p><a href="pricing-index/">See the full pricing index →</a></p>
 <h2>Cost at your size</h2>
