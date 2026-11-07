@@ -404,6 +404,60 @@ page("data/index.html", "Open price data (JSON) for Shopify apps",
      "The full AppPriceDB dataset as JSON: plans, prices, billing units, source URLs and check dates.",
      data_body, "../")
 
+
+# --- volume calculators for verified apps ---
+vit_bands = [("Up to 200", 29.99), ("201–1,000", 79.0), ("1,001–5,000", 179.0), ("5,001+", 299.0)]
+vit_rows = "".join(f"<tr><td>{b}</td><td>${pr:,.2f}</td><td>${pr*12:,.2f}</td></tr>" for b, pr in vit_bands)
+vit_body = f"""<h1>Vitals cost at your monthly order volume</h1>
+<p class="lede">Vitals charges by order volume and gives you the same 40+ apps at every tier. Here is the bill for each band, monthly and yearly.</p>
+<div class="verified">Prices read from <a href="https://www.vitals.app/pricing" rel="nofollow noopener" target="_blank">vitals.app/pricing</a> on checked date. Annual figures are simple multiplication, not a quote.</div>
+<table><thead><tr><th>Orders per month</th><th>Monthly</th><th>Per year</th></tr></thead><tbody>{vit_rows}</tbody></table>
+<h2>What to notice</h2>
+<ul>
+<li>Crossing 200 orders takes the bill from $29.99 to $79 — a 163% jump for roughly 1.5x the volume.</li>
+<li>The feature set is identical at every tier, so the only variable is orders.</li>
+<li>Because Vitals bundles 40+ apps, compare the tier price against the sum of the separate apps it replaces, not against any single app.</li>
+</ul>"""
+page("guides/vitals-cost-at-volume/index.html", "Vitals cost by monthly order volume",
+     "Vitals pricing by order band, monthly and yearly, computed from its published tiers.", vit_body, "../../")
+
+fera_bands = [("Up to 200", 9), ("201–2,000", 29), ("2,001–20,000", 99), ("20,001–50,000", 199), ("50,001–100,000", 299)]
+fera_rows = "".join(f"<tr><td>{b}</td><td>${pr:,.0f}</td><td>${pr*12:,.0f}</td><td>${pr*12*0.7:,.0f}</td></tr>" for b, pr in fera_bands)
+fera_body = f"""<h1>Fera cost at your monthly order volume</h1>
+<p class="lede">Five order bands, yearly billing takes 30% off, and there is no permanent free plan.</p>
+<div class="verified">Prices from <a href="https://fera.ai/pricing" rel="nofollow noopener" target="_blank">fera.ai/pricing</a>. The yearly column applies the vendor's stated 30% annual discount; check the checkout for the exact figure.</div>
+<table><thead><tr><th>Orders per month</th><th>Monthly</th><th>Yearly (list)</th><th>Yearly (30% off)</th></tr></thead><tbody>{fera_rows}</tbody></table>
+<h2>What to notice</h2>
+<ul>
+<li>The jump from $9 to $29 at 201 orders is the steepest step in the table — a threefold increase for ten times the volume, so the per-order cost actually falls.</li>
+<li>At 20,000 orders the price is $99 against Judge.me's flat $15, which is the comparison that matters for larger stores.</li>
+<li>Annual billing is the only lever a customer controls here, and it is worth 30%.</li>
+</ul>"""
+page("guides/fera-cost-at-volume/index.html", "Fera cost by monthly order volume",
+     "Fera's five order bands with monthly, yearly and annual-discounted cost computed from its published prices.", fera_body, "../../")
+
+seats = [1, 3, 5, 10, 20]
+plans_hs = [("Standard", 25), ("Plus", 45), ("Pro", 75)]
+hs_rows = []
+for n in seats:
+    cells = "".join(f"<td>${n*price:,}</td>" for _, price in plans_hs)
+    hs_rows.append(f"<tr><td>{n} seats</td>{cells}</tr>")
+hs_head = "".join(f"<th>{name}</th>" for name, _ in plans_hs)
+hs_body = f"""<h1>Help Scout cost by team size</h1>
+<p class="lede">Help Scout bills per seat. Extra inboxes ($10/mo) and docs sites ($20/mo) sit on top, and annual billing takes about 16% off.</p>
+<div class="verified">Per-seat prices from <a href="https://www.helpscout.com/pricing/" rel="nofollow noopener" target="_blank">helpscout.com/pricing</a>. Multiplication is ours.</div>
+<table><thead><tr><th>Team size</th>{hs_head}</tr></thead><tbody>
+{chr(10).join(hs_rows)}
+</tbody></table>
+<h2>What to notice</h2>
+<ul>
+<li>A five-person team on Plus costs $225 a month before add-ons — the same money buys a lot of tickets on Gorgias.</li>
+<li>Seat-based pricing punishes hiring; ticket-based pricing punishes campaign spikes. Which risk matters depends on the business.</li>
+<li>The free tier covers one seat, so it is a trial in practice rather than a small-team plan.</li>
+</ul>"""
+page("guides/help-scout-cost-by-seats/index.html", "Help Scout cost by team size",
+     "Help Scout's per-seat cost at 1, 3, 5, 10 and 20 seats across its three paid plans.", hs_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -450,7 +504,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
