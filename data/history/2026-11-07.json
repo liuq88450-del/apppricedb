@@ -1,0 +1,311 @@
+{
+  "checked": "2026-11-06",
+  "apps": {
+    "klaviyo": {
+      "name": "Klaviyo",
+      "category": "Email & SMS marketing",
+      "source": "https://www.klaviyo.com/pricing",
+      "billing_unit": "active profiles (contacts who can receive marketing email)",
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0",
+          "includes": "250 active profiles, 500 email sends/month, $5 of SMS/MMS credit/month"
+        },
+        {
+          "name": "Email",
+          "price": "from $20/mo",
+          "includes": "500 active profiles, expanded email send capacity"
+        },
+        {
+          "name": "Email + SMS",
+          "price": "from $35/mo",
+          "includes": "500 active profiles, email plus SMS/MMS credits"
+        }
+      ],
+      "notes": [
+        "Every plan is priced by contact count, not by seats: above the entry tier the price rises with active profiles and is shown only in Klaviyo's own pricing calculator.",
+        "Exceeding the free plan's 250 profiles or 500 sends switches the account to a paid plan, it does not just throttle sending."
+      ]
+    },
+    "gorgias": {
+      "name": "Gorgias",
+      "category": "Helpdesk for ecommerce",
+      "source": "https://www.gorgias.com/pricing",
+      "billing_unit": "support tickets per month",
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$10/mo",
+          "includes": "50 tickets/month included; $0.40 per-ticket overage; monthly billing only"
+        },
+        {
+          "name": "Basic",
+          "price": "$60/mo ($50/mo billed annually)",
+          "includes": "300 tickets/month included; $0.40 per-ticket overage"
+        },
+        {
+          "name": "Pro",
+          "price": "$360/mo ($300/mo billed annually)",
+          "includes": "2,000 tickets/month included; $0.36 per-ticket overage"
+        },
+        {
+          "name": "Enterprise",
+          "price": "custom quote",
+          "includes": "5,000 tickets/month included; $0.36 per-ticket overage"
+        }
+      ],
+      "notes": [
+        "AI Agent interactions are billed on top of the plan: $0.90 each on annual plans, $1.00 each on monthly plans.",
+        "A ticket is not the same unit as an AI interaction, and each AI interaction also counts against ticket volume — a detail most pricing roundups leave out."
+      ]
+    },
+    "vitals": {
+      "name": "Vitals",
+      "category": "All-in-one Shopify app bundle",
+      "source": "https://www.vitals.app/pricing",
+      "billing_unit": "monthly orders in the store",
+      "plans": [
+        {
+          "name": "Up to 200 orders",
+          "price": "$29.99/mo",
+          "includes": "All 40+ Vitals apps"
+        },
+        {
+          "name": "201–1,000 orders",
+          "price": "$79/mo",
+          "includes": "All 40+ Vitals apps"
+        },
+        {
+          "name": "1,001–5,000 orders",
+          "price": "$179/mo",
+          "includes": "All 40+ Vitals apps"
+        },
+        {
+          "name": "5,001+ orders",
+          "price": "$299/mo",
+          "includes": "All 40+ Vitals apps"
+        }
+      ],
+      "notes": [
+        "Vitals bills by order volume, not by feature: the feature set does not change between tiers, only the price.",
+        "Because it bundles 40+ apps, the comparison that matters is Vitals against the sum of the individual apps it replaces, not against any single app."
+      ]
+    },
+    "judge.me": {
+      "name": "Judge.me",
+      "category": "Product reviews",
+      "source": "https://judge.me/pricing",
+      "billing_unit": "flat monthly fee (not order or review volume)",
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0",
+          "includes": "Unlimited review requests, photo and video reviews, SEO rich snippets"
+        },
+        {
+          "name": "Awesome",
+          "price": "$15/mo",
+          "includes": "Customisable email editor, automatic review reminders, Google Shopping integration, full widget customisation"
+        }
+      ],
+      "notes": [
+        "Judge.me prices by plan, not by order volume: a store doing 50 orders a month and one doing 5,000 pay the same $15 on the Awesome plan.",
+        "The free plan is not a trial; the vendor describes it as a permanent tier with unlimited review requests, so the paid tier is bought for automation and integrations rather than for volume."
+      ]
+    },
+    "upsell.com": {
+      "name": "Upsell.com (formerly ReConvert)",
+      "category": "Upsells & cross-sell",
+      "source": "https://upsell.com/pricing",
+      "billing_unit": "order volume, with plan names tied to store size",
+      "plans": [
+        {
+          "name": "Growth",
+          "price": "starts free",
+          "includes": "Launch to 2,000 orders"
+        },
+        {
+          "name": "Scale",
+          "price": "$299/mo ($249/mo billed annually)",
+          "includes": "Growing brands"
+        },
+        {
+          "name": "Elite",
+          "price": "$899/mo ($749/mo billed annually)",
+          "includes": "High-volume merchants"
+        },
+        {
+          "name": "Enterprise",
+          "price": "custom quote",
+          "includes": "20,000+ orders / custom needs"
+        }
+      ],
+      "notes": [
+        "The annual saving is real but only on the two paid tiers: Scale drops from $299 to $249 a month, Elite from $899 to $749.",
+        "The company renamed from ReConvert to Upsell.com; most affiliate roundups still use the old name and old links."
+      ]
+    },
+    "weglot": {
+      "name": "Weglot",
+      "category": "Translation & multilingual storefronts",
+      "source": "https://www.weglot.com/pricing",
+      "billing_unit": "translated words, shown as fixed plans",
+      "plans": [
+        {
+          "name": "Free",
+          "price": "€0 / $0",
+          "includes": "14-day trial of the paid product, 2,000 translated words"
+        },
+        {
+          "name": "Starter",
+          "price": "€15/mo ($17), €150/yr ($170)",
+          "includes": "Personal or early-stage sites"
+        },
+        {
+          "name": "Business",
+          "price": "€29/mo ($32), €290/yr ($320)",
+          "includes": "Small businesses ready to go multilingual"
+        },
+        {
+          "name": "Pro",
+          "price": "€79/mo ($87), €790/yr ($870)",
+          "includes": "Higher-volume translation needs"
+        }
+      ],
+      "notes": [
+        "Weglot prices in EUR and USD side by side, both excluding VAT — a store in the EU pays the VAT on top, which changes the real cost by roughly a fifth.",
+        "The free tier is a 14-day trial of the paid product rather than a permanent plan, unlike Klaviyo or Judge.me."
+      ]
+    },
+    "postscript": {
+      "name": "Postscript",
+      "category": "SMS & RCS marketing",
+      "source": "https://www.postscript.io/pricing",
+      "billing_unit": "flat plan fee plus a monthly minimum spend and per-message rates",
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$0/mo + $49 monthly minimum spend",
+          "includes": "2 opt-in keywords, branded short-link subdomain"
+        },
+        {
+          "name": "Growth",
+          "price": "$100/mo",
+          "includes": "Starter features plus unlimited opt-in keywords, live chat and email support"
+        },
+        {
+          "name": "Professional",
+          "price": "$500/mo",
+          "includes": "Carrier fees, dedicated toll-free number, migration and onboarding"
+        },
+        {
+          "name": "Postscript AI",
+          "price": "$699/mo",
+          "includes": "Bundle of all Postscript AI products, per-message rates still apply"
+        }
+      ],
+      "notes": [
+        "The plan fee is not the bill: messages are charged at per-message rates on top, and the Starter tier also carries a $49 monthly minimum spend.",
+        "A $0/mo headline plan is the one most likely to mislead a store owner comparing SMS apps by sticker price."
+      ]
+    },
+    "yotpo": {
+      "name": "Yotpo",
+      "category": "Reviews, loyalty and UGC",
+      "source": "https://www.yotpo.com/pricing/",
+      "billing_unit": "product line plus monthly order volume",
+      "plans": [
+        {
+          "name": "Reviews & UGC",
+          "price": "free up to 50 monthly orders, paid from $15/mo",
+          "includes": "Review collection and display"
+        },
+        {
+          "name": "Loyalty & Referrals",
+          "price": "free plan, paid tiers from $199/mo",
+          "includes": "Points, referrals and VIP tiers"
+        },
+        {
+          "name": "Discover",
+          "price": "custom quote",
+          "includes": "Yotpo's discovery/shopping product"
+        }
+      ],
+      "notes": [
+        "Yotpo is not one price: each product line is priced separately, so a store using reviews and loyalty pays two subscriptions.",
+        "Its 'free plan' is capped by monthly order volume (50), which means a growing store crosses into paid without changing anything."
+      ]
+    },
+    "help-scout": {
+      "name": "Help Scout",
+      "category": "Support helpdesk (incl. Shopify integration)",
+      "source": "https://www.helpscout.com/pricing/",
+      "billing_unit": "user seats, plus paid add-ons for extra inboxes and docs sites",
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0",
+          "includes": "Core shared inbox for a very small team"
+        },
+        {
+          "name": "Standard",
+          "price": "$25 per user/mo",
+          "includes": "Multiple inboxes, live chat and SMS, one basic SLA, AI inbox assistant"
+        },
+        {
+          "name": "Plus",
+          "price": "$45 per user/mo",
+          "includes": "Advanced workflows, two advanced SLAs, customer portal, unlimited AI drafts"
+        },
+        {
+          "name": "Pro",
+          "price": "$75 per user/mo",
+          "includes": "Unlimited workflows and SLA policies, highest scale and security tier"
+        }
+      ],
+      "notes": [
+        "Help Scout bills per seat, not per conversation: a five-person support team on Plus pays $225/mo before any add-ons, and Gorgias at the same volume can be far cheaper or far more expensive depending on ticket count.",
+        "Extra inboxes cost $10/mo each and extra docs sites $20/mo each, on top of the per-seat price; annual billing takes about 16% off."
+      ]
+    },
+    "fera.ai": {
+      "name": "Fera",
+      "category": "Product reviews",
+      "source": "https://fera.ai/pricing",
+      "billing_unit": "monthly order volume, with every feature included at every tier",
+      "plans": [
+        {
+          "name": "Startup",
+          "price": "$9/mo",
+          "includes": "Up to 200 orders/mo, unlimited reviews, unlimited users, AI review moderation"
+        },
+        {
+          "name": "Small",
+          "price": "$29/mo",
+          "includes": "Up to 2,000 orders/mo, plus AI review replies"
+        },
+        {
+          "name": "Medium",
+          "price": "$99/mo",
+          "includes": "Up to 20,000 orders/mo, plus product grouping"
+        },
+        {
+          "name": "Semi-large",
+          "price": "$199/mo",
+          "includes": "Up to 50,000 orders/mo, all features"
+        },
+        {
+          "name": "Large",
+          "price": "$299/mo",
+          "includes": "Up to 100,000 orders/mo, all features"
+        }
+      ],
+      "notes": [
+        "Fera's free trial is temporary: there is no permanent free plan, unlike Judge.me or Klaviyo, so the $9 Startup tier is the real floor.",
+        "Yearly billing takes 30% off, which is the largest published annual discount among the review apps we have checked.",
+        "Order-volume tiers are wide (200 to 2,000 orders is a single step), so most growing stores jump from $9 to $29 in one month."
+      ]
+    }
+  }
+}

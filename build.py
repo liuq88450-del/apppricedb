@@ -272,6 +272,42 @@ page("changes/index.html",
      "Dated price snapshots of Shopify apps, so increases and plan changes are visible rather than quietly rewritten.",
      changes_body, "../")
 
+
+# --- hidden fees index (curated from verified notes only) ---
+fees = [
+ ("Klaviyo", "Contact-tier jumps", "Moving past the free 250 profiles or 500 sends switches the account to a paid plan rather than throttling sending."),
+ ("Klaviyo", "Metered SMS", "The free tier includes $5 of SMS/MMS credit a month, not unlimited messages."),
+ ("Gorgias", "Ticket overage", "$0.40 per ticket on Starter and Basic, $0.36 on Pro, once the included volume runs out."),
+ ("Gorgias", "AI interactions", "$0.90 each on annual plans and $1.00 on monthly, billed on top of the plan and each one also consumes ticket volume."),
+ ("Vitals", "Volume-based pricing", "The features do not change between tiers; only the order-volume band does, so growth raises the bill."),
+ ("Judge.me", "None published", "Flat $15 plan with no volume tiers, which makes it one of the few predictable bills on this list."),
+ ("Upsell.com", "Annual discount only", "The $299 and $899 tiers drop to $249 and $749 only on annual billing; monthly billing pays the full rate."),
+ ("Weglot", "VAT excluded", "Prices are shown in EUR and USD excluding VAT; an EU customer pays roughly a fifth more at checkout."),
+ ("Postscript", "Monthly minimum", "The $0/mo Starter tier still carries a $49 monthly minimum spend, and messages are metered on top."),
+ ("Yotpo", "Volume cap on free", "The free reviews plan stops at 50 monthly orders, and loyalty is billed as a separate product line."),
+ ("Help Scout", "Per-seat and add-ons", "Priced per user; extra inboxes cost $10/mo each and extra docs sites $20/mo each."),
+ ("Fera", "No permanent free plan", "The free trial ends, and the $9 floor covers only 200 orders a month; annual billing takes 30% off."),
+]
+rows = "".join(f"<tr><td><strong>{a}</strong></td><td>{t}</td><td>{d}</td></tr>" for a, t, d in fees)
+fees_body = f"""<h1>The hidden fees in Shopify app pricing</h1>
+<p class="lede">Every charge that does not appear in the headline price, collected in one table. All {len(apps)} apps we track, checked {checked}.</p>
+<div class="verified">Each row comes from the vendor's own pricing page, read on {checked}. Where a vendor publishes nothing, the row says so.</div>
+<table><thead><tr><th>App</th><th>Charge</th><th>What it means</th></tr></thead><tbody>
+{rows}
+</tbody></table>
+<h2>The five shapes of a hidden fee</h2>
+<ul>
+<li><b>Volume bands</b> — the feature set never changes, the price does (Vitals, Fera).</li>
+<li><b>Overage</b> — you go past the included amount and pay per unit (Gorgias tickets).</li>
+<li><b>Metered add-ons</b> — AI interactions, SMS messages, extra inboxes (Gorgias, Postscript, Help Scout).</li>
+<li><b>Minimums</b> — a free or cheap plan that still requires a floor spend (Postscript's $49).</li>
+<li><b>Tax and billing period</b> — VAT excluded (Weglot), annual discounts that vanish on monthly billing (Upsell.com).</li>
+</ul>"""
+page("guides/hidden-app-fees/index.html",
+     "Hidden fees in Shopify app pricing: overage, minimums, metered add-ons",
+     "A single table of the charges that never appear in a Shopify app's headline price, from ticket overage to VAT.",
+     fees_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -293,6 +329,10 @@ body = f"""<h1>What Shopify apps actually cost</h1>
 <ul>
 <li><a href="changes/">Price-change archive</a> — every snapshot, so increases cannot be quietly rewritten</li>
 </ul>
+<h2>The hidden fees</h2>
+<ul>
+<li><a href="guides/hidden-app-fees/">Every hidden charge, one table</a> — overage, minimums, metered add-ons, VAT</li>
+</ul>
 <h2>Cost at your size</h2>
 <ul>
 <li><a href="guides/gorgias-cost-at-volume/">Gorgias at 100 to 5,000 tickets/month</a> — where the cheaper plan stops being cheaper</li>
@@ -310,7 +350,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
