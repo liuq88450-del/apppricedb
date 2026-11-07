@@ -284,6 +284,7 @@ fees = [
  ("Upsell.com", "Annual discount only", "The $299 and $899 tiers drop to $249 and $749 only on annual billing; monthly billing pays the full rate."),
  ("Weglot", "VAT excluded", "Prices are shown in EUR and USD excluding VAT; an EU customer pays roughly a fifth more at checkout."),
  ("Postscript", "Monthly minimum", "The $0/mo Starter tier still carries a $49 monthly minimum spend, and messages are metered on top."),
+ ("Postscript", "Short code", "A dedicated short code costs $750/month through the carriers, on top of the plan fee."),
  ("Yotpo", "Volume cap on free", "The free reviews plan stops at 50 monthly orders, and loyalty is billed as a separate product line."),
  ("Help Scout", "Per-seat and add-ons", "Priced per user; extra inboxes cost $10/mo each and extra docs sites $20/mo each."),
  ("Fera", "No permanent free plan", "The free trial ends, and the $9 floor covers only 200 orders a month; annual billing takes 30% off."),
@@ -330,6 +331,37 @@ page("corrections/index.html",
      "The record of mistakes made on AppPriceDB and when they were corrected, kept public on purpose.",
      corr_body, "../")
 
+
+# --- review apps buying guide (verified inputs only) ---
+review_rows = []
+for orders, jm, fera, vit, yotpo in [
+    (100, 15, 9, 29.99, 15),
+    (1000, 15, 29, 79, 15),
+    (5000, 15, 99, 179, 15),
+    (20000, 15, 99, 299, 15),
+]:
+    cheapest = min([("Fera", fera), ("Vitals", vit), ("Judge.me", jm)])
+    review_rows.append(f"<tr><td>{orders:,} orders/mo</td><td>${jm}</td><td>${fera}</td><td>${vit}</td><td>from ${yotpo}</td><td><strong>{cheapest[0]} (${cheapest[1]:g})</strong></td></tr>")
+rev_body = f"""<h1>What Shopify review apps cost at your order volume</h1>
+<p class="lede">Four review apps, priced on the paid tier, compared by monthly order volume. One answer dominates almost every row, and it is not the one most "best review apps" lists give.</p>
+<div class="verified">Inputs checked {checked}: Judge.me Awesome $15/mo (flat), Fera tiers $9/$29/$99, Vitals order bands $29.99/$79/$179/$299, Yotpo paid reviews "from $15/mo" with volume-based scaling the vendor does not publish. Monthly billing, no add-ons.</div>
+<h2>Cost on the paid tier</h2>
+<table><thead><tr><th>Store size</th><th>Judge.me</th><th>Fera</th><th>Vitals</th><th>Yotpo</th><th>Cheapest</th></tr></thead><tbody>
+{chr(10).join(review_rows)}
+</tbody></table>
+<h2>What this table says</h2>
+<ul>
+<li>Judge.me's flat $15 is the cheapest paid tier at every volume above 200 orders, because the others raise the price as the store grows and it does not.</li>
+<li>Fera only wins below 200 orders, where its $9 Startup tier undercuts everyone.</li>
+<li>Yotpo's entry price looks competitive, but its real cost is volume-scaled and not published; a store has to talk to sales to find out.</li>
+<li>"Best review app" lists rank on features and relationships, not on what the bill becomes at 5,000 orders. That is the gap this page fills.</li>
+</ul>
+<p class="muted">Features differ: Fera bundles AI moderation and AI replies at every tier, Vitals bundles 40+ apps, Yotpo bundles loyalty as a separate line. Cheapest is not the same as best fit.</p>"""
+page("guides/review-app-cost/index.html",
+     "Shopify review app cost by order volume: Judge.me, Fera, Vitals, Yotpo",
+     "A verified cost comparison of four Shopify review apps on their paid tiers, by monthly order volume.",
+     rev_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -372,7 +404,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("guides/review-app-cost/", "0.8")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

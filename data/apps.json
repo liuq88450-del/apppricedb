@@ -207,7 +207,8 @@
       ],
       "notes": [
         "The plan fee is not the bill: messages are charged at per-message rates on top, and the Starter tier also carries a $49 monthly minimum spend.",
-        "A $0/mo headline plan is the one most likely to mislead a store owner comparing SMS apps by sticker price."
+        "A $0/mo headline plan is the one most likely to mislead a store owner comparing SMS apps by sticker price.",
+        "A short code costs $750/month through the carriers on top of the plan — a figure most SMS pricing roundups omit entirely."
       ]
     },
     "yotpo": {
