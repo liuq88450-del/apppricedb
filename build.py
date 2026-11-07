@@ -262,7 +262,7 @@ changes_body = f"""<h1>Price-change archive</h1>
 </tbody></table>
 <h2>Why this page exists</h2>
 <ul>
-<li>An affiliate site has little incentive to publish a price rise: it hurts the sale. A price archive has no such conflict.</li>
+<li>Affiliate sites have little incentive to publish a price rise: it hurts the sale. A dated archive has no such conflict, which is why price-increase logs are rare and usually kept as blog posts rather than as a queryable record.</li>
 <li>History cannot be retro-fitted. A competitor can copy today's price table tomorrow, but not the record of what changed by month.</li>
 <li>Every app page links here, and this page links back, so the archive is part of the site rather than a hidden file.</li>
 </ul>
