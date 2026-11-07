@@ -252,12 +252,12 @@ for slug, a in apps.items():
             prices.append((date, [pl["price"] for pl in snap["apps"][slug]["plans"]]))
     changed = len({tuple(v) for _, v in prices}) > 1
     status = "changed" if changed else "unchanged since first record"
-    change_rows.append(f"<tr><td><a href=\"../apps/{slug}/\">{html.escape(a['name'])}</a></td><td>{html.escape(a['billing_unit'])}</td><td>{status}</td><td>{len(prices)}</td></tr>")
+    change_rows.append(f"<tr><td><a href=\"../apps/{slug}/\">{html.escape(a['name'])}</a></td><td>{html.escape(a['billing_unit'])}</td><td>{a.get('checked', checked)}</td><td>{status}</td><td>{len(prices)}</td></tr>")
 changes_body = f"""<h1>Price-change archive</h1>
 <p class="lede">Review sites publish today's price and move on. This page keeps every snapshot we take, so a price increase is visible instead of quietly rewritten.</p>
 <div class="verified">Archive started {first_date}. {len(apps)} apps tracked, {len(snapshots)} snapshot(s). Every entry below was read from the vendor's own pricing page on the date of the snapshot.</div>
 <h2>Tracked apps</h2>
-<table><thead><tr><th>App</th><th>Billed by</th><th>Status</th><th>Snapshots</th></tr></thead><tbody>
+<table><thead><tr><th>App</th><th>Billed by</th><th>Last checked</th><th>Status</th><th>Snapshots</th></tr></thead><tbody>
 {chr(10).join(change_rows)}
 </tbody></table>
 <h2>Why this page exists</h2>
@@ -266,7 +266,7 @@ changes_body = f"""<h1>Price-change archive</h1>
 <li>History cannot be retro-fitted. A competitor can copy today's price table tomorrow, but not the record of what changed by month.</li>
 <li>Every app page links here, and this page links back, so the archive is part of the site rather than a hidden file.</li>
 </ul>
-<p class="muted">Snapshots are taken on every working session and stored in the site repository as dated JSON.</p>"""
+<p class="muted">Snapshots are taken on every working session and stored in the site repository as dated JSON. A page older than 30 days is marked stale and re-checked before anything else.</p>"""
 page("changes/index.html",
      "Shopify app price-change archive — dated snapshots",
      "Dated price snapshots of Shopify apps, so increases and plan changes are visible rather than quietly rewritten.",
