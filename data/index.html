@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Open price data (JSON) for Shopify apps</title>
+<meta name="description" content="The full AppPriceDB dataset as JSON: plans, prices, billing units, source URLs and check dates.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="../index.html">AppPriceDB</a>
+  <a href="../pricing-index/">Pricing index</a>
+  <a href="../methodology.html">Method</a>
+  <a href="../changelog.html">Changelog</a>
+  <a href="../about.html">About</a>
+</header>
+<main>
+<h1>Open price data</h1>
+<p class="lede">The whole dataset behind this site, as JSON, for anyone — including AI shopping agents — to read.</p>
+<div class="verified">Last check: 2026-11-06. 10 apps, each with its source URL, billing unit and plan list. Attribution required (CC BY 4.0).</div>
+<h2>What is in the file</h2>
+<ul>
+<li>App name, category and the unit that drives its price.</li>
+<li>Every published plan, its price string exactly as the vendor states it, and what the plan includes.</li>
+<li>The vendor URL the figures came from and the date they were read.</li>
+<li>Notes on what the headline price hides (overage, minimums, metered add-ons).</li>
+</ul>
+<h2>Why publish it</h2>
+<p>If AI agents end up doing the comparing, they need structured, dated, sourced data rather than marketing prose. This file is that. It is also the honest thing to do: the numbers are already public on the site.</p>
+<h2>Fetch it</h2>
+<p><a href="../data/prices.json">data/prices.json</a> — plain JSON, no key, no rate limit that we impose.</p>
+<p class="muted">Read the <a href="../methodology.html">methodology</a> for how each figure is checked, and the <a href="../changes/">price archive</a> for what has changed.</p>
+</main>
+<footer>Prices checked 2026-11-06. Some outbound links may be affiliate links, disclosed on the page. © AppPriceDB</footer>
+</body>
+</html>

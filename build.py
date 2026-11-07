@@ -362,6 +362,48 @@ page("guides/review-app-cost/index.html",
      "A verified cost comparison of four Shopify review apps on their paid tiers, by monthly order volume.",
      rev_body, "../../")
 
+
+# --- machine-readable feed (agentic-commerce friendly) ---
+feed = {
+  "name": "AppPriceDB",
+  "description": "Verified Shopify app pricing, with check dates and source URLs.",
+  "license": "CC BY 4.0 (attribution required)",
+  "checked": checked,
+  "apps": [
+    {
+      "name": a["name"],
+      "slug": slug,
+      "category": a["category"],
+      "billing_unit": a["billing_unit"],
+      "checked": a.get("checked", checked),
+      "source": a["source"],
+      "plans": [{"name": pl["name"], "price": pl["price"], "includes": pl["includes"]} for pl in a["plans"]],
+      "notes": a["notes"]
+    } for slug, a in apps.items()
+  ]
+}
+(root/"data/prices.json").write_text(json.dumps(feed, ensure_ascii=False, indent=2), encoding="utf-8")
+print("feed written:", len(feed["apps"]), "apps")
+
+data_body = f"""<h1>Open price data</h1>
+<p class="lede">The whole dataset behind this site, as JSON, for anyone — including AI shopping agents — to read.</p>
+<div class="verified">Last check: {checked}. {len(apps)} apps, each with its source URL, billing unit and plan list. Attribution required (CC BY 4.0).</div>
+<h2>What is in the file</h2>
+<ul>
+<li>App name, category and the unit that drives its price.</li>
+<li>Every published plan, its price string exactly as the vendor states it, and what the plan includes.</li>
+<li>The vendor URL the figures came from and the date they were read.</li>
+<li>Notes on what the headline price hides (overage, minimums, metered add-ons).</li>
+</ul>
+<h2>Why publish it</h2>
+<p>If AI agents end up doing the comparing, they need structured, dated, sourced data rather than marketing prose. This file is that. It is also the honest thing to do: the numbers are already public on the site.</p>
+<h2>Fetch it</h2>
+<p><a href="../data/prices.json">data/prices.json</a> — plain JSON, no key, no rate limit that we impose.</p>
+<p class="muted">Read the <a href="../methodology.html">methodology</a> for how each figure is checked, and the <a href="../changes/">price archive</a> for what has changed.</p>"""
+page("data/index.html", "Open price data (JSON) for Shopify apps",
+     "The full AppPriceDB dataset as JSON: plans, prices, billing units, source URLs and check dates.",
+     data_body, "../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -380,6 +422,10 @@ body = f"""<h1>What Shopify apps actually cost</h1>
 </ul>
 <p><a href="pricing-index/">See the full pricing index →</a></p>
 <h2>The archive</h2>
+<ul>
+<li><a href="data/">Open price data (JSON)</a> — the whole dataset, machine-readable</li>
+</ul>
+
 <ul>
 <li><a href="changes/">Price-change archive</a> — every snapshot, so increases cannot be quietly rewritten</li>
 </ul>
@@ -404,7 +450,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("guides/review-app-cost/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

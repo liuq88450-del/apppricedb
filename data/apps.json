@@ -26,7 +26,8 @@
       "notes": [
         "Every plan is priced by contact count, not by seats: above the entry tier the price rises with active profiles and is shown only in Klaviyo's own pricing calculator.",
         "Exceeding the free plan's 250 profiles or 500 sends switches the account to a paid plan, it does not just throttle sending."
-      ]
+      ],
+      "checked": "2026-11-06"
     },
     "gorgias": {
       "name": "Gorgias",
@@ -58,7 +59,8 @@
       "notes": [
         "AI Agent interactions are billed on top of the plan: $0.90 each on annual plans, $1.00 each on monthly plans.",
         "A ticket is not the same unit as an AI interaction, and each AI interaction also counts against ticket volume — a detail most pricing roundups leave out."
-      ]
+      ],
+      "checked": "2026-11-06"
     },
     "vitals": {
       "name": "Vitals",
@@ -90,7 +92,8 @@
       "notes": [
         "Vitals bills by order volume, not by feature: the feature set does not change between tiers, only the price.",
         "Because it bundles 40+ apps, the comparison that matters is Vitals against the sum of the individual apps it replaces, not against any single app."
-      ]
+      ],
+      "checked": "2026-11-07"
     },
     "judge.me": {
       "name": "Judge.me",
@@ -112,7 +115,8 @@
       "notes": [
         "Judge.me prices by plan, not by order volume: a store doing 50 orders a month and one doing 5,000 pay the same $15 on the Awesome plan.",
         "The free plan is not a trial; the vendor describes it as a permanent tier with unlimited review requests, so the paid tier is bought for automation and integrations rather than for volume."
-      ]
+      ],
+      "checked": "2026-11-07"
     },
     "upsell.com": {
       "name": "Upsell.com (formerly ReConvert)",
@@ -144,7 +148,8 @@
       "notes": [
         "The annual saving is real but only on the two paid tiers: Scale drops from $299 to $249 a month, Elite from $899 to $749.",
         "The company renamed from ReConvert to Upsell.com; most affiliate roundups still use the old name and old links."
-      ]
+      ],
+      "checked": "2026-11-06"
     },
     "weglot": {
       "name": "Weglot",
@@ -176,7 +181,8 @@
       "notes": [
         "Weglot prices in EUR and USD side by side, both excluding VAT — a store in the EU pays the VAT on top, which changes the real cost by roughly a fifth.",
         "The free tier is a 14-day trial of the paid product rather than a permanent plan, unlike Klaviyo or Judge.me."
-      ]
+      ],
+      "checked": "2026-11-06"
     },
     "postscript": {
       "name": "Postscript",
@@ -209,7 +215,8 @@
         "The plan fee is not the bill: messages are charged at per-message rates on top, and the Starter tier also carries a $49 monthly minimum spend.",
         "A $0/mo headline plan is the one most likely to mislead a store owner comparing SMS apps by sticker price.",
         "A short code costs $750/month through the carriers on top of the plan — a figure most SMS pricing roundups omit entirely."
-      ]
+      ],
+      "checked": "2026-11-07"
     },
     "yotpo": {
       "name": "Yotpo",
@@ -236,7 +243,8 @@
       "notes": [
         "Yotpo is not one price: each product line is priced separately, so a store using reviews and loyalty pays two subscriptions.",
         "Its 'free plan' is capped by monthly order volume (50), which means a growing store crosses into paid without changing anything."
-      ]
+      ],
+      "checked": "2026-11-06"
     },
     "help-scout": {
       "name": "Help Scout",
@@ -268,7 +276,8 @@
       "notes": [
         "Help Scout bills per seat, not per conversation: a five-person support team on Plus pays $225/mo before any add-ons, and Gorgias at the same volume can be far cheaper or far more expensive depending on ticket count.",
         "Extra inboxes cost $10/mo each and extra docs sites $20/mo each, on top of the per-seat price; annual billing takes about 16% off."
-      ]
+      ],
+      "checked": "2026-11-06"
     },
     "fera.ai": {
       "name": "Fera",
@@ -306,7 +315,8 @@
         "Fera's free trial is temporary: there is no permanent free plan, unlike Judge.me or Klaviyo, so the $9 Startup tier is the real floor.",
         "Yearly billing takes 30% off, which is the largest published annual discount among the review apps we have checked.",
         "Order-volume tiers are wide (200 to 2,000 orders is a single step), so most growing stores jump from $9 to $29 in one month."
-      ]
+      ],
+      "checked": "2026-11-06"
     }
   }
 }
