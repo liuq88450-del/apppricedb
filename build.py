@@ -63,7 +63,7 @@ for slug, a in apps.items():
 </ul>
 <h2>How to read this</h2>
 <p>Start from the billing unit, not the headline price. If your store sits above the entry tier, the number that matters is the next tier up, which is why we publish the unit rather than a single "starting at" figure.</p>
-<p class="muted">Found an error? Send the vendor page showing the right figure.</p>"""
+<p class="muted">Found an error? Send the vendor page showing the right figure. Our own mistakes are logged in the <a href="{p}corrections/">corrections log</a>.</p>"""
     page(f"apps/{slug}/index.html",
          f"{a['name']} pricing ({checked}) — plans, limits and overage",
          f"{a['name']} pricing checked {checked}: billed by {a['billing_unit']}, with plan prices and what the price tag hides.",
@@ -308,6 +308,28 @@ page("guides/hidden-app-fees/index.html",
      "A single table of the charges that never appear in a Shopify app's headline price, from ticket overage to VAT.",
      fees_body, "../../")
 
+
+# --- corrections log (public honesty page) ---
+corr_body = """<h1>Corrections</h1>
+<p class="lede">Pages get things wrong. This is the record of what we got wrong on this site and when we fixed it.</p>
+<h2>2026-11-06</h2>
+<ul>
+<li><b>Gorgias cost guide</b> — first draft said Starter at 500 tickets was "nearly triple" Basic. It is $190 against $140, about 36% more. Fixed before publishing.</li>
+<li><b>Gorgias cost guide</b> — first draft put the Basic/Pro crossover at 1,800 tickets; the arithmetic puts it near 1,050. Fixed before publishing.</li>
+<li><b>Gorgias vs Help Scout</b> — first draft claimed Help Scout won only one combination; the computed matrix shows it wins five of fifteen. Fixed before publishing.</li>
+<li><b>Site build</b> — the first GitHub Pages build failed (Jekyll), leaving new pages at 404. Fixed with a .nojekyll file.</li>
+</ul>
+<h2>How corrections happen</h2>
+<ul>
+<li>Every number is checked against the vendor's own page before publishing; if it cannot be checked, the page is not published.</li>
+<li>When a reader finds an error, the fix is made and logged here with the date, not quietly edited.</li>
+<li>Price changes are logged in the <a href=\"../changes/\">price archive</a> instead, because a changed price is not an error.</li>
+</ul>"""
+page("corrections/index.html",
+     "Corrections — errors found and fixed on this site",
+     "The record of mistakes made on AppPriceDB and when they were corrected, kept public on purpose.",
+     corr_body, "../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -350,7 +372,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
