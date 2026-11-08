@@ -458,6 +458,40 @@ hs_body = f"""<h1>Help Scout cost by team size</h1>
 page("guides/help-scout-cost-by-seats/index.html", "Help Scout cost by team size",
      "Help Scout's per-seat cost at 1, 3, 5, 10 and 20 seats across its three paid plans.", hs_body, "../../")
 
+
+# --- verified starter stack page ---
+small = [("Klaviyo", "Email, 500 active profiles", 20.00), ("Judge.me", "Awesome, flat", 15.00),
+         ("Gorgias", "Starter, 50 tickets", 10.00), ("Vitals", "Up to 200 orders", 29.99),
+         ("Weglot", "Starter, USD price", 17.00)]
+growing = [("Klaviyo", "Email, 500 active profiles", 20.00), ("Judge.me", "Awesome, flat", 15.00),
+           ("Gorgias", "Basic, 300 tickets", 60.00), ("Vitals", "Up to 200 orders", 29.99),
+           ("Weglot", "Starter, USD price", 17.00)]
+def stack_table(rows):
+    body = "".join(f"<tr><td>{n}</td><td>{d}</td><td>${pr:,.2f}</td></tr>" for n, d, pr in rows)
+    total = sum(pr for _, _, pr in rows)
+    body += f"<tr><td colspan=\"2\"><strong>Monthly total</strong></td><td><strong>${total:,.2f}</strong></td></tr>"
+    body += f"<tr><td colspan=\"2\">Yearly, monthly billing</td><td>${total*12:,.2f}</td></tr>"
+    return body, total
+small_tbl, small_total = stack_table(small)
+grow_tbl, grow_total = stack_table(growing)
+stack_body = f"""<h1>What a five-app Shopify stack costs</h1>
+<p class="lede">Five apps a typical store runs, each on its cheapest sensible plan, with every price read from the vendor's own page. Two store profiles, two totals.</p>
+<div class="verified">Prices checked {checked}: Klaviyo Email $20 (500 profiles), Judge.me $15 flat, Gorgias Starter $10 / Basic $60, Vitals $29.99 (under 200 orders), Weglot Starter $17. No add-ons, no annual discount.</div>
+<h2>Small store: under 50 tickets a month</h2>
+<table><thead><tr><th>App</th><th>Plan</th><th>Per month</th></tr></thead><tbody>{small_tbl}</tbody></table>
+<h2>Growing store: about 300 tickets a month</h2>
+<table><thead><tr><th>App</th><th>Plan</th><th>Per month</th></tr></thead><tbody>{grow_tbl}</tbody></table>
+<h2>What moves the total</h2>
+<ul>
+<li>The two totals are ${small_total:,.2f} and ${grow_total:,.2f}; the entire ${grow_total - small_total:,.2f} difference is one helpdesk tier, nothing else changed.</li>
+<li>Klaviyo is the only line that will rise without anyone installing anything: the $20 tier stops at 500 profiles.</li>
+<li>Weglot's $17 is the USD list price; EU customers add VAT on top.</li>
+<li>These are entry tiers. A store at 5,000 orders and 5,000 profiles pays substantially more, and the exact figures depend on tiers the vendors do not publish in a machine-readable way.</li>
+</ul>
+<p class="muted">We only include apps whose prices we have verified from the vendor page. That is why this stack has five apps rather than the eight or ten some guides list.</p>"""
+page("guides/starter-stack-cost/index.html", "What a five-app Shopify stack costs (verified prices)",
+     "Two store profiles, five verified apps each, with exact monthly and yearly totals.", stack_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -504,7 +538,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
