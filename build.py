@@ -492,6 +492,31 @@ stack_body = f"""<h1>What a five-app Shopify stack costs</h1>
 page("guides/starter-stack-cost/index.html", "What a five-app Shopify stack costs (verified prices)",
      "Two store profiles, five verified apps each, with exact monthly and yearly totals.", stack_body, "../../")
 
+
+# --- billing rules library page ---
+rules = json.loads((root/"data/rules.json").read_text())
+by_type = {}
+for r in rules["rules"]:
+    by_type.setdefault(r["type"], []).append(r)
+sections = []
+for t, desc in rules["rule_types"].items():
+    if t not in by_type: continue
+    rows = "".join(f"<tr><td><strong>{html.escape(r['app'])}</strong></td><td>{html.escape(r['detail'])}</td></tr>" for r in by_type[t])
+    sections.append(f"<h2>{html.escape(t.replace('_',' ').title())}</h2><p>{html.escape(desc)}</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody>{rows}</tbody></table>")
+rules_body = f"""<h1>Billing rules library</h1>
+<p class="lede">Price is the easy part. This is the rule set underneath: what makes each app's bill move, what it charges on top, and where it treats tax or trials differently.</p>
+<div class="verified">Rules read from vendor pricing pages and checked {rules['checked']}. {len(rules['rules'])} rules across {len({r['app'] for r in rules['rules']})} apps. Also available as JSON: <a href="../data/rules.json">data/rules.json</a>.</div>
+{"".join(sections)}
+<h2>Why rules beat prices</h2>
+<ul>
+<li>A price changes occasionally; a rule decides what happens every month. Knowing that Gorgias AI interactions consume ticket volume explains a bill no price table can.</li>
+<li>Rules cross-reference: a seat-billed helpdesk plus a volume-billed review app produce a bill that moves in two directions at once.</li>
+<li>This is the table we use when auditing a real bill, and the reason it is published rather than kept private: verification is the product.</li>
+</ul>"""
+page("guides/billing-rules/index.html", "Shopify app billing rules library: overage, minimums, seats, tax",
+     "The billing rules behind nine Shopify apps: free-tier caps, overage, metered add-ons, minimum spend, discounts and tax treatment.",
+     rules_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -538,7 +563,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

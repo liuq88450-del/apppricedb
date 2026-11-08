@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shopify app billing rules library: overage, minimums, seats, tax</title>
+<meta name="description" content="The billing rules behind nine Shopify apps: free-tier caps, overage, metered add-ons, minimum spend, discounts and tax treatment.">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="../../index.html">AppPriceDB</a>
+  <a href="../../pricing-index/">Pricing index</a>
+  <a href="../../methodology.html">Method</a>
+  <a href="../../changelog.html">Changelog</a>
+  <a href="../../about.html">About</a>
+</header>
+<main>
+<h1>Billing rules library</h1>
+<p class="lede">Price is the easy part. This is the rule set underneath: what makes each app's bill move, what it charges on top, and where it treats tax or trials differently.</p>
+<div class="verified">Rules read from vendor pricing pages and checked 2026-11-08. 21 rules across 10 apps. Also available as JSON: <a href="../data/rules.json">data/rules.json</a>.</div>
+<h2>Free Plan</h2><p>Whether a permanent free tier exists, and what caps it</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody><tr><td><strong>Klaviyo</strong></td><td>Permanent free tier capped at 250 active profiles and 500 email sends per month</td></tr><tr><td><strong>Judge.me</strong></td><td>Permanent free tier with unlimited review requests</td></tr><tr><td><strong>Yotpo</strong></td><td>Free reviews plan stops at 50 monthly orders</td></tr></tbody></table><h2>Volume Band</h2><p>Price rises with a meter (orders/contacts/tickets) at fixed bands</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody><tr><td><strong>Klaviyo</strong></td><td>Above 500 profiles the price is set by contact count in Klaviyo&#x27;s calculator</td></tr><tr><td><strong>Vitals</strong></td><td>Four order bands; the feature set is identical at every band</td></tr><tr><td><strong>Yotpo</strong></td><td>Reviews, loyalty and discovery are priced as separate product lines, each with its own tiers</td></tr><tr><td><strong>Fera</strong></td><td>Five order bands from 200 to 100,000 orders, with AI moderation and replies included at every band</td></tr></tbody></table><h2>Overage</h2><p>Per-unit charge once the included amount is used</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody><tr><td><strong>Gorgias</strong></td><td>$0.40 per ticket over the included volume on Starter and Basic, $0.36 on Pro</td></tr></tbody></table><h2>Metered Addon</h2><p>Separate meter billed on top of the plan</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody><tr><td><strong>Klaviyo</strong></td><td>Free tier includes $5 of SMS/MMS credit a month, not unlimited messaging</td></tr><tr><td><strong>Gorgias</strong></td><td>AI Agent interactions $0.90 each annually, $1.00 monthly, and each also consumes ticket volume</td></tr><tr><td><strong>Postscript</strong></td><td>Messages billed per unit on top, and a dedicated short code costs $750/month through the carriers</td></tr><tr><td><strong>Help Scout</strong></td><td>Extra inboxes $10/mo each, extra docs sites $20/mo each, on top of seats</td></tr></tbody></table><h2>Minimum Spend</h2><p>A floor you pay even on the cheapest plan</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody><tr><td><strong>Postscript</strong></td><td>$49 monthly minimum spend applies even on the $0/mo Starter tier</td></tr></tbody></table><h2>Annual Discount</h2><p>Discount for paying yearly instead of monthly</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody><tr><td><strong>Upsell.com</strong></td><td>Scale $299/mo becomes $249/mo billed annually; Elite $899 becomes $749</td></tr><tr><td><strong>Fera</strong></td><td>Yearly billing takes 30% off</td></tr></tbody></table><h2>Seat Billing</h2><p>Price multiplies with people, not usage</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody><tr><td><strong>Gorgias</strong></td><td>Starter includes 3 agents; larger plans add agent capacity with the plan tier</td></tr><tr><td><strong>Judge.me</strong></td><td>No volume or seat scaling: the Awesome plan is a flat $15 with no higher tier</td></tr><tr><td><strong>Help Scout</strong></td><td>$25/$45/$75 per user per month depending on plan</td></tr></tbody></table><h2>Tax Treatment</h2><p>Whether tax is included in the published price</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody><tr><td><strong>Weglot</strong></td><td>Prices shown in EUR and USD exclude VAT</td></tr></tbody></table><h2>Trial</h2><p>Whether the free entry is a trial rather than a permanent tier</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody><tr><td><strong>Weglot</strong></td><td>The free tier is a 14-day trial of the paid product, not a permanent plan</td></tr><tr><td><strong>Fera</strong></td><td>No permanent free plan; the free trial ends and the $9 tier is the floor</td></tr></tbody></table>
+<h2>Why rules beat prices</h2>
+<ul>
+<li>A price changes occasionally; a rule decides what happens every month. Knowing that Gorgias AI interactions consume ticket volume explains a bill no price table can.</li>
+<li>Rules cross-reference: a seat-billed helpdesk plus a volume-billed review app produce a bill that moves in two directions at once.</li>
+<li>This is the table we use when auditing a real bill, and the reason it is published rather than kept private: verification is the product.</li>
+</ul>
+</main>
+<footer>Prices checked 2026-11-06. Some outbound links may be affiliate links, disclosed on the page. © AppPriceDB</footer>
+</body>
+</html>

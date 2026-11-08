@@ -1,0 +1,37 @@
+{
+  "checked": "2026-11-08",
+  "rule_types": {
+    "free_plan": "Whether a permanent free tier exists, and what caps it",
+    "volume_band": "Price rises with a meter (orders/contacts/tickets) at fixed bands",
+    "overage": "Per-unit charge once the included amount is used",
+    "metered_addon": "Separate meter billed on top of the plan",
+    "minimum_spend": "A floor you pay even on the cheapest plan",
+    "annual_discount": "Discount for paying yearly instead of monthly",
+    "seat_billing": "Price multiplies with people, not usage",
+    "tax_treatment": "Whether tax is included in the published price",
+    "trial": "Whether the free entry is a trial rather than a permanent tier"
+  },
+  "rules": [
+    {"app": "Klaviyo", "type": "free_plan", "detail": "Permanent free tier capped at 250 active profiles and 500 email sends per month"},
+    {"app": "Klaviyo", "type": "volume_band", "detail": "Above 500 profiles the price is set by contact count in Klaviyo's calculator"},
+    {"app": "Klaviyo", "type": "metered_addon", "detail": "Free tier includes $5 of SMS/MMS credit a month, not unlimited messaging"},
+    {"app": "Gorgias", "type": "overage", "detail": "$0.40 per ticket over the included volume on Starter and Basic, $0.36 on Pro"},
+    {"app": "Gorgias", "type": "metered_addon", "detail": "AI Agent interactions $0.90 each annually, $1.00 monthly, and each also consumes ticket volume"},
+    {"app": "Gorgias", "type": "seat_billing", "detail": "Starter includes 3 agents; larger plans add agent capacity with the plan tier"},
+    {"app": "Vitals", "type": "volume_band", "detail": "Four order bands; the feature set is identical at every band"},
+    {"app": "Judge.me", "type": "free_plan", "detail": "Permanent free tier with unlimited review requests"},
+    {"app": "Judge.me", "type": "seat_billing", "detail": "No volume or seat scaling: the Awesome plan is a flat $15 with no higher tier"},
+    {"app": "Upsell.com", "type": "annual_discount", "detail": "Scale $299/mo becomes $249/mo billed annually; Elite $899 becomes $749"},
+    {"app": "Weglot", "type": "trial", "detail": "The free tier is a 14-day trial of the paid product, not a permanent plan"},
+    {"app": "Weglot", "type": "tax_treatment", "detail": "Prices shown in EUR and USD exclude VAT"},
+    {"app": "Postscript", "type": "minimum_spend", "detail": "$49 monthly minimum spend applies even on the $0/mo Starter tier"},
+    {"app": "Postscript", "type": "metered_addon", "detail": "Messages billed per unit on top, and a dedicated short code costs $750/month through the carriers"},
+    {"app": "Yotpo", "type": "free_plan", "detail": "Free reviews plan stops at 50 monthly orders"},
+    {"app": "Yotpo", "type": "volume_band", "detail": "Reviews, loyalty and discovery are priced as separate product lines, each with its own tiers"},
+    {"app": "Help Scout", "type": "seat_billing", "detail": "$25/$45/$75 per user per month depending on plan"},
+    {"app": "Help Scout", "type": "metered_addon", "detail": "Extra inboxes $10/mo each, extra docs sites $20/mo each, on top of seats"},
+    {"app": "Fera", "type": "trial", "detail": "No permanent free plan; the free trial ends and the $9 tier is the floor"},
+    {"app": "Fera", "type": "volume_band", "detail": "Five order bands from 200 to 100,000 orders, with AI moderation and replies included at every band"},
+    {"app": "Fera", "type": "annual_discount", "detail": "Yearly billing takes 30% off"}
+  ]
+}
