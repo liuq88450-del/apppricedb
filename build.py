@@ -517,6 +517,62 @@ page("guides/billing-rules/index.html", "Shopify app billing rules library: over
      "The billing rules behind nine Shopify apps: free-tier caps, overage, metered add-ons, minimum spend, discounts and tax treatment.",
      rules_body, "../../")
 
+
+# --- pages: growth-linked pricing + audit checklist ---
+grows = [("Klaviyo", "Rises with active profiles", "Email from $20 at 500 profiles; above that the calculator sets it"),
+         ("Gorgias", "Rises with tickets", "$0.40/$0.36 per ticket over the included volume"),
+         ("Vitals", "Rises with orders", "Four order bands, same features"),
+         ("Fera", "Rises with orders", "Five order bands from 200 to 100,000 orders"),
+         ("Yotpo", "Rises with orders and product lines", "Free stops at 50 orders; loyalty billed separately"),
+         ("Weglot", "Rises with translated words", "Fixed plans tied to word volume"),
+         ("Postscript", "Rises with messages", "Per-message rates plus $49 monthly minimum"),
+         ("Help Scout", "Rises with seats", "$25/$45/$75 per user"),
+         ("Upsell.com", "Rises with order volume bands", "Free start, then $299 and $899 tiers"),
+         ("Judge.me", "Does not rise", "Flat $15 with no volume tiers")]
+grows_rows = "".join(f"<tr><td><strong>{n}</strong></td><td>{how}</td><td>{d}</td></tr>" for n, how, d in grows)
+grows_body = f"""<h1>Which Shopify apps get more expensive as your store grows</h1>
+<p class="lede">Nine of the ten apps we track charge more as the store grows. One does not. Knowing which is which is the difference between a predictable bill and a surprise.</p>
+<div class="verified">Billing mechanics from each vendor's pricing page, checked by {checked}. The classification is ours; the mechanisms are theirs.</div>
+<table><thead><tr><th>App</th><th>What makes it rise</th><th>Detail</th></tr></thead><tbody>{grows_rows}</tbody></table>
+<h2>Why it matters</h2>
+<ul>
+<li>A store's app bill is not fixed at install time. Most of these lines move without anyone changing a plan.</li>
+<li>Judge.me is the only flat bill in our set, which is why it wins the review-app comparison at every volume above 200 orders.</li>
+<li>The dangerous pairs are metered plus volume: Postscript charges per message and has a minimum spend, Gorgias charges AI interactions that also consume tickets.</li>
+<li>Before a growth push, check the next band for every app on the rise. A Black Friday month can put a store into a higher tier for a full cycle.</li>
+</ul>"""
+page("guides/apps-that-rise-with-growth/index.html", "Which Shopify apps charge more as your store grows",
+     "Nine of ten tracked apps get more expensive with scale, and one does not. Here is what drives each increase.",
+     grows_body, "../../")
+
+checks = [
+ ("Export the real bill, not the list price", "The Shopify invoice shows app charges, usage charges and one-off purchases separately; list prices are not evidence of what you paid."),
+ ("Match every charge to an app and a billing type", "Subscription, usage, one-off, or external billing. External ones never appear on the Shopify invoice."),
+ ("Find the free tiers you are paying past", "Yotpo stops at 50 orders, Klaviyo at 250 profiles, Judge.me has no cap on review requests."),
+ ("Look for minimum spend", "Postscript's $0 plan still charges $49 a month; that is not a discount, it is a floor."),
+ ("Check the metered add-ons", "Gorgias AI interactions ($0.90-$1.00 each) and SMS messages are billed on top of the plan."),
+ ("Check seats against actual headcount", "Help Scout is per user; an unused seat is a permanent cost."),
+ ("Look for overlapping apps", "Two apps doing the same job is the most common waste and the easiest to fix."),
+ ("Compare monthly against annual billing", "Upsell.com drops 17% annually, Fera 30%, Weglot about 17% on its Starter tier."),
+ ("Check tax treatment", "Weglot publishes prices excluding VAT; an EU store pays more than the headline."),
+ ("Check what removing an app takes with it", "Data, theme code and integrations may not export cleanly, so a cheaper bill can cost more later.")]
+checks_html = "".join(f"<li><strong>{html.escape(t)}</strong> — {html.escape(d)}</li>" for t, d in checks)
+audit_body = f"""<h1>How to audit a Shopify app bill: ten checks</h1>
+<p class="lede">The order matters. Each check catches a different kind of overspend, and the first three catch most of it.</p>
+<div class="verified">Written from the billing rules in our <a href="../billing-rules/">rules library</a>, checked {checked}. This is the checklist we would run on a real bill before quoting any saving.</div>
+<ol>{checks_html}</ol>
+<h2>What a report should contain</h2>
+<ul>
+<li>Every app, its billing type, and the figure on the invoice.</li>
+<li>Each problem with the rule it violates (for example: minimum spend, seat mismatch, overlapping function).</li>
+<li>The annualised saving, with the assumption stated.</li>
+<li>What is lost by changing it: data, features, integrations, migration effort.</li>
+<li>A verdict: keep, right-size, consolidate, or investigate.</li>
+</ul>
+<p class="muted">We do not promise a saving before seeing the bill. The checklist finds the candidates; the numbers come from the invoice.</p>"""
+page("guides/app-audit-checklist/index.html", "How to audit a Shopify app bill: ten checks",
+     "A ten-step audit checklist for Shopify app bills, derived from verified billing rules.", audit_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -563,7 +619,7 @@ page("index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

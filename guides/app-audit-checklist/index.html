@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to audit a Shopify app bill: ten checks</title>
+<meta name="description" content="A ten-step audit checklist for Shopify app bills, derived from verified billing rules.">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="../../index.html">AppPriceDB</a>
+  <a href="../../pricing-index/">Pricing index</a>
+  <a href="../../methodology.html">Method</a>
+  <a href="../../changelog.html">Changelog</a>
+  <a href="../../about.html">About</a>
+</header>
+<main>
+<h1>How to audit a Shopify app bill: ten checks</h1>
+<p class="lede">The order matters. Each check catches a different kind of overspend, and the first three catch most of it.</p>
+<div class="verified">Written from the billing rules in our <a href="../billing-rules/">rules library</a>, checked 2026-11-06. This is the checklist we would run on a real bill before quoting any saving.</div>
+<ol><li><strong>Export the real bill, not the list price</strong> — The Shopify invoice shows app charges, usage charges and one-off purchases separately; list prices are not evidence of what you paid.</li><li><strong>Match every charge to an app and a billing type</strong> — Subscription, usage, one-off, or external billing. External ones never appear on the Shopify invoice.</li><li><strong>Find the free tiers you are paying past</strong> — Yotpo stops at 50 orders, Klaviyo at 250 profiles, Judge.me has no cap on review requests.</li><li><strong>Look for minimum spend</strong> — Postscript&#x27;s $0 plan still charges $49 a month; that is not a discount, it is a floor.</li><li><strong>Check the metered add-ons</strong> — Gorgias AI interactions ($0.90-$1.00 each) and SMS messages are billed on top of the plan.</li><li><strong>Check seats against actual headcount</strong> — Help Scout is per user; an unused seat is a permanent cost.</li><li><strong>Look for overlapping apps</strong> — Two apps doing the same job is the most common waste and the easiest to fix.</li><li><strong>Compare monthly against annual billing</strong> — Upsell.com drops 17% annually, Fera 30%, Weglot about 17% on its Starter tier.</li><li><strong>Check tax treatment</strong> — Weglot publishes prices excluding VAT; an EU store pays more than the headline.</li><li><strong>Check what removing an app takes with it</strong> — Data, theme code and integrations may not export cleanly, so a cheaper bill can cost more later.</li></ol>
+<h2>What a report should contain</h2>
+<ul>
+<li>Every app, its billing type, and the figure on the invoice.</li>
+<li>Each problem with the rule it violates (for example: minimum spend, seat mismatch, overlapping function).</li>
+<li>The annualised saving, with the assumption stated.</li>
+<li>What is lost by changing it: data, features, integrations, migration effort.</li>
+<li>A verdict: keep, right-size, consolidate, or investigate.</li>
+</ul>
+<p class="muted">We do not promise a saving before seeing the bill. The checklist finds the candidates; the numbers come from the invoice.</p>
+</main>
+<footer>Prices checked 2026-11-06. Some outbound links may be affiliate links, disclosed on the page. © AppPriceDB</footer>
+</body>
+</html>
