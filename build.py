@@ -514,7 +514,7 @@ for t, desc in rules["rule_types"].items():
     sections.append(f"<h2>{html.escape(t.replace('_',' ').title())}</h2><p>{html.escape(desc)}</p><table><thead><tr><th>App</th><th>Rule</th></tr></thead><tbody>{rows}</tbody></table>")
 rules_body = f"""<h1>Billing rules library</h1>
 <p class="lede">Price is the easy part. This is the rule set underneath: what makes each app's bill move, what it charges on top, and where it treats tax or trials differently.</p>
-<div class="verified">Rules read from vendor pricing pages and checked {rules['checked']}. {len(rules['rules'])} rules across {len({r['app'] for r in rules['rules']})} apps. Also available as JSON: <a href="../data/rules.json">data/rules.json</a>.</div>
+<div class="verified">Rules read from vendor pricing pages and checked {rules['checked']}. {len(rules['rules'])} rules across {len({r['app'] for r in rules['rules']})} apps. Also available as JSON: <a href="../../data/rules.json">data/rules.json</a>.</div>
 {"".join(sections)}
 <h2>Why rules beat prices</h2>
 <ul>
