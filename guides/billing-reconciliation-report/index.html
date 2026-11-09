@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shopify app bill reconciliation report: template and worked example</title>
+<meta name="description" content="A line-by-line reconciliation of a Shopify app bill against published plans, with the template we use and a worked example computed from verified prices.">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="../../index.html">AppPriceDB</a>
+  <a href="../../pricing-index/">Pricing index</a>
+  <a href="../../methodology.html">Method</a>
+  <a href="../../changelog.html">Changelog</a>
+  <a href="../../about.html">About</a>
+</header>
+<main>
+<h1>Shopify app bill reconciliation: the report we run on a real invoice</h1>
+<p class="lede">An invoice tells you what you paid. A reconciliation report tells you what the published plan says you should have paid, line by line, and where the two disagree.</p>
+<div class="verified">Template built from the billing rules in our <a href="../billing-rules/">rules library</a>, checked 2026-11-06. The worked example uses a fictional store: every "expected" figure is computed from vendor prices read on the dates shown on each app page, and every invoice figure is illustrative. No real invoice is reproduced here.</div>
+<h2>What the report contains</h2>
+<ol>
+<li><b>Store profile</b> — the meters that set the tiers: orders per month, tickets per month, support seats, marketing contacts, SMS messages, translated words.</li>
+<li><b>Invoice lines</b> — exported from Shopify (Settings → Billing), with subscription, usage and one-off charges kept separate. A list price is not evidence of what was paid.</li>
+<li><b>Expected cost</b> — the cheapest published plan that covers the profile, computed from prices with a check date. Where the vendor sets the price in a calculator, the cell says "not published".</li>
+<li><b>Variance</b> — invoice minus expected, per line and as a total.</li>
+<li><b>Rule</b> — the billing rule that explains each gap: overage, minimum spend, seat count, VAT, annual discount.</li>
+<li><b>Verdict</b> — keep, right-size, consolidate, or verify.</li>
+<li><b>Saving</b> — monthly and annualised, with the assumption that has to hold.</li>
+<li><b>Risk</b> — what changing it costs: data, theme code, integrations, features.</li>
+</ol>
+<h2>Worked example: a fictional store</h2>
+<table><thead><tr><th>Input</th><th>Value</th></tr></thead><tbody>
+<tr><td>Orders per month</td><td>1,200</td></tr>
+<tr><td>Support tickets per month</td><td>400</td></tr>
+<tr><td>Support seats</td><td>3</td></tr>
+<tr><td>Klaviyo active profiles</td><td>5,000</td></tr>
+<tr><td>SMS messages per month</td><td>6,000</td></tr>
+<tr><td>Weglot plan</td><td>Starter, one language pair</td></tr>
+</tbody></table>
+<h2>The report itself</h2>
+<table><thead><tr><th>App</th><th>Billing unit</th><th>Invoice (illustrative)</th><th>Expected from published plans</th><th>Variance</th><th>Verdict</th></tr></thead><tbody>
+<tr><td><strong>Gorgias</strong></td><td>tickets, 400/mo</td><td>Starter, $150</td><td>Basic, $100</td><td>+$50</td><td>Right-size. Basic covers 400 tickets at $100; Starter only includes 50.</td></tr><tr><td><strong>Vitals</strong></td><td>orders, 1,200/mo</td><td>$179</td><td>$179</td><td>$0</td><td>Keep. 1,001–5,000 band.</td></tr><tr><td><strong>Judge.me</strong></td><td>flat fee</td><td>$15</td><td>$15</td><td>$0</td><td>Keep, unless the Fera line goes (see below).</td></tr><tr><td><strong>Fera</strong></td><td>orders, 1,200/mo</td><td>$29</td><td>$29</td><td>$0</td><td>Consolidate: two review apps bill every month. Feature test first.</td></tr><tr><td><strong>Weglot</strong></td><td>translated words</td><td>$17 (USD list)</td><td>$17</td><td>$0</td><td>Keep. EU stores add VAT on top.</td></tr><tr><td><strong>Klaviyo</strong></td><td>active profiles, 5,000</td><td>$59</td><td>not published — set in the vendor's calculator</td><td>unknown</td><td>Verify with Klaviyo: no price table to recompute from.</td></tr><tr><td><strong>Postscript</strong></td><td>messages + minimum</td><td>$62 usage, above the $49 floor</td><td>$49 floor plus per-message rates we cannot re-add</td><td>unknown</td><td>Verify the message breakdown; do not treat $62 as either right or wrong.</td></tr>
+</tbody></table>
+<h2>What the example found</h2>
+<ul>
+<li><b>Confirmed: $50/mo ($600/yr) on Gorgias.</b> Basic costs $60 + (400 − 300) × $0.40 = $100. The same 400 tickets on Starter is $10 + 350 × $0.40 = $150, and Pro is $360. Basic stays the cheapest plan below about 1,050 tickets, so the saving does not evaporate at the next month's volume.</li>
+<li><b>Candidate: $29/mo ($348/yr) by consolidating review apps.</b> At 1,200 orders Judge.me is $15 flat and Fera is $29; keeping one drops the other's fee. This is a candidate, not a finding: Fera includes AI review replies at every tier, so the $29 may be buying something Judge.me does not do. The feature test comes before the number.</li>
+<li><b>Unverified: two lines stay open.</b> Klaviyo's $59 at 5,000 profiles cannot be recomputed, because Klaviyo sets that price in its own calculator and publishes no table. Postscript's $62 usage sits above its $49 floor, but its per-message rates are not published in a form we can re-add. Both cells say "unknown" instead of a number we cannot defend.</li>
+</ul>
+<h2>Why the "cannot verify" cells stay in</h2>
+<ul>
+<li>A report that turns an unknown into a number is worse than no report. Guessing the Klaviyo figure would make the whole table unfalsifiable, including the two lines that are solid.</li>
+<li>Vendors that price in calculators (Klaviyo, Yotpo) cannot be reconciled from published data at all. The honest output is a specific question to the vendor: which tier is this account on, and what is the next band?</li>
+<li>This is the difference between this report and asking an AI assistant to guess the bill: the assistant can produce a plausible number for every line. A reconciliation marks its own guesses.</li>
+<li>The confirmed saving is small on purpose. Most real bills do not contain a dramatic error; they contain a plan that was right a year ago and a second app that does the same job.</li>
+</ul>
+<h2>Run it on your own bill</h2>
+<p>Export the bill, fill the profile, and order the work with our <a href="../app-audit-checklist/">ten-check audit</a>. Every price behind the expected column, with its check date and source URL, is in the <a href="../../data/">open JSON feed</a>; the rules are in the <a href="../billing-rules/">rules library</a>.</p>
+<p class="muted">Expected figures are ours to compute, but the inputs are the vendors' and the invoice is yours. If a vendor changes a price, the expected column is wrong until we re-check it.</p>
+</main>
+<footer>Prices checked 2026-11-06. Some outbound links may be affiliate links, disclosed on the page. © AppPriceDB</footer>
+</body>
+</html>

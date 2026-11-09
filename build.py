@@ -86,6 +86,11 @@ page("pricing-index/index.html",
 
 changelog_body = """<h1>Changelog</h1>
 <p class="lede">What changed on this site, and what changed in the vendors' prices. Newest first.</p>
+<h2>2026-11-09</h2>
+<ul>
+<li><b>New page</b> — app bill reconciliation report: the template, with a worked example computed from verified prices.</li>
+<li><b>Correction</b> — the Gorgias vs Help Scout summary now matches its own computed matrix; the old sentence overstated where Help Scout wins. Logged on the corrections page.</li>
+</ul>
 <h2>2026-11-06 (same-day batch)</h2>
 <ul>
 <li><b>Upsell.com</b> — verified four tiers: free start, $299/mo Scale, $899/mo Elite, custom Enterprise; annual billing lowers the paid tiers to $249 and $749.</li>
@@ -169,8 +174,8 @@ vs_body = f"""<h1>Gorgias vs Help Scout: cheaper at your team size and ticket vo
 </tbody></table>
 <h2>What the table says</h2>
 <ul>
-<li>Winner: {g_wins} of {total} combinations go to Gorgias, {hs_wins} to Help Scout, Fera.</li>
-<li>Help Scout wins wherever the team is small and the ticket load is heavy: at 3 and 5 seats from 500 tickets upward, a flat per-seat bill beats per-ticket billing.</li>
+<li>Winner: {g_wins} of {total} combinations go to Gorgias, {hs_wins} to Help Scout.</li>
+<li>Help Scout wins only where a small team handles heavy volume: 3 seats from 500 tickets, 5 seats from 1,000. At 10 seats Gorgias wins every row, and below 300 tickets it wins everywhere.</li>
 <li>Gorgias wins at low volume and large teams: at 100 tickets it costs a quarter of a three-person Help Scout bill.</li>
 <li>Neither number is final: Gorgias charges AI interactions on top, and Help Scout charges extra inboxes ($10/mo) and docs sites ($20/mo).</li>
 </ul>
@@ -313,6 +318,10 @@ page("guides/hidden-app-fees/index.html",
 # --- corrections log (public honesty page) ---
 corr_body = """<h1>Corrections</h1>
 <p class="lede">Pages get things wrong. This is the record of what we got wrong on this site and when we fixed it.</p>
+<h2>2026-11-09</h2>
+<ul>
+<li><b>Gorgias vs Help Scout</b> — the summary bullet said Help Scout wins at 3 and 5 seats "from 500 tickets upward". The computed matrix gives Help Scout 3 seats from 500 tickets and 5 seats from 1,000; at 500 tickets with 5 seats, Gorgias is cheaper ($140 against $225). Sentence fixed to match the table.</li>
+</ul>
 <h2>2026-11-06</h2>
 <ul>
 <li><b>Gorgias cost guide</b> — first draft said Starter at 500 tickets was "nearly triple" Basic. It is $190 against $140, about 36% more. Fixed before publishing.</li>
@@ -608,6 +617,10 @@ body = f"""<h1>What Shopify apps actually cost</h1>
 <li><a href="guides/how-shopify-apps-bill/">How these apps bill</a> — per ticket, per seat, per order or flat fee</li>
 <li><a href="compare/judge-me-vs-fera/">Judge.me vs Fera</a> — flat fee against order-volume tiers</li>
 <li><a href="compare/gorgias-vs-help-scout/">Gorgias vs Help Scout</a> — per ticket versus per seat, and which one wins at your size</li>
+</ul>
+<h2>Audit and reconcile</h2>
+<ul>
+<li><a href="guides/billing-reconciliation-report/">The bill reconciliation report</a> — invoice against published plan, line by line, with the unknowns kept as unknowns</li>
 </ul>"""
 page("index.html",
      "Shopify App Pricing Database — verified prices, checked and dated",
@@ -615,11 +628,80 @@ page("index.html",
      body, "")
 
 
+# --- billing reconciliation report (template + computed worked example) ---
+g_starter = 10 + max(0, 400 - 50) * 0.40
+g_basic = 60 + max(0, 400 - 300) * 0.40
+g_pro = 360.0
+g_best = min(g_starter, g_basic, g_pro)
+assert abs(g_starter - 150) < 1e-9 and abs(g_basic - 100) < 1e-9 and abs(g_best - 100) < 1e-9
+confirmed = 50
+candidate = 29
+rec_rows = [
+    ("Gorgias", "tickets, 400/mo", "Starter, $150", f"Basic, ${g_best:,.0f}", "+$50", "Right-size. Basic covers 400 tickets at $100; Starter only includes 50."),
+    ("Vitals", "orders, 1,200/mo", "$179", "$179", "$0", "Keep. 1,001–5,000 band."),
+    ("Judge.me", "flat fee", "$15", "$15", "$0", "Keep, unless the Fera line goes (see below)."),
+    ("Fera", "orders, 1,200/mo", "$29", "$29", "$0", "Consolidate: two review apps bill every month. Feature test first."),
+    ("Weglot", "translated words", "$17 (USD list)", "$17", "$0", "Keep. EU stores add VAT on top."),
+    ("Klaviyo", "active profiles, 5,000", "$59", "not published — set in the vendor's calculator", "unknown", "Verify with Klaviyo: no price table to recompute from."),
+    ("Postscript", "messages + minimum", "$62 usage, above the $49 floor", "$49 floor plus per-message rates we cannot re-add", "unknown", "Verify the message breakdown; do not treat $62 as either right or wrong."),
+]
+rec_tbl = "".join(
+    f"<tr><td><strong>{a}</strong></td><td>{u}</td><td>{inv}</td><td>{exp}</td><td>{var}</td><td>{verdict}</td></tr>"
+    for a, u, inv, exp, var, verdict in rec_rows)
+rec_body = f"""<h1>Shopify app bill reconciliation: the report we run on a real invoice</h1>
+<p class="lede">An invoice tells you what you paid. A reconciliation report tells you what the published plan says you should have paid, line by line, and where the two disagree.</p>
+<div class="verified">Template built from the billing rules in our <a href="../billing-rules/">rules library</a>, checked {checked}. The worked example uses a fictional store: every "expected" figure is computed from vendor prices read on the dates shown on each app page, and every invoice figure is illustrative. No real invoice is reproduced here.</div>
+<h2>What the report contains</h2>
+<ol>
+<li><b>Store profile</b> — the meters that set the tiers: orders per month, tickets per month, support seats, marketing contacts, SMS messages, translated words.</li>
+<li><b>Invoice lines</b> — exported from Shopify (Settings → Billing), with subscription, usage and one-off charges kept separate. A list price is not evidence of what was paid.</li>
+<li><b>Expected cost</b> — the cheapest published plan that covers the profile, computed from prices with a check date. Where the vendor sets the price in a calculator, the cell says "not published".</li>
+<li><b>Variance</b> — invoice minus expected, per line and as a total.</li>
+<li><b>Rule</b> — the billing rule that explains each gap: overage, minimum spend, seat count, VAT, annual discount.</li>
+<li><b>Verdict</b> — keep, right-size, consolidate, or verify.</li>
+<li><b>Saving</b> — monthly and annualised, with the assumption that has to hold.</li>
+<li><b>Risk</b> — what changing it costs: data, theme code, integrations, features.</li>
+</ol>
+<h2>Worked example: a fictional store</h2>
+<table><thead><tr><th>Input</th><th>Value</th></tr></thead><tbody>
+<tr><td>Orders per month</td><td>1,200</td></tr>
+<tr><td>Support tickets per month</td><td>400</td></tr>
+<tr><td>Support seats</td><td>3</td></tr>
+<tr><td>Klaviyo active profiles</td><td>5,000</td></tr>
+<tr><td>SMS messages per month</td><td>6,000</td></tr>
+<tr><td>Weglot plan</td><td>Starter, one language pair</td></tr>
+</tbody></table>
+<h2>The report itself</h2>
+<table><thead><tr><th>App</th><th>Billing unit</th><th>Invoice (illustrative)</th><th>Expected from published plans</th><th>Variance</th><th>Verdict</th></tr></thead><tbody>
+{rec_tbl}
+</tbody></table>
+<h2>What the example found</h2>
+<ul>
+<li><b>Confirmed: ${confirmed}/mo (${confirmed*12}/yr) on Gorgias.</b> Basic costs $60 + (400 − 300) × $0.40 = ${g_basic:,.0f}. The same 400 tickets on Starter is $10 + 350 × $0.40 = ${g_starter:,.0f}, and Pro is ${g_pro:,.0f}. Basic stays the cheapest plan below about 1,050 tickets, so the saving does not evaporate at the next month's volume.</li>
+<li><b>Candidate: ${candidate}/mo (${candidate*12}/yr) by consolidating review apps.</b> At 1,200 orders Judge.me is $15 flat and Fera is $29; keeping one drops the other's fee. This is a candidate, not a finding: Fera includes AI review replies at every tier, so the $29 may be buying something Judge.me does not do. The feature test comes before the number.</li>
+<li><b>Unverified: two lines stay open.</b> Klaviyo's $59 at 5,000 profiles cannot be recomputed, because Klaviyo sets that price in its own calculator and publishes no table. Postscript's $62 usage sits above its $49 floor, but its per-message rates are not published in a form we can re-add. Both cells say "unknown" instead of a number we cannot defend.</li>
+</ul>
+<h2>Why the "cannot verify" cells stay in</h2>
+<ul>
+<li>A report that turns an unknown into a number is worse than no report. Guessing the Klaviyo figure would make the whole table unfalsifiable, including the two lines that are solid.</li>
+<li>Vendors that price in calculators (Klaviyo, Yotpo) cannot be reconciled from published data at all. The honest output is a specific question to the vendor: which tier is this account on, and what is the next band?</li>
+<li>This is the difference between this report and asking an AI assistant to guess the bill: the assistant can produce a plausible number for every line. A reconciliation marks its own guesses.</li>
+<li>The confirmed saving is small on purpose. Most real bills do not contain a dramatic error; they contain a plan that was right a year ago and a second app that does the same job.</li>
+</ul>
+<h2>Run it on your own bill</h2>
+<p>Export the bill, fill the profile, and order the work with our <a href="../app-audit-checklist/">ten-check audit</a>. Every price behind the expected column, with its check date and source URL, is in the <a href="../../data/">open JSON feed</a>; the rules are in the <a href="../billing-rules/">rules library</a>.</p>
+<p class="muted">Expected figures are ours to compute, but the inputs are the vendors' and the invoice is yours. If a vendor changes a price, the expected column is wrong until we re-check it.</p>"""
+page("guides/billing-reconciliation-report/index.html",
+     "Shopify app bill reconciliation report: template and worked example",
+     "A line-by-line reconciliation of a Shopify app bill against published plans, with the template we use and a worked example computed from verified prices.",
+     rec_body, "../../")
+
+
 # --- sitemap ---
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -629,17 +711,3 @@ sm.append("</urlset>")
 (root/"sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8")
 (root/"robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n", encoding="utf-8")
 print("sitemap written:", len(urls), "urls")
-
-# --- changelog append for this batch ---
-cl = root/"changelog.html"
-txt = cl.read_text(encoding="utf-8")
-add = """<h2>2026-11-06 (later the same day)</h2>
-<ul>
-<li><b>Upsell.com</b> — verified four tiers: free start, $299/mo Scale, $899/mo Elite, custom Enterprise; annual billing lowers the two paid tiers to $249 and $749.</li>
-<li><b>Weglot</b> — verified four tiers in EUR and USD, both excluding VAT; free tier is a 14-day trial, not a permanent plan.</li>
-<li><b>Gorgias cost guide</b> — added a ticket-volume cost table computed from the verified prices, with the plan crossover points.</li>
-</ul>
-<h2>2026-11-06</h2>"""
-txt = txt.replace("<h2>2026-11-06</h2>", add, 1)
-cl.write_text(txt, encoding="utf-8")
-print("changelog updated")
