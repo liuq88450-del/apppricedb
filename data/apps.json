@@ -27,7 +27,7 @@
         "Every plan is priced by contact count, not by seats: above the entry tier the price rises with active profiles and is shown only in Klaviyo's own pricing calculator.",
         "Exceeding the free plan's 250 profiles or 500 sends switches the account to a paid plan, it does not just throttle sending."
       ],
-      "checked": "2026-11-06"
+      "checked": "2026-11-10"
     },
     "gorgias": {
       "name": "Gorgias",
@@ -60,7 +60,7 @@
         "AI Agent interactions are billed on top of the plan: $0.90 each on annual plans, $1.00 each on monthly plans.",
         "A ticket is not the same unit as an AI interaction, and each AI interaction also counts against ticket volume — a detail most pricing roundups leave out."
       ],
-      "checked": "2026-11-06"
+      "checked": "2026-11-10"
     },
     "vitals": {
       "name": "Vitals",

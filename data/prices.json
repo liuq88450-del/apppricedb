@@ -9,7 +9,7 @@
       "slug": "klaviyo",
       "category": "Email & SMS marketing",
       "billing_unit": "active profiles (contacts who can receive marketing email)",
-      "checked": "2026-11-06",
+      "checked": "2026-11-10",
       "source": "https://www.klaviyo.com/pricing",
       "plans": [
         {
@@ -38,7 +38,7 @@
       "slug": "gorgias",
       "category": "Helpdesk for ecommerce",
       "billing_unit": "support tickets per month",
-      "checked": "2026-11-06",
+      "checked": "2026-11-10",
       "source": "https://www.gorgias.com/pricing",
       "plans": [
         {
