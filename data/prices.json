@@ -130,7 +130,7 @@
       "slug": "upsell.com",
       "category": "Upsells & cross-sell",
       "billing_unit": "order volume, with plan names tied to store size",
-      "checked": "2026-11-06",
+      "checked": "2026-11-11",
       "source": "https://upsell.com/pricing",
       "plans": [
         {
@@ -164,7 +164,7 @@
       "slug": "weglot",
       "category": "Translation & multilingual storefronts",
       "billing_unit": "translated words, shown as fixed plans",
-      "checked": "2026-11-06",
+      "checked": "2026-11-11",
       "source": "https://www.weglot.com/pricing",
       "plans": [
         {
@@ -198,7 +198,7 @@
       "slug": "postscript",
       "category": "SMS & RCS marketing",
       "billing_unit": "flat plan fee plus a monthly minimum spend and per-message rates",
-      "checked": "2026-11-07",
+      "checked": "2026-11-11",
       "source": "https://www.postscript.io/pricing",
       "plans": [
         {
@@ -233,7 +233,7 @@
       "slug": "yotpo",
       "category": "Reviews, loyalty and UGC",
       "billing_unit": "product line plus monthly order volume",
-      "checked": "2026-11-06",
+      "checked": "2026-11-11",
       "source": "https://www.yotpo.com/pricing/",
       "plans": [
         {
@@ -296,7 +296,7 @@
       "slug": "fera.ai",
       "category": "Product reviews",
       "billing_unit": "monthly order volume, with every feature included at every tier",
-      "checked": "2026-11-06",
+      "checked": "2026-11-11",
       "source": "https://fera.ai/pricing",
       "plans": [
         {

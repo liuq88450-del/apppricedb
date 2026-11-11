@@ -149,7 +149,7 @@
         "The annual saving is real but only on the two paid tiers: Scale drops from $299 to $249 a month, Elite from $899 to $749.",
         "The company renamed from ReConvert to Upsell.com; most affiliate roundups still use the old name and old links."
       ],
-      "checked": "2026-11-06"
+      "checked": "2026-11-11"
     },
     "weglot": {
       "name": "Weglot",
@@ -182,7 +182,7 @@
         "Weglot prices in EUR and USD side by side, both excluding VAT — a store in the EU pays the VAT on top, which changes the real cost by roughly a fifth.",
         "The free tier is a 14-day trial of the paid product rather than a permanent plan, unlike Klaviyo or Judge.me."
       ],
-      "checked": "2026-11-06"
+      "checked": "2026-11-11"
     },
     "postscript": {
       "name": "Postscript",
@@ -216,7 +216,7 @@
         "A $0/mo headline plan is the one most likely to mislead a store owner comparing SMS apps by sticker price.",
         "A short code costs $750/month through the carriers on top of the plan — a figure most SMS pricing roundups omit entirely."
       ],
-      "checked": "2026-11-07"
+      "checked": "2026-11-11"
     },
     "yotpo": {
       "name": "Yotpo",
@@ -244,7 +244,7 @@
         "Yotpo is not one price: each product line is priced separately, so a store using reviews and loyalty pays two subscriptions.",
         "Its 'free plan' is capped by monthly order volume (50), which means a growing store crosses into paid without changing anything."
       ],
-      "checked": "2026-11-06"
+      "checked": "2026-11-11"
     },
     "help-scout": {
       "name": "Help Scout",
@@ -316,7 +316,7 @@
         "Yearly billing takes 30% off, which is the largest published annual discount among the review apps we have checked.",
         "Order-volume tiers are wide (200 to 2,000 orders is a single step), so most growing stores jump from $9 to $29 in one month."
       ],
-      "checked": "2026-11-06"
+      "checked": "2026-11-11"
     }
   }
 }
