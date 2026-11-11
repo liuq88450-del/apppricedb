@@ -582,6 +582,35 @@ audit_body = f"""<h1>How to audit a Shopify app bill: ten checks</h1>
 page("guides/app-audit-checklist/index.html", "How to audit a Shopify app bill: ten checks",
      "A ten-step audit checklist for Shopify app bills, derived from verified billing rules.", audit_body, "../../")
 
+
+# --- all-in-one vs single-purpose guide ---
+aio_rows = [
+ ("Vitals", "40+ bundled apps", "$29.99 at up to 200 orders", "$79 at 201–1,000 orders", "One bill, one vendor, shallower depth per feature"),
+ ("Four single-purpose apps", "Klaviyo + Judge.me + Gorgias + Weglot", "$62 at entry tiers", "$62 until you outgrow a tier", "Deeper features, four bills, four renewals"),
+]
+aio_table = "".join(f"<tr><td><strong>{a}</strong></td><td>{b}</td><td>{c}</td><td>{d}</td><td>{e}</td></tr>" for a,b,c,d,e in aio_rows)
+aio_body = f"""<h1>All-in-one app vs four single-purpose apps: which costs less</h1>
+<p class="lede">A bundle looks cheaper per feature and is not a replacement for deep tools. The honest comparison is total bill against total capability, at your order volume.</p>
+<div class="verified">Prices checked {checked}: Vitals $29.99 (up to 200 orders) / $79 (201–1,000); Klaviyo Email from $20, Judge.me $15, Gorgias Starter $10, Weglot Starter $17. Entry tiers only — every line in the right column rises with volume or contacts.</div>
+<table><thead><tr><th>Option</th><th>What you get</th><th>Entry volume</th><th>At 1,000 orders</th><th>Trade-off</th></tr></thead><tbody>{aio_table}</tbody></table>
+<h2>The arithmetic</h2>
+<ul>
+<li>At under 200 orders a month, Vitals at $29.99 is less than half the $62 of four single-purpose entry plans. That is a real saving and the reason bundles sell.</li>
+<li>At 201–1,000 orders the two lines are $79 against $62 — the bundle is now more expensive than the four apps, because the single-purpose entry tiers have not moved yet.</li>
+<li>The bundle covers many jobs shallowly; email deliverability, helpdesk automation and translation quality are where single-purpose tools earn their extra cost. If a store leans on any one of those, the bundle is the expensive choice even when the invoice is smaller.</li>
+<li>Compare like for like: price the bundle against the sum of the apps it actually replaces, not against one app, and price the single-purpose stack at the tiers your real volume puts you in.</li>
+</ul>
+<h2>What the bundle invoice does not show</h2>
+<ul>
+<li>Overlap: a store running Vitals may still buy a dedicated review app for photo reviews, so the "40+ apps" number overstates what replaces a subscription.</li>
+<li>Exit cost: consolidating later means moving data out of five systems instead of one.</li>
+<li>Growth: the bundle moves bands by orders, the stack moves by order, contacts, tickets and words — which one gets expensive first depends on where the store grows.</li>
+</ul>"""
+page("guides/all-in-one-vs-single-apps/index.html",
+     "All-in-one Shopify app vs four single-purpose apps: cost comparison",
+     "Vitals at $29.99 against a $62 four-app stack, computed at 200 and 1,000 monthly orders, with the caveats bundles hide.",
+     aio_body, "../../")
+
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
 <div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
@@ -701,7 +730,7 @@ page("guides/billing-reconciliation-report/index.html",
 base = "https://liuq88450-del.github.io/apppricedb"
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
