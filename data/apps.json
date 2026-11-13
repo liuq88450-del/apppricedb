@@ -1,5 +1,5 @@
 {
-  "checked": "2026-11-06",
+  "checked": "2026-11-13",
   "apps": {
     "klaviyo": {
       "name": "Klaviyo",
@@ -93,7 +93,7 @@
         "Vitals bills by order volume, not by feature: the feature set does not change between tiers, only the price.",
         "Because it bundles 40+ apps, the comparison that matters is Vitals against the sum of the individual apps it replaces, not against any single app."
       ],
-      "checked": "2026-11-10"
+      "checked": "2026-11-13"
     },
     "judge.me": {
       "name": "Judge.me",
@@ -116,7 +116,7 @@
         "Judge.me prices by plan, not by order volume: a store doing 50 orders a month and one doing 5,000 pay the same $15 on the Awesome plan.",
         "The free plan is not a trial; the vendor describes it as a permanent tier with unlimited review requests, so the paid tier is bought for automation and integrations rather than for volume."
       ],
-      "checked": "2026-11-10"
+      "checked": "2026-11-13"
     },
     "upsell.com": {
       "name": "Upsell.com (formerly ReConvert)",
@@ -277,7 +277,7 @@
         "Help Scout bills per seat, not per conversation: a five-person support team on Plus pays $225/mo before any add-ons, and Gorgias at the same volume can be far cheaper or far more expensive depending on ticket count.",
         "Extra inboxes cost $10/mo each and extra docs sites $20/mo each, on top of the per-seat price; annual billing takes about 16% off."
       ],
-      "checked": "2026-11-10"
+      "checked": "2026-11-13"
     },
     "fera.ai": {
       "name": "Fera",

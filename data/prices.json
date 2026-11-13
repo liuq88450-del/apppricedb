@@ -2,7 +2,7 @@
   "name": "AppPriceDB",
   "description": "Verified Shopify app pricing, with check dates and source URLs.",
   "license": "CC BY 4.0 (attribution required)",
-  "checked": "2026-11-06",
+  "checked": "2026-11-13",
   "apps": [
     {
       "name": "Klaviyo",
@@ -72,7 +72,7 @@
       "slug": "vitals",
       "category": "All-in-one Shopify app bundle",
       "billing_unit": "monthly orders in the store",
-      "checked": "2026-11-10",
+      "checked": "2026-11-13",
       "source": "https://www.vitals.app/pricing",
       "plans": [
         {
@@ -106,7 +106,7 @@
       "slug": "judge.me",
       "category": "Product reviews",
       "billing_unit": "flat monthly fee (not order or review volume)",
-      "checked": "2026-11-10",
+      "checked": "2026-11-13",
       "source": "https://judge.me/pricing",
       "plans": [
         {
@@ -262,7 +262,7 @@
       "slug": "help-scout",
       "category": "Support helpdesk (incl. Shopify integration)",
       "billing_unit": "user seats, plus paid add-ons for extra inboxes and docs sites",
-      "checked": "2026-11-10",
+      "checked": "2026-11-13",
       "source": "https://www.helpscout.com/pricing/",
       "plans": [
         {
