@@ -4,6 +4,8 @@ root = pathlib.Path(__file__).parent
 data = json.loads((root/"data/apps.json").read_text())
 checked = data["checked"]
 apps = data["apps"]
+site = json.loads((root/"data/site.json").read_text())
+BASE = site["base"].rstrip("/")
 
 TEMPLATE = """<!doctype html>
 <html lang="en">
@@ -12,6 +14,7 @@ TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+<link rel="canonical" href="{canon}">
 <link rel="stylesheet" href="{p}assets/style.css">
 </head>
 <body>
@@ -33,8 +36,9 @@ TEMPLATE = """<!doctype html>
 def page(path, title, desc, body, p=""):
     out = root/path
     out.parent.mkdir(parents=True, exist_ok=True)
+    canon = BASE + "/" + (path[:-len("index.html")] if path.endswith("index.html") else path)
     out.write_text(TEMPLATE.format(title=html.escape(title), desc=html.escape(desc),
-                                   body=body, checked=checked, p=p), encoding="utf-8")
+                                   body=body, checked=checked, p=p, canon=canon), encoding="utf-8")
     print("wrote", path)
 
 for slug, a in apps.items():
@@ -46,7 +50,7 @@ for slug, a in apps.items():
     import json as _json
     ld = {"@context":"https://schema.org","@type":"ItemList","name":f"{a['name']} pricing plans",
           "dateModified": checked,
-          "url": f"https://liuq88450-del.github.io/apppricedb/apps/{slug}/",
+          "url": f"{BASE}/apps/{slug}/",
           "itemListElement":[{"@type":"Offer","name":pl["name"],"price":pl["price"],
                               "description":pl["includes"]} for pl in a["plans"]]}
     ld_script = f'<script type="application/ld+json">{_json.dumps(ld, ensure_ascii=False)}</script>'
@@ -727,7 +731,7 @@ page("guides/billing-reconciliation-report/index.html",
 
 
 # --- sitemap ---
-base = "https://liuq88450-del.github.io/apppricedb"
+base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
         ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8")]
