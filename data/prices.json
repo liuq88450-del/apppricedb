@@ -2,14 +2,14 @@
   "name": "AppPriceDB",
   "description": "Verified Shopify app pricing, with check dates and source URLs.",
   "license": "CC BY 4.0 (attribution required)",
-  "checked": "2026-11-13",
+  "checked": "2026-11-21",
   "apps": [
     {
       "name": "Klaviyo",
       "slug": "klaviyo",
       "category": "Email & SMS marketing",
       "billing_unit": "active profiles (contacts who can receive marketing email)",
-      "checked": "2026-11-10",
+      "checked": "2026-11-21",
       "source": "https://www.klaviyo.com/pricing",
       "plans": [
         {
@@ -38,7 +38,7 @@
       "slug": "gorgias",
       "category": "Helpdesk for ecommerce",
       "billing_unit": "support tickets per month",
-      "checked": "2026-11-10",
+      "checked": "2026-11-21",
       "source": "https://www.gorgias.com/pricing",
       "plans": [
         {
@@ -130,7 +130,7 @@
       "slug": "upsell.com",
       "category": "Upsells & cross-sell",
       "billing_unit": "order volume, with plan names tied to store size",
-      "checked": "2026-11-11",
+      "checked": "2026-11-21",
       "source": "https://upsell.com/pricing",
       "plans": [
         {
@@ -164,7 +164,7 @@
       "slug": "weglot",
       "category": "Translation & multilingual storefronts",
       "billing_unit": "translated words, shown as fixed plans",
-      "checked": "2026-11-11",
+      "checked": "2026-11-21",
       "source": "https://www.weglot.com/pricing",
       "plans": [
         {
@@ -296,7 +296,7 @@
       "slug": "fera.ai",
       "category": "Product reviews",
       "billing_unit": "monthly order volume, with every feature included at every tier",
-      "checked": "2026-11-11",
+      "checked": "2026-11-21",
       "source": "https://fera.ai/pricing",
       "plans": [
         {
