@@ -203,7 +203,7 @@ for model, slugs in groups.items():
     sections.append(f"<h2>{model}</h2><ul>{items}</ul>")
 billing_body = f"""<h1>The billing models behind Shopify app prices</h1>
 <p class="lede">Two apps with the same headline price can bill you completely differently. Every app we have verified, grouped by what actually drives the number.</p>
-<div class="verified">All nine apps below were checked on {checked}. The grouping is ours; the billing units are quoted from each vendor's pricing page.</div>
+<div class="verified">All {len(apps)} apps below were checked on {checked}. The grouping is ours; the billing units are quoted from each vendor's pricing page.</div>
 {"".join(sections)}
 <h2>Why this matters more than the price</h2>
 <ul>
@@ -214,7 +214,7 @@ billing_body = f"""<h1>The billing models behind Shopify app prices</h1>
 </ul>"""
 page("guides/how-shopify-apps-bill/index.html",
      "How Shopify apps bill: per ticket, per seat, per order, flat fee",
-     "Nine verified Shopify apps grouped by billing model, and why the billing unit matters more than the headline price.",
+     f"{len(apps)} verified Shopify apps grouped by billing model, and why the billing unit matters more than the headline price.",
      billing_body, "../../")
 
 

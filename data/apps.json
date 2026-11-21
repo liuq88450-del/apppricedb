@@ -317,6 +317,35 @@
         "Order-volume tiers are wide (200 to 2,000 orders is a single step), so most growing stores jump from $9 to $29 in one month."
       ],
       "checked": "2026-11-21"
+    },
+    "loyaltylion": {
+      "name": "LoyaltyLion",
+      "category": "Loyalty and rewards",
+      "source": "https://loyaltylion.com/pricing",
+      "billing_unit": "monthly order volume (the Classic base price covers 500 orders/month)",
+      "plans": [
+        {
+          "name": "Classic",
+          "price": "$199/mo",
+          "includes": "500 orders/month, branded loyalty page built for you, pre-built earning rules, Klaviyo integration, dedicated onboarding support"
+        },
+        {
+          "name": "Advanced",
+          "price": "custom quote",
+          "includes": "All of Classic plus VIP tiers, points on product pages, enhanced Shopify POS, translations for 130+ languages, performance reviews twice a year on request"
+        },
+        {
+          "name": "Plus",
+          "price": "custom quote",
+          "includes": "All of Advanced plus AI-recommended rewards, discounts and send timing, Advanced Klaviyo Events, automated LoyaltyLion Flows, quarterly strategic advice"
+        }
+      ],
+      "notes": [
+        "Only Classic has a published price. The page asks for your monthly order volume first and uses it to price and recommend a plan, so the number you see moves with store size.",
+        "Advanced and Plus are both 'talk to sales' plans. There is no published rate card for either, which means the jump from $199 depends on your order volume and how you negotiate.",
+        "The volume slider runs from 500 to 1M+ orders a month, so the $199 entry point only applies to the smallest band."
+      ],
+      "checked": "2026-11-21"
     }
   }
 }
