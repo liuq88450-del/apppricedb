@@ -922,11 +922,91 @@ page("guides/klaviyo-cost-at-volume/index.html",
      "Every step of Klaviyo's Profiles + Email price ladder, from 500 to 150,000 active profiles, read from the vendor pricing page on %s, with the steps where the price jumps hardest." % checked,
      kv_body, "../../")
 
+# --- Tidio: every conversation quota, AI vs human (read 2026-11-27) ---
+td = _j.loads((root/"data/tidio-tiers.json").read_text())
+td_human = {x["quota"]: x["cents"]/100 for x in td["humanConversations"]}
+td_rows = []
+for x in td["aiConversations"]:
+    q = x["quota"]
+    ai_m = x["cents"]/100
+    hum_m = td_human.get(q, 0)
+    mult = (ai_m/hum_m) if hum_m else 0
+    td_rows.append(
+        f"<tr><td>{q:,}</td><td>${ai_m:,.0f}</td><td>${ai_m*10/12:,.2f}</td>"
+        f"<td>{('$0' if hum_m == 0 else '$%.0f' % hum_m)}</td>"
+        f"<td>{(('-') if hum_m == 0 else '$%.2f' % (hum_m*10/12))}</td>"
+        f"<td>{(('free plan') if hum_m == 0 else '%.1f&times;' % mult)}</td></tr>")
+td_ladder = "\n".join(td_rows)
+
+addon_names = {"flowsVisitors": ("Flows", "visitors reached"),
+               "voiceConversations": ("Voice", "calls"),
+               "inboxAi": ("Inbox AI", "conversations")}
+addon_rows = []
+for key, (label, unit) in addon_names.items():
+    pts = td[key]
+    addon_rows.append(
+        f"<tr><td>{label}</td><td>{pts[0]['quota']:,} {unit} &mdash; ${pts[0]['cents']/100:,.0f}/mo</td>"
+        f"<td>{pts[-1]['quota']:,} {unit} &mdash; ${pts[-1]['cents']/100:,.0f}/mo</td>"
+        f"<td>{len(pts)} volume steps</td></tr>")
+td_addons = "\n".join(addon_rows)
+
+ai_50, ai_1000 = 39.0, 700.0
+hum_100, hum_1000 = 29.0, 199.0
+
+td_faq = [
+    ("How much does Tidio cost for 1,000 conversations a month?",
+     "$%d per month with Lyro AI, or $%d per month with human agents only, at monthly billing. Billed annually each is 10 months' worth: $%d and $%d a year."
+     % (ai_1000, hum_1000, ai_1000*10, hum_1000*10)),
+    ("Is the AI more expensive than human agents at Tidio?",
+     "Yes, at the same conversation quota. At 100 conversations it is $%d a month with Lyro AI against $%d human only; at 1,000 conversations it is $%d against $%d. The gap widens as volume grows, because the AI price scales faster than the human price." % (75, hum_100, ai_1000, hum_1000)),
+    ("Does Tidio count a conversation once per message?",
+     "No. One conversation uses exactly one unit of the quota no matter how many messages are exchanged, and it only counts once your team or Lyro replies. A visitor who writes but is never answered does not use a conversation, and spam is excluded."),
+    ("What happens if I go over my Tidio conversation limit?",
+     "At checkout you can turn on automatic upgrades: at 95% of a limit the plan moves to the next tier and you pay that tier's price from then on. With it off, you raise the limit yourself. The limit renews monthly."),
+    ("Do chat, email and Messenger share one Tidio quota?",
+     "Yes. Live chat, email, Messenger, Instagram and WhatsApp all draw on the same conversation quota. The Voice add-on and Flows each have their own separate limit."),
+]
+td_faq_html = "\n".join(f"<h3>{html.escape(q)}</h3>\n<p>{html.escape(a)}</p>" for q, a in td_faq)
+td_faq_ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in td_faq]}
+td_faq_script = f'<script type="application/ld+json">{_j.dumps(td_faq_ld, ensure_ascii=False)}</script>'
+
+td_body = td_faq_script + f"""<h1>Tidio cost at every conversation quota: AI versus human agents</h1>
+<p class="lede">Tidio hides its prices behind a quota slider, one combination at a time. Here is the whole grid: seven quotas, both modes, monthly and annual billing, on one page.</p>
+<div class="verified">Read from <a href="https://www.tidio.com/pricing/" rel="nofollow noopener" target="_blank">tidio.com/pricing</a> on {checked}. Monthly billing is the per-month price; the annual column is the same plan billed yearly, which Tidio prices at ten months (two months free). We checked these figures against the two prices the page shows without any clicking: 50 AI conversations displays $33/mo billed annually ($390/yr) and 100 displays $63/mo billed annually ($750/yr). Nothing below is estimated.</div>
+<h2>The grid</h2>
+<table><thead><tr><th>Conversations / month</th><th>With Lyro AI (monthly)</th><th>With Lyro AI (annual, per month)</th><th>Human only (monthly)</th><th>Human only (annual, per month)</th><th>AI costs</th></tr></thead><tbody>
+{td_ladder}
+</tbody></table>
+<h2>The thing the slider hides</h2>
+<p>At the same quota, the AI mode costs more than human agents, and the gap grows with volume: {hum_100 and 75/hum_100:.1f}&times; at 100 conversations, {ai_1000/hum_1000:.1f}&times; at 1,000. If you are buying Tidio for a small team that answers everything anyway, human-only at 1,000 conversations is ${hum_1000:.0f} a month against ${ai_1000:.0f}. The AI pays for itself only if it removes conversations your team would otherwise answer, not if your team answers them anyway.</p>
+<p>The free plan is 50 human conversations a month. Those 50 are the only zero on the grid: the AI column starts at ${ai_50:.0f}.</p>
+<h2>Add-ons have their own limits</h2>
+<table><thead><tr><th>Add-on</th><th>Lowest volume</th><th>Highest volume</th><th>Steps published</th></tr></thead><tbody>
+{td_addons}
+</tbody></table>
+<p>Flows and Voice are separate from the conversation quota and renew on their own date. Inbox AI is priced by the conversations in your plan and has no limit of its own.</p>
+<h2>What counts as a conversation</h2>
+<ul>
+<li>One conversation is one unit, however many messages it contains.</li>
+<li>It only counts once your team or Lyro replies. Unanswered visitors are free.</li>
+<li>Live chat, email, Messenger, Instagram and WhatsApp share the same quota.</li>
+<li>Auto-upgrade triggers at 95% of a limit and changes what you pay from then on.</li>
+</ul>
+<p class="muted">Source: <a href="https://www.tidio.com/pricing/" rel="nofollow noopener" target="_blank">Tidio's pricing page and its own pricing FAQ</a>, read {checked}. Found a quota that no longer matches? Tell us and it goes in the <a href="{p}corrections/">corrections log</a>.</p>
+<h2>Questions people ask</h2>
+{td_faq_html}"""
+
+page("guides/tidio-cost-at-volume/index.html",
+     "Tidio cost at every conversation quota (%s) - AI vs human agents" % checked,
+     "The full Tidio price grid: 50 to 1,000 conversations a month, Lyro AI against human agents, monthly and annual billing, read from the vendor pricing page on %s." % checked,
+     td_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

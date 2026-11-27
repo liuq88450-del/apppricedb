@@ -1,0 +1,184 @@
+{
+ "source": "https://www.tidio.com/pricing/",
+ "extracted": "2026-11-27",
+ "currency": "USD",
+ "note": "Prices read from the page's own price data (the quota slider fetches them; they are not in the HTML). Monthly-billing price in cents per month; annual billing is 10 months, i.e. two months free, as the page states. Cross-checked against the two prices the page renders with no clicks: AI 50 conversations shows $33/mo billed annually ($390/yr) and AI 100 shows $63/mo billed annually ($750/yr).",
+ "aiConversations": [
+  {
+   "quota": 50,
+   "cents": 3900
+  },
+  {
+   "quota": 100,
+   "cents": 7500
+  },
+  {
+   "quota": 200,
+   "cents": 14000
+  },
+  {
+   "quota": 300,
+   "cents": 21000
+  },
+  {
+   "quota": 500,
+   "cents": 35000
+  },
+  {
+   "quota": 750,
+   "cents": 52500
+  },
+  {
+   "quota": 1000,
+   "cents": 70000
+  }
+ ],
+ "humanConversations": [
+  {
+   "quota": 50,
+   "cents": 0
+  },
+  {
+   "quota": 100,
+   "cents": 2900
+  },
+  {
+   "quota": 200,
+   "cents": 4900
+  },
+  {
+   "quota": 300,
+   "cents": 6900
+  },
+  {
+   "quota": 500,
+   "cents": 10900
+  },
+  {
+   "quota": 750,
+   "cents": 15900
+  },
+  {
+   "quota": 1000,
+   "cents": 19900
+  }
+ ],
+ "flowsVisitors": [
+  {
+   "quota": 2000,
+   "cents": 2900
+  },
+  {
+   "quota": 3000,
+   "cents": 3900
+  },
+  {
+   "quota": 5000,
+   "cents": 4900
+  },
+  {
+   "quota": 10000,
+   "cents": 6900
+  },
+  {
+   "quota": 15000,
+   "cents": 8500
+  },
+  {
+   "quota": 20000,
+   "cents": 9900
+  },
+  {
+   "quota": 30000,
+   "cents": 11900
+  },
+  {
+   "quota": 40000,
+   "cents": 13900
+  },
+  {
+   "quota": 50000,
+   "cents": 16900
+  },
+  {
+   "quota": 75000,
+   "cents": 23900
+  },
+  {
+   "quota": 100000,
+   "cents": 29900
+  }
+ ],
+ "voiceConversations": [
+  {
+   "quota": 20,
+   "cents": 1900
+  },
+  {
+   "quota": 50,
+   "cents": 3900
+  },
+  {
+   "quota": 100,
+   "cents": 6900
+  },
+  {
+   "quota": 150,
+   "cents": 9900
+  },
+  {
+   "quota": 200,
+   "cents": 11900
+  },
+  {
+   "quota": 300,
+   "cents": 14900
+  },
+  {
+   "quota": 500,
+   "cents": 19900
+  },
+  {
+   "quota": 750,
+   "cents": 29900
+  },
+  {
+   "quota": 1000,
+   "cents": 34900
+  }
+ ],
+ "inboxAi": [
+  {
+   "quota": 100,
+   "cents": 1000
+  },
+  {
+   "quota": 200,
+   "cents": 2000
+  },
+  {
+   "quota": 300,
+   "cents": 3000
+  },
+  {
+   "quota": 500,
+   "cents": 4500
+  },
+  {
+   "quota": 750,
+   "cents": 7000
+  },
+  {
+   "quota": 1000,
+   "cents": 8000
+  },
+  {
+   "quota": 1500,
+   "cents": 11000
+  },
+  {
+   "quota": 2000,
+   "cents": 14000
+  }
+ ]
+}
