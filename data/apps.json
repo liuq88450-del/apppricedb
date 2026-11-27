@@ -346,6 +346,36 @@
         "The volume slider runs from 500 to 1M+ orders a month, so the $199 entry point only applies to the smallest band."
       ],
       "checked": "2026-11-21"
+    },
+    "recharge": {
+      "name": "Recharge",
+      "category": "Subscriptions",
+      "source": "https://rechargepayments.com/pricing/",
+      "billing_unit": "monthly plan fee plus a percentage and a fixed fee on every transaction",
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$149/mo + 1.50% + $0.20 per transaction",
+          "includes": "Subscription widget, no-code customer portal, upsell and cross-sell tools, cancellation prevention, failed payment recovery"
+        },
+        {
+          "name": "Scale",
+          "price": "$499/mo",
+          "includes": "Scaling brands optimising subscription strategy; the pricing block does not quote a processing rate for this tier"
+        },
+        {
+          "name": "Custom",
+          "price": "volume-based rates",
+          "includes": "High-volume subscription brands; contact sales"
+        }
+      ],
+      "notes": [
+        "The $149 is the cheapest part. At 1,000 subscription orders a month with a $60 average order, the processing fee alone is 1.50% of $60,000 ($900) plus 1,000 x $0.20 ($200), so the real monthly bill is about $1,249, not $149.",
+        "The percentage means the bill rises with revenue, not with usage: a good month costs more than a quiet one on the same plan.",
+        "SMS is metered separately at +$0.03 per segment in the US and Canada and +$0.06 internationally.",
+        "No processing rate is shown for the Scale tier in the pricing block, so its all-in cost cannot be computed from the page."
+      ],
+      "checked": "2026-11-27"
     }
   }
 }
