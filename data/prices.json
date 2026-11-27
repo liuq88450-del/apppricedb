@@ -2,7 +2,7 @@
   "name": "AppPriceDB",
   "description": "Verified Shopify app pricing, with check dates and source URLs.",
   "license": "CC BY 4.0 (attribution required)",
-  "checked": "2026-11-21",
+  "checked": "2026-11-27",
   "apps": [
     {
       "name": "Klaviyo",
