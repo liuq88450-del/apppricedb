@@ -1,0 +1,256 @@
+{
+ "product": "Email (Profiles + Email plan)",
+ "currency": "USD",
+ "billing": "monthly",
+ "source": "https://www.klaviyo.com/pricing",
+ "source_rules": "https://help.klaviyo.com/hc/en-us/articles/115000976672",
+ "extracted": "2026-11-27",
+ "method": "Full page rendered in a headless Chrome engine, then the price ladder read out of the page's own component data (the numbers are not in the HTML source and not behind a login).",
+ "steps": [
+  {
+   "profiles": 500,
+   "price": 20,
+   "sends": 5000
+  },
+  {
+   "profiles": 1000,
+   "price": 30,
+   "sends": 10000
+  },
+  {
+   "profiles": 1500,
+   "price": 45,
+   "sends": 15000
+  },
+  {
+   "profiles": 2500,
+   "price": 60,
+   "sends": 25000
+  },
+  {
+   "profiles": 3000,
+   "price": 70,
+   "sends": 30000
+  },
+  {
+   "profiles": 3500,
+   "price": 80,
+   "sends": 35000
+  },
+  {
+   "profiles": 5000,
+   "price": 100,
+   "sends": 50000
+  },
+  {
+   "profiles": 5500,
+   "price": 110,
+   "sends": 55000
+  },
+  {
+   "profiles": 6000,
+   "price": 130,
+   "sends": 60000
+  },
+  {
+   "profiles": 6500,
+   "price": 140,
+   "sends": 65000
+  },
+  {
+   "profiles": 10000,
+   "price": 150,
+   "sends": 100000
+  },
+  {
+   "profiles": 10500,
+   "price": 175,
+   "sends": 105000
+  },
+  {
+   "profiles": 11000,
+   "price": 200,
+   "sends": 110000
+  },
+  {
+   "profiles": 11500,
+   "price": 225,
+   "sends": 115000
+  },
+  {
+   "profiles": 12000,
+   "price": 250,
+   "sends": 120000
+  },
+  {
+   "profiles": 12500,
+   "price": 275,
+   "sends": 125000
+  },
+  {
+   "profiles": 13000,
+   "price": 300,
+   "sends": 130000
+  },
+  {
+   "profiles": 13500,
+   "price": 325,
+   "sends": 135000
+  },
+  {
+   "profiles": 15000,
+   "price": 350,
+   "sends": 150000
+  },
+  {
+   "profiles": 20000,
+   "price": 375,
+   "sends": 200000
+  },
+  {
+   "profiles": 25000,
+   "price": 400,
+   "sends": 250000
+  },
+  {
+   "profiles": 26000,
+   "price": 425,
+   "sends": 260000
+  },
+  {
+   "profiles": 27000,
+   "price": 450,
+   "sends": 270000
+  },
+  {
+   "profiles": 28000,
+   "price": 475,
+   "sends": 280000
+  },
+  {
+   "profiles": 30000,
+   "price": 500,
+   "sends": 300000
+  },
+  {
+   "profiles": 35000,
+   "price": 550,
+   "sends": 350000
+  },
+  {
+   "profiles": 40000,
+   "price": 600,
+   "sends": 400000
+  },
+  {
+   "profiles": 45000,
+   "price": 650,
+   "sends": 450000
+  },
+  {
+   "profiles": 50000,
+   "price": 720,
+   "sends": 500000
+  },
+  {
+   "profiles": 55000,
+   "price": 790,
+   "sends": 550000
+  },
+  {
+   "profiles": 60000,
+   "price": 860,
+   "sends": 600000
+  },
+  {
+   "profiles": 65000,
+   "price": 930,
+   "sends": 650000
+  },
+  {
+   "profiles": 70000,
+   "price": 1000,
+   "sends": 700000
+  },
+  {
+   "profiles": 75000,
+   "price": 1070,
+   "sends": 750000
+  },
+  {
+   "profiles": 80000,
+   "price": 1140,
+   "sends": 800000
+  },
+  {
+   "profiles": 85000,
+   "price": 1205,
+   "sends": 850000
+  },
+  {
+   "profiles": 90000,
+   "price": 1265,
+   "sends": 900000
+  },
+  {
+   "profiles": 95000,
+   "price": 1325,
+   "sends": 950000
+  },
+  {
+   "profiles": 100000,
+   "price": 1380,
+   "sends": 1000000
+  },
+  {
+   "profiles": 105000,
+   "price": 1440,
+   "sends": 1050000
+  },
+  {
+   "profiles": 110000,
+   "price": 1495,
+   "sends": 1100000
+  },
+  {
+   "profiles": 115000,
+   "price": 1555,
+   "sends": 1150000
+  },
+  {
+   "profiles": 120000,
+   "price": 1610,
+   "sends": 1200000
+  },
+  {
+   "profiles": 125000,
+   "price": 1670,
+   "sends": 1250000
+  },
+  {
+   "profiles": 130000,
+   "price": 1725,
+   "sends": 1300000
+  },
+  {
+   "profiles": 135000,
+   "price": 1785,
+   "sends": 1350000
+  },
+  {
+   "profiles": 140000,
+   "price": 1840,
+   "sends": 1400000
+  },
+  {
+   "profiles": 145000,
+   "price": 1900,
+   "sends": 1450000
+  },
+  {
+   "profiles": 150000,
+   "price": 1955,
+   "sends": 1500000
+  }
+ ]
+}

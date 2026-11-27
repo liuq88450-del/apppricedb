@@ -97,11 +97,14 @@ for slug, a in apps.items():
                               "description":pl["includes"]} for pl in a["plans"]]}
     ld_script = f'<script type="application/ld+json">{_json.dumps(ld, ensure_ascii=False)}</script>'
     aff = a.get("affiliate_url")
+    extra_link = ""
+    if slug == "klaviyo":
+        extra_link = f'<p>Seeing the whole ladder matters more than the entry price here: we read all 49 steps off the vendor pricing page and put them on one page, <a href="{BASE}/guides/klaviyo-cost-at-volume/">Klaviyo cost at 10,000 to 150,000 contacts</a>.</p>'
     affiliate_cta = (f'<p class="cta"><a class="btn" href="{aff}" rel="sponsored nofollow noopener" target="_blank">Start the free trial &rarr;</a> <span class="muted">Affiliate link: we may earn a commission, the price you pay is the same.</span></p>' if aff else "")
     body = ld_script + f"""<h1>{html.escape(a['name'])} pricing: what you actually pay</h1>
 <p class="lede">{html.escape(a['category'])}. Billed by {html.escape(a['billing_unit'])}.</p>
 {affiliate_cta}<div class="verified">Every figure below was read from <a href="{a['source']}" rel="nofollow noopener" target="_blank">the vendor's own pricing page</a> on {checked}. Nothing here is inferred.</div>
-<h2>Plans</h2>
+{extra_link}<h2>Plans</h2>
 <table><thead><tr><th>Plan</th><th>Price</th><th>What is included</th></tr></thead><tbody>
 {rows}
 </tbody></table>
@@ -819,11 +822,111 @@ page("guides/apps-that-charge-a-percentage/index.html",
      "Recharge charges 1.50% + $0.20 per transaction on top of $149/mo; Gorgias charges per ticket and per AI interaction. A worked example at 1,000 orders.",
      pct_body, "../../")
 
+# --- Klaviyo cost at volume: the vendor's own step ladder, read on 2026-11-27 ---
+import json as _j
+kv = _j.loads((root/"data/klaviyo-tiers.json").read_text())
+steps = kv["steps"]
+
+# the expensive steps: dollars paid per extra 1,000 profiles
+jumps = []
+for a, b in zip(steps, steps[1:]):
+    dp = b["price"] - a["price"]
+    dc = b["profiles"] - a["profiles"]
+    if dp > 0 and dc > 0:
+        jumps.append((dp / (dc / 1000), a["profiles"], b["profiles"], a["price"], b["price"], dc))
+jumps.sort(reverse=True)
+# group equal marginal rates so a run of identical steps reads as one finding
+grouped = []
+for marg, a, b, ap, bp, dc in jumps:
+    key = round(marg, 2)
+    if grouped and grouped[-1]["rate"] == key and grouped[-1]["to"] == a:
+        grouped[-1]["to"] = b
+        grouped[-1]["steps"] += 1
+        grouped[-1]["price_end"] = bp
+    else:
+        grouped.append({"rate": key, "from": a, "to": b, "steps": 1,
+                        "price_start": ap, "price_end": bp})
+top_rates = []
+seen_rates = set()
+for g in grouped:
+    if g["rate"] in seen_rates:
+        continue
+    seen_rates.add(g["rate"])
+    top_rates.append(g)
+    if len(top_rates) == 5:
+        break
+jump_rows = "\n".join(
+    f"<tr><td>{g['from']:,} &rarr; {g['to']:,}</td><td>${g['price_start']}/mo &rarr; ${g['price_end']}/mo</td><td>{g['steps']} step{'s' if g['steps']>1 else ''}</td><td>${g['rate']:,.0f}</td></tr>"
+    for g in top_rates)
+worst = top_rates[0]
+normal_rate = min(g["rate"] for g in grouped)
+import statistics as _stats
+_med = _stats.median([g["rate"] for g in grouped])
+w_from, w_to = worst["from"], worst["to"]
+w_pstart, w_pend, w_rate = worst["price_start"], worst["price_end"], worst["rate"]
+
+ladder_rows = "\n".join(
+    f"<tr><td>{st['profiles']:,}</td><td>${st['price']:,}/mo</td><td>{st['sends']:,}</td><td>${st['price']/ (st['profiles']/1000):.2f}</td></tr>"
+    for st in steps)
+
+faq = [
+    ("How much does Klaviyo cost for 50,000 contacts?",
+     "$%d per month on the Profiles + Email plan, which includes %s email sends that month. That is the step the pricing page shows for 50,000 active profiles."
+     % (next(x['price'] for x in steps if x['profiles'] == 50000), format(next(x['sends'] for x in steps if x['profiles'] == 50000), ','))),
+    ("How much does Klaviyo cost for 10,000 contacts?",
+     "$%d per month, including %s sends. That is $%.2f per 1,000 profiles. The price per contact falls as the account grows: $%.2f per 1,000 at 500 profiles, $%.2f at 10,000, $%.2f at the top of the ladder."
+     % (next(x['price'] for x in steps if x['profiles'] == 10000), format(next(x['sends'] for x in steps if x['profiles'] == 10000), ','),
+        next(x['price'] for x in steps if x['profiles'] == 10000)/10,
+        next(x['price'] for x in steps if x['profiles'] == 500)/0.5,
+        next(x['price'] for x in steps if x['profiles'] == 10000)/10,
+        steps[-1]['price']/(steps[-1]['profiles']/1000))),
+    ("What happens if I go over my contact limit?",
+     "You are moved up a tier: Klaviyo upgrades the plan at the end of the billing cycle to one that covers your active profile count, and it does not automatically move you back down. Flexible overages only add send capacity, not profile capacity."),
+    ("Is the price per email sent, or per contact?",
+     "Per active profile. Email send capacity is included in each step; you only pay overage if you send more than the step allows. Klaviyo counts a profile as active whether or not that person has subscribed."),
+]
+faq_html = "\n".join(f"<h3>{html.escape(q)}</h3>\n<p>{html.escape(a)}</p>" for q, a in faq)
+faq_ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]}
+faq_script = f'<script type="application/ld+json">{_j.dumps(faq_ld, ensure_ascii=False)}</script>'
+
+kv_body = faq_script + f"""<h1>Klaviyo cost at 10,000 to 150,000 contacts: every step on the price list</h1>
+<p class="lede">Klaviyo does not publish this as a table. The pricing page shows one step at a time behind a slider. We rendered the page and read the full ladder out of it, so you can see every step at once and find your row.</p>
+<div class="verified">All 49 steps below were read from <a href="https://www.klaviyo.com/pricing" rel="nofollow noopener" target="_blank">klaviyo.com/pricing</a> on {checked}. Prices are US dollars, billed monthly, Profiles + Email plan. Klaviyo does not put these numbers in the page source; they are drawn on the page itself, so we render it in a browser engine and read the rendered result. Nothing below is estimated.</div>
+<h2>The full ladder</h2>
+<table><thead><tr><th>Active profiles</th><th>Monthly price</th><th>Email sends included</th><th>$ per 1,000 profiles</th></tr></thead><tbody>
+{ladder_rows}
+</tbody></table>
+<h2>Where the ladder is expensive</h2>
+<p>The median step costs ${_med:,.0f} per extra 1,000 active profiles, and the cheapest stretch is ${normal_rate:,.2f}. The steps below are the five most expensive rates on the whole ladder, calculated from the table above:</p>
+<table><thead><tr><th>Steps</th><th>Price across them</th><th>How many</th><th>Extra $ per 1,000 profiles</th></tr></thead><tbody>
+{jump_rows}
+</tbody></table>
+<p>The most expensive stretch is {w_from:,} &rarr; {w_to:,} active profiles: ${w_pstart}/mo &rarr; ${w_pend}/mo, which works out to ${w_rate:,.0f} for each additional 1,000 profiles, against a median of ${_med:,.0f} and a cheapest stretch of ${normal_rate:,.2f} across the ladder. If you are sitting just under a step like that when the billing cycle closes, clearing unengaged profiles before it ends is the one thing on this page you can act on today.</p>
+<h2>What the price tag hides</h2>
+<ul>
+<li><strong>You are billed for contacts who can be emailed, subscribed or not.</strong> Klaviyo's own help page: "Any profile, regardless of consent status, that can be emailed through Klaviyo is considered an active profile."</li>
+<li><strong>Over your contact limit, flexible overages do not help.</strong> The help page says a flex purchase "does not increase your active profile allowance" &mdash; only the send allowance. Contacts over the tier mean a forced upgrade.</li>
+<li><strong>Upgrades stick.</strong> "You will not be auto-downgraded" applies unless you turn auto-downgrade on in Billing &gt; Preferences. A December contact spike can leave you on the higher tier in January.</li>
+<li><strong>The free plan stops instead of upgrading.</strong> Over 250 active profiles on the free plan, sending stops until you drop back under or move to a paid plan.</li>
+<li><strong>SMS is separate.</strong> Mobile messaging is priced by credits or dollar usage with a $5 monthly allowance; nothing in the table above includes it.</li>
+</ul>
+<h2>How to read your bill</h2>
+<p>Find your active profile count at the end of the billing cycle, not the number of subscribers you think you have. That number picks the row. Then compare the sends included in your row with what you actually sent: if you are over, the overage is charged at your current tier's unit rate, which Klaviyo itself notes can cost more than moving up a tier.</p>
+<p class="muted">Rules quoted above are from <a href="https://help.klaviyo.com/hc/en-us/articles/115000976672" rel="nofollow noopener" target="_blank">Klaviyo's billing help page</a>, read {checked}. Found a step that no longer matches the vendor page? Tell us and it goes in the <a href="{p}corrections/">corrections log</a>.</p>
+<h2>Questions people ask</h2>
+{faq_html}"""
+
+page("guides/klaviyo-cost-at-volume/index.html",
+     "Klaviyo cost at 10k to 150k contacts (%s) - full 49-step price ladder" % checked,
+     "Every step of Klaviyo's Profiles + Email price ladder, from 500 to 150,000 active profiles, read from the vendor pricing page on %s, with the steps where the price jumps hardest." % checked,
+     kv_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
