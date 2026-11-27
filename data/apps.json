@@ -93,7 +93,8 @@
         "Vitals bills by order volume, not by feature: the feature set does not change between tiers, only the price.",
         "Because it bundles 40+ apps, the comparison that matters is Vitals against the sum of the individual apps it replaces, not against any single app."
       ],
-      "checked": "2026-11-13"
+      "checked": "2026-11-13",
+      "affiliate_url": "https://vitals.app/shopify/18168872"
     },
     "judge.me": {
       "name": "Judge.me",

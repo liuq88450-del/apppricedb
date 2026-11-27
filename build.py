@@ -54,9 +54,11 @@ for slug, a in apps.items():
           "itemListElement":[{"@type":"Offer","name":pl["name"],"price":pl["price"],
                               "description":pl["includes"]} for pl in a["plans"]]}
     ld_script = f'<script type="application/ld+json">{_json.dumps(ld, ensure_ascii=False)}</script>'
+    aff = a.get("affiliate_url")
+    affiliate_cta = (f'<p class="cta"><a class="btn" href="{aff}" rel="sponsored nofollow noopener" target="_blank">Start the free trial &rarr;</a> <span class="muted">Affiliate link: we may earn a commission, the price you pay is the same.</span></p>' if aff else "")
     body = ld_script + f"""<h1>{html.escape(a['name'])} pricing: what you actually pay</h1>
 <p class="lede">{html.escape(a['category'])}. Billed by {html.escape(a['billing_unit'])}.</p>
-<div class="verified">Every figure below was read from <a href="{a['source']}" rel="nofollow noopener" target="_blank">the vendor's own pricing page</a> on {checked}. Nothing here is inferred.</div>
+{affiliate_cta}<div class="verified">Every figure below was read from <a href="{a['source']}" rel="nofollow noopener" target="_blank">the vendor's own pricing page</a> on {checked}. Nothing here is inferred.</div>
 <h2>Plans</h2>
 <table><thead><tr><th>Plan</th><th>Price</th><th>What is included</th></tr></thead><tbody>
 {rows}
