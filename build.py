@@ -732,11 +732,56 @@ page("guides/billing-reconciliation-report/index.html",
      rec_body, "../../")
 
 
+
+# --- guide: apps that charge a percentage ---
+pct_body = f"""<h1>Apps that charge a percentage of your revenue, not a flat fee</h1>
+<p class="lede">A $149 subscription is easy to budget. A subscription plus 1.5% plus $0.20 per transaction is not, because the bill grows every time you sell something.</p>
+<div class="verified">Figures below come from the vendor pricing pages we read on the dates shown on each app page (latest check {checked}). The arithmetic is ours.</div>
+
+<h2>Who charges a percentage or a per-transaction fee</h2>
+<table><thead><tr><th>App</th><th>What it charges on top of the plan</th><th>Why the percentage matters</th></tr></thead><tbody>
+<tr><td><a href="../apps/recharge/">Recharge</a></td><td>Starter: <strong>1.50% + $0.20 per transaction</strong> on top of $149/mo</td><td>The fee is a share of order value, so a strong month costs more than a quiet one on the exact same plan.</td></tr>
+<tr><td><a href="../apps/gorgias/">Gorgias</a></td><td>$0.40 per ticket over the included volume; <strong>$0.90–$1.00 per AI interaction</strong></td><td>Support spikes (a launch, a Black Friday) land on the invoice as a second, unpredictable line.</td></tr>
+<tr><td><a href="../apps/klaviyo/">Klaviyo</a></td><td>Plan jumps when active profiles grow; metered SMS</td><td>You do not pay per email, you pay for the size of the list — even if you barely send.</td></tr>
+<tr><td><a href="../apps/vitals/">Vitals</a></td><td>Order-volume band only, no percentage</td><td>Included here as the contrast: the bill steps at fixed order thresholds and does not track revenue.</td></tr>
+</tbody></table>
+
+<h2>The worked example: 1,000 orders, $60 average order</h2>
+<p>Same store, four apps, one month. Revenue $60,000.</p>
+<table><thead><tr><th>App</th><th>Plan</th><th>Calculated monthly bill</th></tr></thead><tbody>
+<tr><td>Recharge</td><td>Starter</td><td>$149 + (1.50% × $60,000 = $900) + (1,000 × $0.20 = $200) = <strong>$1,249</strong></td></tr>
+<tr><td>Vitals</td><td>1,001–5,000 orders</td><td><strong>$179</strong></td></tr>
+<tr><td>Judge.me</td><td>Awesome, flat</td><td><strong>$15</strong></td></tr>
+<tr><td>Searchanise</td><td>Basic (up to 1,500 products)</td><td><strong>$19</strong></td></tr>
+<tr><td colspan="2"><strong>Total</strong></td><td><strong>$1,462</strong></td></tr>
+</tbody></table>
+<p class="muted">$1,100 of that $1,462 (75%) is Recharge's percentage and per-transaction fee. The three apps with predictable bills together cost $213.</p>
+
+<h2>How to tell whether you are exposed</h2>
+<ol>
+<li><strong>Read the fee line, not the plan price.</strong> If the pricing page mentions a percentage, a per-ticket charge, a per-message segment or a per-seat charge, the plan price is the smallest part.</li>
+<li><strong>Multiply by your own numbers.</strong> Take your monthly order count and average order value, apply the published rate, and compare that number with the plan fee. If the metered part is bigger, you are not on a plan, you are on a meter.</li>
+<li><strong>Check what resets the tier.</strong> Contacts, products, tickets and orders all move you up; none of them move you back down automatically when a busy season ends.</li>
+<li><strong>Ask what happens at the boundary.</strong> A store at 5,001 orders can pay nearly double the rate of one at 5,000, for one extra order.</li>
+</ol>
+
+<h2>What we do not claim</h2>
+<ul>
+<li>We have not run these apps on a live store. Everything here is arithmetic on published prices.</li>
+<li>Where a vendor does not publish a rate (Klaviyo's calculator, Recharge's Scale tier, Fera's band mapping), we say so instead of estimating.</li>
+<li>Prices change. Each app page carries the date we last read the vendor's page.</li>
+</ul>
+"""
+page("guides/apps-that-charge-a-percentage/index.html",
+     "Shopify apps that charge a percentage of revenue (and what it costs at 1,000 orders)",
+     "Recharge charges 1.50% + $0.20 per transaction on top of $149/mo; Gorgias charges per ticket and per AI interaction. A worked example at 1,000 orders.",
+     pct_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
