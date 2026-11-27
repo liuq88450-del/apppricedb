@@ -377,6 +377,36 @@
         "No processing rate is shown for the Scale tier in the pricing block, so its all-in cost cannot be computed from the page."
       ],
       "checked": "2026-11-27"
+    },
+    "tidio": {
+      "name": "Tidio",
+      "category": "Live chat and AI support",
+      "source": "https://www.tidio.com/pricing/",
+      "billing_unit": "AI + human conversations per month (both draw on one pool)",
+      "plans": [
+        {
+          "name": "Starter AI",
+          "price": "from $33/mo on annual billing ($390/yr)",
+          "includes": "50 AI + human conversations/month, live chat and ticketing, Lyro for chat and email, basic analytics, 7-day free trial"
+        },
+        {
+          "name": "Growth AI",
+          "price": "from $63/mo on annual billing ($750/yr)",
+          "includes": "100 conversations to start, scalable up to 1,000; advanced analytics, routing workflows, user permissions, native Shopify actions"
+        },
+        {
+          "name": "Plus AI",
+          "price": "from $300/mo plus monthly usage",
+          "includes": "Custom conversation volume, dedicated success manager, departments, multiproject, OpenAPI, custom branding; contact sales"
+        }
+      ],
+      "notes": [
+        "AI-handled conversations and human conversations come out of the same monthly allowance, so switching more traffic to the bot does not buy you extra capacity.",
+        "The quoted numbers are the smallest conversation band. The page asks you to pick a volume, so the real price moves as your support load grows.",
+        "Plus AI carries usage charges on top of the $300 platform fee, which makes it the hardest plan to budget from the page alone.",
+        "Prices above are the annual-billing figures; monthly billing costs more for the same volume."
+      ],
+      "checked": "2026-11-27"
     }
   }
 }
