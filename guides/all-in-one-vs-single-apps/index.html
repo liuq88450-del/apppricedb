@@ -35,6 +35,40 @@
 <li>Growth: the bundle moves bands by orders, the stack moves by order, contacts, tickets and words — which one gets expensive first depends on where the store grows.</li>
 </ul>
 </main>
-<footer>Prices checked 2026-11-27. Some outbound links may be affiliate links, disclosed on the page. © AppPriceDB</footer>
+<footer>Prices checked 2026-11-27. Some outbound links may be affiliate links, disclosed on the page. Visits are counted anonymously: no cookies, no personal data. © AppPriceDB</footer>
+<script>
+(function(){
+var H="https://abacus.jasoncameron.dev/hit/apppricedb/";
+function hit(k){try{(new Image()).src=H+k+"?r="+Date.now()+Math.random().toString(36).slice(2,7);}catch(e){}}
+function host(u){var m=/^https?:\/\/([^\/?#]+)/i.exec(u||"");return m?m[1].toLowerCase().replace(/^www\./,"").replace(/:\d+$/,""):"";}
+try{
+ var ua=navigator.userAgent||"";
+ if(/bot|crawl|spider|slurp|headless|monitor|lighthouse|preview/i.test(ua))return;
+ var dnt=navigator.doNotTrack||window.doNotTrack;if(dnt===1||dnt==="1"||dnt==="yes")return;
+ var d=new Date(Date.now()+28800000).toISOString().slice(0,10);
+ hit("v-"+d);
+ var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");
+ hit("p-"+d+"-"+(p?p.replace(/[^a-zA-Z0-9]+/g,"-").slice(0,40):"home"));
+ var b="direct";
+ try{
+  var r=host(document.referrer);
+  var me=host("https://"+location.hostname);
+  if(r&&r.indexOf(me)<0){
+   var M=[["google","google"],["bing","bing"],["duckduckgo","duckduckgo"],["yahoo","yahoo"],["yandex","yandex"],["baidu","baidu"],["ecosia","ecosia"],["search.brave","brave"],["startpage","startpage"],["reddit","reddit"],["facebook","facebook"],["linkedin","linkedin"],["pinterest","pinterest"],["x.com","x"],["twitter","x"],["t.co","x"],["quora","quora"],["youtube","youtube"],["medium","medium"],["shopify","shopify"],["googlemail","email"],["mail.","email"]];
+   b="other";
+   for(var i=0;i<M.length;i++){if(r.indexOf(M[i][0])>=0){b=M[i][1];break;}}
+  }
+ }catch(e){}
+ hit("s-"+d+"-"+b);
+ document.addEventListener("click",function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[rel~="sponsored"]'):null;
+  if(!a)return;
+  var h="unknown";
+  h=host(a.href).replace(/[^a-z0-9.]/g,"")||"unknown";
+  hit("a-"+d+"-"+h);
+ },true);
+}catch(e){}
+})();
+</script>
 </body>
 </html>

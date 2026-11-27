@@ -7,6 +7,44 @@ apps = data["apps"]
 site = json.loads((root/"data/site.json").read_text())
 BASE = site["base"].rstrip("/")
 
+# Visitor counting: no account, no service signup. Every page load fires three
+# counters (pageview, page slug, referrer bucket) and every outbound affiliate
+# click fires one more. Read side lives in tools/visits.py.
+ANALYTICS_TAG = """<script>
+(function(){
+var H="https://abacus.jasoncameron.dev/hit/apppricedb/";
+function hit(k){try{(new Image()).src=H+k+"?r="+Date.now()+Math.random().toString(36).slice(2,7);}catch(e){}}
+function host(u){var m=/^https?:\/\/([^\/?#]+)/i.exec(u||"");return m?m[1].toLowerCase().replace(/^www\./,"").replace(/:\d+$/,""):"";}
+try{
+ var ua=navigator.userAgent||"";
+ if(/bot|crawl|spider|slurp|headless|monitor|lighthouse|preview/i.test(ua))return;
+ var dnt=navigator.doNotTrack||window.doNotTrack;if(dnt===1||dnt==="1"||dnt==="yes")return;
+ var d=new Date(Date.now()+28800000).toISOString().slice(0,10);
+ hit("v-"+d);
+ var p=location.pathname.replace(/index\\.html$/,"").replace(/^\\/+|\\/+$/g,"");
+ hit("p-"+d+"-"+(p?p.replace(/[^a-zA-Z0-9]+/g,"-").slice(0,40):"home"));
+ var b="direct";
+ try{
+  var r=host(document.referrer);
+  var me=host("https://"+location.hostname);
+  if(r&&r.indexOf(me)<0){
+   var M=[["google","google"],["bing","bing"],["duckduckgo","duckduckgo"],["yahoo","yahoo"],["yandex","yandex"],["baidu","baidu"],["ecosia","ecosia"],["search.brave","brave"],["startpage","startpage"],["reddit","reddit"],["facebook","facebook"],["linkedin","linkedin"],["pinterest","pinterest"],["x.com","x"],["twitter","x"],["t.co","x"],["quora","quora"],["youtube","youtube"],["medium","medium"],["shopify","shopify"],["googlemail","email"],["mail.","email"]];
+   b="other";
+   for(var i=0;i<M.length;i++){if(r.indexOf(M[i][0])>=0){b=M[i][1];break;}}
+  }
+ }catch(e){}
+ hit("s-"+d+"-"+b);
+ document.addEventListener("click",function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[rel~="sponsored"]'):null;
+  if(!a)return;
+  var h="unknown";
+  h=host(a.href).replace(/[^a-z0-9.]/g,"")||"unknown";
+  hit("a-"+d+"-"+h);
+ },true);
+}catch(e){}
+})();
+</script>"""
+
 TEMPLATE = """<!doctype html>
 <html lang="en">
 <head>
@@ -28,7 +66,7 @@ TEMPLATE = """<!doctype html>
 <main>
 {body}
 </main>
-<footer>Prices checked {checked}. Some outbound links may be affiliate links, disclosed on the page. © AppPriceDB</footer>
+<footer>Prices checked {checked}. Some outbound links may be affiliate links, disclosed on the page. Visits are counted anonymously: no cookies, no personal data. © AppPriceDB</footer>
 </body>
 </html>
 """
@@ -37,8 +75,10 @@ def page(path, title, desc, body, p=""):
     out = root/path
     out.parent.mkdir(parents=True, exist_ok=True)
     canon = BASE + "/" + (path[:-len("index.html")] if path.endswith("index.html") else path)
-    out.write_text(TEMPLATE.format(title=html.escape(title), desc=html.escape(desc),
-                                   body=body, checked=checked, p=p, canon=canon), encoding="utf-8")
+    rendered = TEMPLATE.format(title=html.escape(title), desc=html.escape(desc),
+                               body=body, checked=checked, p=p, canon=canon)
+    rendered = rendered.replace("</body>", ANALYTICS_TAG + "\n</body>", 1)
+    out.write_text(rendered, encoding="utf-8")
     print("wrote", path)
 
 for slug, a in apps.items():
