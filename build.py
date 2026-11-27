@@ -463,8 +463,39 @@ data_body = f"""<h1>Open price data</h1>
 <h2>Fetch it</h2>
 <p><a href="../data/prices.json">data/prices.json</a> — plain JSON, no key, no rate limit that we impose.</p>
 <p class="muted">Read the <a href="../methodology.html">methodology</a> for how each figure is checked, and the <a href="../changes/">price archive</a> for what has changed.</p>"""
+import json as _jd
+_kvd = _jd.loads((root/"data/klaviyo-tiers.json").read_text())
+_tdd = _jd.loads((root/"data/tidio-tiers.json").read_text())
+_kv_rows = "\n".join(
+    f"<tr><td>{x['profiles']:,}</td><td>${x['price']:,}</td><td>{x['sends']:,}</td></tr>"
+    for x in _kvd["steps"])
+_td_human = {x["quota"]: x["cents"]/100 for x in _tdd["humanConversations"]}
+_td_rows = "\n".join(
+    f"<tr><td>{x['quota']:,}</td><td>${x['cents']/100:,.0f}</td><td>${x['cents']/100*10/12:,.2f}</td>"
+    f"<td>{('$0' if _td_human.get(x['quota'],0)==0 else '$%.0f' % _td_human[x['quota']])}</td></tr>"
+    for x in _tdd["aiConversations"])
+
+data_body += f"""
+<h2>The published ladders, in full</h2>
+<p>Two vendors put their volume prices behind a slider and never publish them as a table. We read both pages on {checked} and put the numbers here, because a table that can be quoted is more useful than a slider that cannot.</p>
+<h3>Klaviyo — Profiles + Email, 49 steps, USD per month</h3>
+<table><thead><tr><th>Active profiles</th><th>USD / month</th><th>Email sends included</th></tr></thead><tbody>
+{_kv_rows}
+</tbody></table>
+<h3>Tidio — conversations per month, USD</h3>
+<table><thead><tr><th>Conversations / month</th><th>With Lyro AI, monthly</th><th>Same, billed annually (per month)</th><th>Human only, monthly</th></tr></thead><tbody>
+{_td_rows}
+</tbody></table>
+<h2>Cite it</h2>
+<p>You may quote any figure here, including in a paid article, as long as the sentence keeps the number, the check date and this site's name. Copy one of these:</p>
+<pre>AppPriceDB (checked {checked}). "Klaviyo cost at 10,000 to 150,000 contacts." https://apppricedb.com/guides/klaviyo-cost-at-volume/</pre>
+<pre>AppPriceDB (checked {checked}). "Tidio cost at every conversation quota." https://apppricedb.com/guides/tidio-cost-at-volume/</pre>
+<pre>AppPriceDB (checked {checked}). "Shopify app cost calculator." https://apppricedb.com/calculator/</pre>
+<p>If a number here is wrong, tell us and the fix is logged in the <a href="../corrections/">corrections log</a> — that is the only reason to prefer us over a vendor page that quietly changes.</p>
+"""
+
 page("data/index.html", "Open price data (JSON) for Shopify apps",
-     "The full AppPriceDB dataset as JSON: plans, prices, billing units, source URLs and check dates.",
+     "The full AppPriceDB dataset as JSON, plus the complete Klaviyo and Tidio volume ladders as quotable tables, with citation strings.",
      data_body, "../")
 
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Open price data (JSON) for Shopify apps</title>
-<meta name="description" content="The full AppPriceDB dataset as JSON: plans, prices, billing units, source URLs and check dates.">
+<meta name="description" content="The full AppPriceDB dataset as JSON, plus the complete Klaviyo and Tidio volume ladders as quotable tables, with citation strings.">
 <link rel="canonical" href="https://apppricedb.com/data/">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
@@ -33,6 +33,77 @@
 <h2>Fetch it</h2>
 <p><a href="../data/prices.json">data/prices.json</a> — plain JSON, no key, no rate limit that we impose.</p>
 <p class="muted">Read the <a href="../methodology.html">methodology</a> for how each figure is checked, and the <a href="../changes/">price archive</a> for what has changed.</p>
+<h2>The published ladders, in full</h2>
+<p>Two vendors put their volume prices behind a slider and never publish them as a table. We read both pages on 2026-11-27 and put the numbers here, because a table that can be quoted is more useful than a slider that cannot.</p>
+<h3>Klaviyo — Profiles + Email, 49 steps, USD per month</h3>
+<table><thead><tr><th>Active profiles</th><th>USD / month</th><th>Email sends included</th></tr></thead><tbody>
+<tr><td>500</td><td>$20</td><td>5,000</td></tr>
+<tr><td>1,000</td><td>$30</td><td>10,000</td></tr>
+<tr><td>1,500</td><td>$45</td><td>15,000</td></tr>
+<tr><td>2,500</td><td>$60</td><td>25,000</td></tr>
+<tr><td>3,000</td><td>$70</td><td>30,000</td></tr>
+<tr><td>3,500</td><td>$80</td><td>35,000</td></tr>
+<tr><td>5,000</td><td>$100</td><td>50,000</td></tr>
+<tr><td>5,500</td><td>$110</td><td>55,000</td></tr>
+<tr><td>6,000</td><td>$130</td><td>60,000</td></tr>
+<tr><td>6,500</td><td>$140</td><td>65,000</td></tr>
+<tr><td>10,000</td><td>$150</td><td>100,000</td></tr>
+<tr><td>10,500</td><td>$175</td><td>105,000</td></tr>
+<tr><td>11,000</td><td>$200</td><td>110,000</td></tr>
+<tr><td>11,500</td><td>$225</td><td>115,000</td></tr>
+<tr><td>12,000</td><td>$250</td><td>120,000</td></tr>
+<tr><td>12,500</td><td>$275</td><td>125,000</td></tr>
+<tr><td>13,000</td><td>$300</td><td>130,000</td></tr>
+<tr><td>13,500</td><td>$325</td><td>135,000</td></tr>
+<tr><td>15,000</td><td>$350</td><td>150,000</td></tr>
+<tr><td>20,000</td><td>$375</td><td>200,000</td></tr>
+<tr><td>25,000</td><td>$400</td><td>250,000</td></tr>
+<tr><td>26,000</td><td>$425</td><td>260,000</td></tr>
+<tr><td>27,000</td><td>$450</td><td>270,000</td></tr>
+<tr><td>28,000</td><td>$475</td><td>280,000</td></tr>
+<tr><td>30,000</td><td>$500</td><td>300,000</td></tr>
+<tr><td>35,000</td><td>$550</td><td>350,000</td></tr>
+<tr><td>40,000</td><td>$600</td><td>400,000</td></tr>
+<tr><td>45,000</td><td>$650</td><td>450,000</td></tr>
+<tr><td>50,000</td><td>$720</td><td>500,000</td></tr>
+<tr><td>55,000</td><td>$790</td><td>550,000</td></tr>
+<tr><td>60,000</td><td>$860</td><td>600,000</td></tr>
+<tr><td>65,000</td><td>$930</td><td>650,000</td></tr>
+<tr><td>70,000</td><td>$1,000</td><td>700,000</td></tr>
+<tr><td>75,000</td><td>$1,070</td><td>750,000</td></tr>
+<tr><td>80,000</td><td>$1,140</td><td>800,000</td></tr>
+<tr><td>85,000</td><td>$1,205</td><td>850,000</td></tr>
+<tr><td>90,000</td><td>$1,265</td><td>900,000</td></tr>
+<tr><td>95,000</td><td>$1,325</td><td>950,000</td></tr>
+<tr><td>100,000</td><td>$1,380</td><td>1,000,000</td></tr>
+<tr><td>105,000</td><td>$1,440</td><td>1,050,000</td></tr>
+<tr><td>110,000</td><td>$1,495</td><td>1,100,000</td></tr>
+<tr><td>115,000</td><td>$1,555</td><td>1,150,000</td></tr>
+<tr><td>120,000</td><td>$1,610</td><td>1,200,000</td></tr>
+<tr><td>125,000</td><td>$1,670</td><td>1,250,000</td></tr>
+<tr><td>130,000</td><td>$1,725</td><td>1,300,000</td></tr>
+<tr><td>135,000</td><td>$1,785</td><td>1,350,000</td></tr>
+<tr><td>140,000</td><td>$1,840</td><td>1,400,000</td></tr>
+<tr><td>145,000</td><td>$1,900</td><td>1,450,000</td></tr>
+<tr><td>150,000</td><td>$1,955</td><td>1,500,000</td></tr>
+</tbody></table>
+<h3>Tidio — conversations per month, USD</h3>
+<table><thead><tr><th>Conversations / month</th><th>With Lyro AI, monthly</th><th>Same, billed annually (per month)</th><th>Human only, monthly</th></tr></thead><tbody>
+<tr><td>50</td><td>$39</td><td>$32.50</td><td>$0</td></tr>
+<tr><td>100</td><td>$75</td><td>$62.50</td><td>$29</td></tr>
+<tr><td>200</td><td>$140</td><td>$116.67</td><td>$49</td></tr>
+<tr><td>300</td><td>$210</td><td>$175.00</td><td>$69</td></tr>
+<tr><td>500</td><td>$350</td><td>$291.67</td><td>$109</td></tr>
+<tr><td>750</td><td>$525</td><td>$437.50</td><td>$159</td></tr>
+<tr><td>1,000</td><td>$700</td><td>$583.33</td><td>$199</td></tr>
+</tbody></table>
+<h2>Cite it</h2>
+<p>You may quote any figure here, including in a paid article, as long as the sentence keeps the number, the check date and this site's name. Copy one of these:</p>
+<pre>AppPriceDB (checked 2026-11-27). "Klaviyo cost at 10,000 to 150,000 contacts." https://apppricedb.com/guides/klaviyo-cost-at-volume/</pre>
+<pre>AppPriceDB (checked 2026-11-27). "Tidio cost at every conversation quota." https://apppricedb.com/guides/tidio-cost-at-volume/</pre>
+<pre>AppPriceDB (checked 2026-11-27). "Shopify app cost calculator." https://apppricedb.com/calculator/</pre>
+<p>If a number here is wrong, tell us and the fix is logged in the <a href="../corrections/">corrections log</a> — that is the only reason to prefer us over a vendor page that quietly changes.</p>
+
 </main>
 <footer>Prices checked 2026-11-27. Some outbound links may be affiliate links, disclosed on the page. Visits are counted anonymously: no cookies, no personal data. © AppPriceDB</footer>
 <script>
