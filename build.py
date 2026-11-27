@@ -100,6 +100,8 @@ for slug, a in apps.items():
     extra_link = ""
     if slug == "klaviyo":
         extra_link = f'<p>Seeing the whole ladder matters more than the entry price here: we read all 49 steps off the vendor pricing page and put them on one page, <a href="{BASE}/guides/klaviyo-cost-at-volume/">Klaviyo cost at 10,000 to 150,000 contacts</a>.</p>'
+    if slug == "tidio":
+        extra_link = f'<p>The entry price above is only the 50-conversation case. Every quota, with AI and with human agents, is on one page: <a href="{BASE}/guides/tidio-cost-at-volume/">Tidio cost at every conversation quota</a>.</p>'
     affiliate_cta = (f'<p class="cta"><a class="btn" href="{aff}" rel="sponsored nofollow noopener" target="_blank">Start the free trial &rarr;</a> <span class="muted">Affiliate link: we may earn a commission, the price you pay is the same.</span></p>' if aff else "")
     body = ld_script + f"""<h1>{html.escape(a['name'])} pricing: what you actually pay</h1>
 <p class="lede">{html.escape(a['category'])}. Billed by {html.escape(a['billing_unit'])}.</p>
