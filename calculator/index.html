@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shopify app cost calculator (2026-11-27) - what your stack costs at your volume</title>
+<meta name="description" content="Enter orders, contacts, tickets and catalogue size: this adds up what eleven Shopify apps charge at that volume, from each vendor&#x27;s published formula, and shows the next step boundary.">
+<link rel="canonical" href="https://apppricedb.com/calculator/">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="../../index.html">AppPriceDB</a>
+  <a href="../../calculator/">Calculator</a>
+  <a href="../../pricing-index/">Pricing index</a>
+  <a href="../../methodology.html">Method</a>
+  <a href="../../changelog.html">Changelog</a>
+  <a href="../../about.html">About</a>
+</header>
+<main>
+
+<h1>Shopify app cost calculator: what your stack costs at your volume</h1>
+<p class="lede">Enter your store's numbers once. This adds up what eleven apps actually charge at that size, using each vendor's published formula, and tells you which step boundary is close enough to change your bill.</p>
+<div class="verified">Every formula here comes from the vendor's own pricing page, read on 2026-11-27. Where a vendor prices by volume step, the exact step is used, not an average. Apps that quote "contact sales" above their top step are marked as quote, not guessed.</div>
+
+<div class="calc">
+  <div class="calc-inputs">
+    <label>Orders per month <input id="orders" type="number" value="1000" min="0" step="50"></label>
+    <label>Average order value ($) <input id="aov" type="number" value="60" min="0" step="5"></label>
+    <label>Active email contacts <input id="contacts" type="number" value="10000" min="0" step="500"></label>
+    <label>Support tickets / conversations a month <input id="tickets" type="number" value="400" min="0" step="50"></label>
+    <label>Products in catalogue <input id="products" type="number" value="1200" min="0" step="100"></label>
+    <label>Support seats <input id="seats" type="number" value="3" min="0" step="1"></label>
+    <label>Help Scout tier
+      <select id="hsTier"><option value="standard">Standard ($25/seat)</option><option value="plus">Plus ($45/seat)</option><option value="pro">Pro ($75/seat)</option></select>
+    </label>
+  </div>
+  <div class="calc-toggles">
+    <label><input id="useKlaviyo" type="checkbox" checked> Klaviyo</label>
+    <label><input id="useTidio" type="checkbox" checked> Tidio</label>
+    <label><input id="tidioAi" type="checkbox"> Tidio with Lyro AI (costs more)</label>
+    <label><input id="useGorgias" type="checkbox" checked> Gorgias</label>
+    <label><input id="useHelpScout" type="checkbox"> Help Scout</label>
+    <label><input id="useRecharge" type="checkbox" checked> Recharge</label>
+    <label><input id="useSearchanise" type="checkbox"> Searchanise</label>
+    <label><input id="useVitals" type="checkbox"> Vitals</label>
+    <label><input id="useFera" type="checkbox"> Fera</label>
+    <label><input id="useUpsell" type="checkbox"> Upsell.com</label>
+    <label><input id="useLoyaltyLion" type="checkbox"> LoyaltyLion</label>
+    <label><input id="useJudgeMe" type="checkbox" checked> Judge.me</label>
+  </div>
+</div>
+
+<h2>Your monthly total</h2>
+<p class="total"><strong id="total">-</strong> per month <span class="muted">(<span id="perDay">-</span> a day)</span></p>
+<table><thead><tr><th>App</th><th>What you pay</th><th>How it was worked out</th></tr></thead><tbody id="rows"></tbody></table>
+
+<h2>The step boundary you are closest to</h2>
+<p>Volume pricing is a staircase. These are the steps you are close enough to that one good month moves your bill:</p>
+<ul id="cliffs"></ul>
+
+<h2>What this calculator will not do</h2>
+<ul>
+<li>It does not compare feature sets. A cheaper app that cannot do the job costs more than an expensive one that can.</li>
+<li>It uses monthly billing unless a vendor only publishes annual prices. Annual billing is cheaper at Klaviyo (ten months), Searchanise (annual is the lower of its two figures) and Upsell.com ($249 against $299).</li>
+<li>It leaves out apps whose price is "contact sales" above the first paid step, and it does not guess a quote.</li>
+</ul>
+<p class="muted">Formulas and step tables read 2026-11-27. Sources are linked from each app page. Found a number that no longer matches the vendor? Tell us and it goes in the <a href="../../corrections/">corrections log</a>.</p>
+<script>
+const D = {"checked": "2026-11-27", "klaviyo": [[500, 20], [1000, 30], [1500, 45], [2500, 60], [3000, 70], [3500, 80], [5000, 100], [5500, 110], [6000, 130], [6500, 140], [10000, 150], [10500, 175], [11000, 200], [11500, 225], [12000, 250], [12500, 275], [13000, 300], [13500, 325], [15000, 350], [20000, 375], [25000, 400], [26000, 425], [27000, 450], [28000, 475], [30000, 500], [35000, 550], [40000, 600], [45000, 650], [50000, 720], [55000, 790], [60000, 860], [65000, 930], [70000, 1000], [75000, 1070], [80000, 1140], [85000, 1205], [90000, 1265], [95000, 1325], [100000, 1380], [105000, 1440], [110000, 1495], [115000, 1555], [120000, 1610], [125000, 1670], [130000, 1725], [135000, 1785], [140000, 1840], [145000, 1900], [150000, 1955]], "tidioHuman": [[50, 0.0], [100, 29.0], [200, 49.0], [300, 69.0], [500, 109.0], [750, 159.0], [1000, 199.0]], "tidioAi": [[50, 39.0], [100, 75.0], [200, 140.0], [300, 210.0], [500, 350.0], [750, 525.0], [1000, 700.0]], "searchanise": [[0, 0], [1500, 19], [7500, 39], [15000, 89], [30000, 139], [50000, 209], [300000, 349]], "vitals": [[200, 29.99], [1000, 79], [5000, 179], [1000000000, 299]], "fera": [[200, 9], [2000, 29], [20000, 99], [50000, 199], [100000, 299]], "upsell": [[2000, 0], [1000000000, 299]], "gorgias": [[10, 50, 0.4], [60, 300, 0.4], [360, 2000, 0.36]], "helpScoutPerSeat": {"standard": 25, "plus": 45, "pro": 75}, "recharge": {"base": 149, "pct": 0.015, "perTxn": 0.2}, "judgeMe": 15, "loyaltyLion": {"base": 199, "includedOrders": 500}};
+const money = n => '$' + n.toLocaleString('en-US', {maximumFractionDigits: 0});
+const cents = n => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+function ladd(rows, v, idx=0) {
+  for (const r of rows) { if (v <= r[idx]) return r; }
+  return null;
+}
+function klaviyo(c) {
+  if (c <= 250) return {cost: 0, note: 'free plan, up to 250 active profiles'};
+  const r = ladd(D.klaviyo, c);
+  if (!r) return {cost: null, note: 'above 150,000 profiles: contact Klaviyo'};
+  return {cost: r[1], note: r[0].toLocaleString() + '-profile step, sends included'};
+}
+function tidio(c, ai) {
+  if (c <= 50 && !ai) return {cost: 0, note: 'free plan, 50 human conversations'};
+  const rows = ai ? D.tidioAi : D.tidioHuman;
+  const r = ladd(rows, c);
+  if (!r) return {cost: null, note: 'above 1,000 conversations: quote required'};
+  return {cost: r[1], note: r[0] + ' conversations a month'};
+}
+function searchanise(p) {
+  const rows = D.searchanise;
+  for (let i = 0; i < rows.length; i++) {
+    if (p <= rows[i][0]) return {cost: rows[i][1], note: rows[i][0] >= 300000 ? '300,000+ products' : 'up to ' + rows[i][0].toLocaleString() + ' products'};
+  }
+  return {cost: 349, note: '300,000+ products'};
+}
+function tierByOrders(rows, orders) {
+  for (const r of rows) if (orders <= r[0]) return r;
+  return rows[rows.length - 1];
+}
+function gorgias(t) {
+  let best = null;
+  for (const [price, incl, over] of D.gorgias) {
+    const c = price + Math.max(0, t - incl) * over;
+    if (!best || c < best.cost) best = {cost: c, note: '$' + price + ' plan, ' + incl + ' tickets in, ' + cents(over) + '/ticket after'};
+  }
+  return best;
+}
+function recharge(orders, aov) {
+  const R = D.recharge;
+  const c = R.base + R.pct * orders * aov + R.perTxn * orders;
+  return {cost: c, note: '$149 + 1.5% of ' + money(orders*aov) + ' + 20c x ' + orders.toLocaleString() + ' orders (Starter; Scale at $499/mo publishes no rates)'};
+}
+function helpScout(seats, tier) {
+  const p = D.helpScoutPerSeat[tier];
+  return {cost: seats * p, note: seats + ' seats x ' + p + '$/seat'};
+}
+function loyalty(orders) {
+  if (orders <= D.loyaltyLion.includedOrders) return {cost: D.loyaltyLion.base, note: 'Classic: 500 orders included'};
+  return {cost: null, note: 'above 500 orders: custom quote'};
+}
+function upsell(orders) {
+  if (orders <= 2000) return {cost: 0, note: 'free up to 2,000 orders'};
+  return {cost: 299, note: 'Scale plan, above 2,000 orders'};
+}
+
+function calc() {
+  const v = id => Number(document.getElementById(id).value || 0);
+  const on = id => document.getElementById(id).checked;
+  const orders = v('orders'), aov = v('aov'), contacts = v('contacts'),
+        tickets = v('tickets'), products = v('products'), seats = v('seats');
+  const rows = [];
+  if (on('useKlaviyo')) rows.push(['Klaviyo', 'contacts', klaviyo(contacts)]);
+  if (on('useTidio')) rows.push(['Tidio' + (on('tidioAi') ? ' (with Lyro AI)' : ' (human only)'), 'conversations', tidio(tickets, on('tidioAi'))]);
+  if (on('useGorgias')) rows.push(['Gorgias', 'tickets', gorgias(tickets)]);
+  if (on('useHelpScout')) rows.push(['Help Scout', 'seats', helpScout(seats, document.getElementById('hsTier').value)]);
+  if (on('useRecharge')) rows.push(['Recharge', 'orders + order value', recharge(orders, aov)]);
+  if (on('useSearchanise')) rows.push(['Searchanise', 'products', searchanise(products)]);
+  if (on('useVitals')) rows.push(['Vitals', 'orders', {cost: tierByOrders(D.vitals, orders)[1], note: 'order-volume tier'}]);
+  if (on('useFera')) rows.push(['Fera', 'orders', {cost: tierByOrders(D.fera, orders)[1], note: 'order-volume tier'}]);
+  if (on('useUpsell')) rows.push(['Upsell.com', 'orders', upsell(orders)]);
+  if (on('useLoyaltyLion')) rows.push(['LoyaltyLion', 'orders', loyalty(orders)]);
+  if (on('useJudgeMe')) rows.push(['Judge.me', 'flat', {cost: D.judgeMe, note: 'Awesome plan, flat'} ]);
+
+  let total = 0, tbody = '';
+  for (const [name, unit, r] of rows) {
+    if (r.cost === null) {
+      tbody += '<tr><td>' + name + '</td><td class="muted">quote</td><td>' + r.note + '</td></tr>';
+    } else {
+      total += r.cost;
+      tbody += '<tr><td>' + name + '</td><td><strong>' + cents(r.cost) + '</strong></td><td class="muted">' + r.note + '</td></tr>';
+    }
+  }
+  document.getElementById('rows').innerHTML = tbody || '<tr><td colspan="3" class="muted">Pick at least one app.</td></tr>';
+  document.getElementById('total').textContent = cents(total);
+  document.getElementById('perDay').textContent = cents(total / 30.4);
+
+  // the cliff: nearest volume step that would raise the bill
+  const cliffs = [];
+  const kvNext = D.klaviyo.find(r => r[0] > contacts);
+  if (on('useKlaviyo') && kvNext && contacts > 250) {
+    const cur = klaviyo(contacts).cost || 0;
+    cliffs.push('Klaviyo: ' + (kvNext[0] - contacts).toLocaleString() + ' more contacts puts you on the ' + kvNext[0].toLocaleString() + ' step at ' + money(kvNext[1]) + '/mo (' + (kvNext[1] - cur >= 0 ? '+' : '') + money(kvNext[1] - cur) + ').');
+  }
+  const sanNext = D.searchanise.find(r => r[0] > products && r[0] < 300000);
+  if (on('useSearchanise') && sanNext) {
+    cliffs.push('Searchanise: ' + (sanNext[0] - products).toLocaleString() + ' more products jumps to ' + money(sanNext[1]) + '/mo.');
+  }
+  const vit = tierByOrders(D.vitals, orders);
+  const vitIdx = D.vitals.indexOf(vit);
+  if (on('useVitals') && vitIdx < D.vitals.length - 1) {
+    cliffs.push('Vitals: the next order tier starts at ' + (D.vitals[vitIdx][0] + 1).toLocaleString() + ' orders and costs ' + money(D.vitals[vitIdx + 1][1]) + '/mo.');
+  }
+  document.getElementById('cliffs').innerHTML = cliffs.length ? cliffs.map(c => '<li>' + c + '</li>').join('') : '<li class="muted">No step boundary within reach at these volumes.</li>';
+}
+
+document.addEventListener('input', calc);
+document.addEventListener('change', calc);
+calc();
+</script>
+
+</main>
+<footer>Prices checked 2026-11-27. Some outbound links may be affiliate links, disclosed on the page. Visits are counted anonymously: no cookies, no personal data. © AppPriceDB</footer>
+<script>
+(function(){
+var H="https://abacus.jasoncameron.dev/hit/apppricedb/";
+function hit(k){try{(new Image()).src=H+k+"?r="+Date.now()+Math.random().toString(36).slice(2,7);}catch(e){}}
+function host(u){var m=/^https?:\/\/([^\/?#]+)/i.exec(u||"");return m?m[1].toLowerCase().replace(/^www\./,"").replace(/:\d+$/,""):"";}
+try{
+ var ua=navigator.userAgent||"";
+ var d=new Date(Date.now()+28800000).toISOString().slice(0,10);
+ var bm=/googlebot|bingbot|yandexbot|duckduckbot|baiduspider|applebot|petalbot|gptbot|ccbot/i.exec(ua);
+ if(bm){hit("b-"+d+"-"+bm[0].toLowerCase());return;}
+ if(/bot|crawl|spider|slurp|headless|monitor|lighthouse|preview/i.test(ua))return;
+ var dnt=navigator.doNotTrack||window.doNotTrack;if(dnt===1||dnt==="1"||dnt==="yes")return;
+ hit("v-"+d);
+ var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");
+ hit("p-"+d+"-"+(p?p.replace(/[^a-zA-Z0-9]+/g,"-").slice(0,40):"home"));
+ var b="direct";
+ try{
+  var r=host(document.referrer);
+  var me=host("https://"+location.hostname);
+  if(r&&r.indexOf(me)<0){
+   var M=[["google","google"],["bing","bing"],["duckduckgo","duckduckgo"],["yahoo","yahoo"],["yandex","yandex"],["baidu","baidu"],["ecosia","ecosia"],["search.brave","brave"],["startpage","startpage"],["reddit","reddit"],["facebook","facebook"],["linkedin","linkedin"],["pinterest","pinterest"],["x.com","x"],["twitter","x"],["t.co","x"],["quora","quora"],["youtube","youtube"],["medium","medium"],["shopify","shopify"],["googlemail","email"],["mail.","email"]];
+   b="other";
+   for(var i=0;i<M.length;i++){if(r.indexOf(M[i][0])>=0){b=M[i][1];break;}}
+  }
+ }catch(e){}
+ hit("s-"+d+"-"+b);
+ document.addEventListener("click",function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[rel~="sponsored"]'):null;
+  if(!a)return;
+  var h="unknown";
+  h=host(a.href).replace(/[^a-z0-9.]/g,"")||"unknown";
+  hit("a-"+d+"-"+h);
+ },true);
+}catch(e){}
+})();
+</script>
+</body>
+</html>

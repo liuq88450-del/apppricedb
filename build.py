@@ -60,6 +60,7 @@ TEMPLATE = """<!doctype html>
 <body>
 <header>
   <a class="brand" href="{p}index.html">AppPriceDB</a>
+  <a href="{p}calculator/">Calculator</a>
   <a href="{p}pricing-index/">Pricing index</a>
   <a href="{p}methodology.html">Method</a>
   <a href="{p}changelog.html">Changelog</a>
@@ -1004,11 +1005,36 @@ page("guides/tidio-cost-at-volume/index.html",
      "The full Tidio price grid: 50 to 1,000 conversations a month, Lyro AI against human agents, monthly and annual billing, read from the vendor pricing page on %s." % checked,
      td_body, "../../")
 
+
+# --- app cost calculator (formulas verified from vendor pages) ---
+_td_data = _j.loads((root/"data/tidio-tiers.json").read_text())
+calc_data = {
+    "checked": checked,
+    "klaviyo": [[x["profiles"], x["price"]] for x in steps],
+    "tidioHuman": [[x["quota"], x["cents"] / 100] for x in _td_data["humanConversations"]],
+    "tidioAi": [[x["quota"], x["cents"] / 100] for x in _td_data["aiConversations"]],
+    "searchanise": [[0, 0], [1500, 19], [7500, 39], [15000, 89], [30000, 139], [50000, 209], [300000, 349]],
+    "vitals": [[200, 29.99], [1000, 79], [5000, 179], [1000000000, 299]],
+    "fera": [[200, 9], [2000, 29], [20000, 99], [50000, 199], [100000, 299]],
+    "upsell": [[2000, 0], [1000000000, 299]],
+    "gorgias": [[10, 50, 0.40], [60, 300, 0.40], [360, 2000, 0.36]],
+    "helpScoutPerSeat": {"standard": 25, "plus": 45, "pro": 75},
+    "recharge": {"base": 149, "pct": 0.015, "perTxn": 0.20},
+    "judgeMe": 15,
+    "loyaltyLion": {"base": 199, "includedOrders": 500},
+}
+calc_body = (root/"data/calculator-body.html").read_text()
+calc_body = calc_body.replace("__DATA__", _j.dumps(calc_data)).replace("__CHECKED__", checked)
+page("calculator/index.html",
+     "Shopify app cost calculator (%s) - what your stack costs at your volume" % checked,
+     "Enter orders, contacts, tickets and catalogue size: this adds up what eleven Shopify apps charge at that volume, from each vendor's published formula, and shows the next step boundary.",
+     calc_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
