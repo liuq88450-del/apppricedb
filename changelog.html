@@ -47,9 +47,11 @@ function hit(k){try{(new Image()).src=H+k+"?r="+Date.now()+Math.random().toStrin
 function host(u){var m=/^https?:\/\/([^\/?#]+)/i.exec(u||"");return m?m[1].toLowerCase().replace(/^www\./,"").replace(/:\d+$/,""):"";}
 try{
  var ua=navigator.userAgent||"";
+ var d=new Date(Date.now()+28800000).toISOString().slice(0,10);
+ var bm=/googlebot|bingbot|yandexbot|duckduckbot|baiduspider|applebot|petalbot|gptbot|ccbot/i.exec(ua);
+ if(bm){hit("b-"+d+"-"+bm[0].toLowerCase());return;}
  if(/bot|crawl|spider|slurp|headless|monitor|lighthouse|preview/i.test(ua))return;
  var dnt=navigator.doNotTrack||window.doNotTrack;if(dnt===1||dnt==="1"||dnt==="yes")return;
- var d=new Date(Date.now()+28800000).toISOString().slice(0,10);
  hit("v-"+d);
  var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");
  hit("p-"+d+"-"+(p?p.replace(/[^a-zA-Z0-9]+/g,"-").slice(0,40):"home"));
