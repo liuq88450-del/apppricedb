@@ -1,5 +1,5 @@
 {
-  "base": "https://liuq88450-del.github.io/apppricedb",
-  "domain": "",
+  "base": "https://apppricedb.com",
+  "domain": "apppricedb.com",
   "note": "domain 为空表示仍用 GitHub Pages 地址；绑定自有域名后只改这两处，然后重跑 build.py"
 }
