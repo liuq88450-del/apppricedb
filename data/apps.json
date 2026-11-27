@@ -407,6 +407,56 @@
         "Prices above are the annual-billing figures; monthly billing costs more for the same volume."
       ],
       "checked": "2026-11-27"
+    },
+    "searchanise": {
+      "name": "Searchanise",
+      "category": "Site search and filters",
+      "source": "https://searchanise.io/pricing/",
+      "billing_unit": "number of active products in your Shopify catalog",
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0",
+          "includes": "Free for development and standard store types"
+        },
+        {
+          "name": "Basic",
+          "price": "$16/mo annual, $19/mo monthly",
+          "includes": "Up to 1,500 products"
+        },
+        {
+          "name": "Essential",
+          "price": "$33/mo annual, $39/mo monthly",
+          "includes": "Up to 7,500 products"
+        },
+        {
+          "name": "Advanced",
+          "price": "$74/mo annual, $89/mo monthly",
+          "includes": "Up to 15,000 products"
+        },
+        {
+          "name": "Growth",
+          "price": "$116/mo annual, $139/mo monthly",
+          "includes": "Up to 30,000 products"
+        },
+        {
+          "name": "Pro",
+          "price": "$174/mo annual, $209/mo monthly",
+          "includes": "Up to 50,000 products"
+        },
+        {
+          "name": "Premium",
+          "price": "$291/mo annual, $349/mo monthly",
+          "includes": "Up to 300,000 products"
+        }
+      ],
+      "notes": [
+        "The plan is set by catalog size, not by searches or traffic: a store pays the same whether it gets 100 visitors or 10,000.",
+        "The count only includes products that are Active, assigned to the Online Store channel, and not excluded by tag. Draft or hidden products do not push you up a tier, but the moment you switch a collection live they might.",
+        "Annual billing saves up to 17% and the page offers a free site search audit with an annual subscription.",
+        "14-day free trial with no card required."
+      ],
+      "checked": "2026-11-27"
     }
   }
 }
