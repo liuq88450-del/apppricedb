@@ -39,6 +39,9 @@
 <p>Volume pricing is a staircase. These are the steps you are close enough to that one good month moves your bill:</p>
 <ul id="cliffs"></ul>
 
+<p class="share"><button id="shareBtn" type="button">Copy a link to this result</button> <span id="shareMsg" class="muted"></span></p>
+<input id="shareBox" class="sharebox" type="text" readonly placeholder="Your shareable link appears here">
+
 <h2>What this calculator will not do</h2>
 <ul>
 <li>It does not compare feature sets. A cheaper app that cannot do the job costs more than an expensive one that can.</li>
@@ -155,7 +158,44 @@ function calc() {
   document.getElementById('cliffs').innerHTML = cliffs.length ? cliffs.map(c => '<li>' + c + '</li>').join('') : '<li class="muted">No step boundary within reach at these volumes.</li>';
 }
 
+function readURL() {
+  const q = new URLSearchParams(location.search);
+  const set = (id, key) => { if (q.has(key)) { const el = document.getElementById(id); if (el) el.value = q.get(key); } };
+  set('orders', 'orders'); set('aov', 'aov'); set('contacts', 'contacts');
+  set('tickets', 'tickets'); set('products', 'products'); set('seats', 'seats');
+  if (q.has('apps')) {
+    const on = new Set(q.get('apps').split(','));
+    for (const id of ['useKlaviyo','useTidio','useGorgias','useHelpScout','useRecharge','useSearchanise','useVitals','useFera','useUpsell','useLoyaltyLion','useJudgeMe']) {
+      const el = document.getElementById(id);
+      if (el) el.checked = on.has(id.replace('use', '').toLowerCase());
+    }
+  }
+  if (q.get('tidioai') === '1') document.getElementById('tidioAi').checked = true;
+}
+function shareURL() {
+  const ids = ['useKlaviyo','useTidio','useGorgias','useHelpScout','useRecharge','useSearchanise','useVitals','useFera','useUpsell','useLoyaltyLion','useJudgeMe'];
+  const apps = ids.filter(i => document.getElementById(i).checked).map(i => i.replace('use', '').toLowerCase()).join(',');
+  const p = new URLSearchParams({
+    orders: document.getElementById('orders').value,
+    aov: document.getElementById('aov').value,
+    contacts: document.getElementById('contacts').value,
+    tickets: document.getElementById('tickets').value,
+    products: document.getElementById('products').value,
+    seats: document.getElementById('seats').value,
+    apps: apps,
+    tidioai: document.getElementById('tidioAi').checked ? '1' : '0'
+  });
+  const url = location.origin + location.pathname + '?' + p.toString();
+  const box = document.getElementById('shareBox');
+  box.value = url;
+  box.select();
+  let msg = 'Link ready - copy it from the box.';
+  try { navigator.clipboard.writeText(url); msg = 'Link copied.'; } catch (e) {}
+  document.getElementById('shareMsg').textContent = msg;
+}
 document.addEventListener('input', calc);
 document.addEventListener('change', calc);
+readURL();
 calc();
+document.getElementById('shareBtn').addEventListener('click', shareURL);
 </script>
