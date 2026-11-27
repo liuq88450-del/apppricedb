@@ -5,6 +5,7 @@ data = json.loads((root/"data/apps.json").read_text())
 checked = data["checked"]
 apps = data["apps"]
 site = json.loads((root/"data/site.json").read_text())
+ledger = json.loads((root/"data/ledger.json").read_text()) if (root/"data/ledger.json").exists() else {}
 BASE = site["base"].rstrip("/")
 
 # Visitor counting: no account, no service signup. Every page load fires three
@@ -103,10 +104,15 @@ for slug, a in apps.items():
         extra_link = f'<p>Seeing the whole ladder matters more than the entry price here: we read all 49 steps off the vendor pricing page and put them on one page, <a href="{BASE}/guides/klaviyo-cost-at-volume/">Klaviyo cost at 10,000 to 150,000 contacts</a>.</p>'
     if slug == "tidio":
         extra_link = f'<p>The entry price above is only the 50-conversation case. Every quota, with AI and with human agents, is on one page: <a href="{BASE}/guides/tidio-cost-at-volume/">Tidio cost at every conversation quota</a>.</p>'
+    lg = ledger.get(slug)
+    record = ""
+    if lg and lg["checks"] > 1:
+        record = (f' We have read this page {lg["checks"]} times since {lg["first"]}, '
+                  f'and the published plans have changed {lg["changes"]} time' + ('s' if lg["changes"] != 1 else '') + '.')
     affiliate_cta = (f'<p class="cta"><a class="btn" href="{aff}" rel="sponsored nofollow noopener" target="_blank">Start the free trial &rarr;</a> <span class="muted">Affiliate link: we may earn a commission, the price you pay is the same.</span></p>' if aff else "")
     body = ld_script + f"""<h1>{html.escape(a['name'])} pricing: what you actually pay</h1>
 <p class="lede">{html.escape(a['category'])}. Billed by {html.escape(a['billing_unit'])}.</p>
-{affiliate_cta}<div class="verified">Every figure below was read from <a href="{a['source']}" rel="nofollow noopener" target="_blank">the vendor's own pricing page</a> on {checked}. Nothing here is inferred.</div>
+{affiliate_cta}<div class="verified">Every figure below was read from <a href="{a['source']}" rel="nofollow noopener" target="_blank">the vendor's own pricing page</a> on {checked}. Nothing here is inferred.{record}</div>
 {extra_link}<h2>Plans</h2>
 <table><thead><tr><th>Plan</th><th>Price</th><th>What is included</th></tr></thead><tbody>
 {rows}

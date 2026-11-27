@@ -1,0 +1,80 @@
+{
+ "klaviyo": {
+  "first": "2026-11-06",
+  "last": "2026-11-27",
+  "checks": 9,
+  "changes": 0
+ },
+ "gorgias": {
+  "first": "2026-11-06",
+  "last": "2026-11-27",
+  "checks": 9,
+  "changes": 0
+ },
+ "vitals": {
+  "first": "2026-11-06",
+  "last": "2026-11-27",
+  "checks": 9,
+  "changes": 0
+ },
+ "judge.me": {
+  "first": "2026-11-06",
+  "last": "2026-11-27",
+  "checks": 9,
+  "changes": 0
+ },
+ "upsell.com": {
+  "first": "2026-11-06",
+  "last": "2026-11-27",
+  "checks": 9,
+  "changes": 0
+ },
+ "weglot": {
+  "first": "2026-11-06",
+  "last": "2026-11-27",
+  "checks": 9,
+  "changes": 0
+ },
+ "postscript": {
+  "first": "2026-11-06",
+  "last": "2026-11-27",
+  "checks": 9,
+  "changes": 0
+ },
+ "yotpo": {
+  "first": "2026-11-06",
+  "last": "2026-11-27",
+  "checks": 9,
+  "changes": 0
+ },
+ "help-scout": {
+  "first": "2026-11-06",
+  "last": "2026-11-27",
+  "checks": 9,
+  "changes": 0
+ },
+ "fera.ai": {
+  "first": "2026-11-06",
+  "last": "2026-11-27",
+  "checks": 9,
+  "changes": 0
+ },
+ "loyaltylion": {
+  "first": "2026-11-27",
+  "last": "2026-11-27",
+  "checks": 1,
+  "changes": 0
+ },
+ "recharge": {
+  "first": "2026-11-27",
+  "last": "2026-11-27",
+  "checks": 1,
+  "changes": 0
+ },
+ "tidio": {
+  "first": "2026-11-27",
+  "last": "2026-11-27",
+  "checks": 1,
+  "changes": 0
+ }
+}
