@@ -1304,11 +1304,51 @@ page("guides/uninstalled-app-still-charged/index.html",
      "Three separate mechanisms behind one surprise: a pending charge that already exists, the app's own 30-day cycle, and external charges that never appear on your Shopify bill, quoted from Shopify's documentation.",
      u_body, "../../")
 
+
+# --- Recharge: plan fee + percentage + per transaction (read 2026-11-28) ---
+def rc_cost(orders, aov):
+    return 149.0 + 0.015 * orders * aov + 0.20 * orders
+
+rc_rows = []
+for o in (100, 500, 1000, 2500, 5000):
+    gmv = o * 60
+    c = rc_cost(o, 60)
+    rc_rows.append(f"<tr><td>{o:,}</td><td>${gmv:,}</td><td>${c:,.0f}</td>"
+                   f"<td>${c - 149 - 0.20 * o:,.0f}</td><td>${0.20 * o:,.0f}</td>"
+                   f"<td>{c / gmv * 100:.2f}%</td></tr>")
+rc_table = "\n".join(rc_rows)
+
+rc_body = """<h1>Recharge cost at 100 to 5,000 orders a month: the percentage, not the plan fee</h1>
+<p class="lede">Recharge's headline is $149/mo. The part that actually sets your bill is 1.50% of the transaction value plus 20 cents per order. Here is what the two together cost at real volumes.</p>
+<div class="verified">Read from <a href="https://rechargepayments.com/pricing" rel="nofollow noopener" target="_blank">rechargepayments.com/pricing</a> on __DATE__: Starter "$149/mo", with "Processing fees at: 1.50% + 20¢ per transaction". The table is our arithmetic from those three published numbers, at a $60 average order value. Recharge also sells a Scale plan at $499/mo but its pricing page does not quote processing rates for it, so we do not guess them.</div>
+<h2>What it costs, at a $60 average order</h2>
+<table><thead><tr><th>Orders / month</th><th>Revenue</th><th>Recharge total</th><th>of which the 1.50%</th><th>of which 20¢/order</th><th>Effective % of revenue</th></tr></thead><tbody>
+__ROWS__
+</tbody></table>
+<h2>The number that matters is the last column</h2>
+<p>The plan fee is fixed, so it dominates at small volume and disappears at large volume:</p>
+<ul>
+<li>At <strong>100 orders</strong> you pay $259, which is <strong>4.32%</strong> of revenue. The $149 plan fee alone is more than the percentage.</li>
+<li>At <strong>1,000 orders</strong> it is $1,249, or <strong>2.08%</strong> of revenue.</li>
+<li>At <strong>5,000 orders</strong> it is $5,649, or <strong>1.88%</strong> &mdash; and it never falls below about 1.83%, which is 1.50% plus the 20 cents expressed against a $60 order.</li>
+</ul>
+<p>So "Recharge costs $149" is true only for a store with almost no subscriptions. A store doing 1,000 subscription orders a month pays roughly <strong>eight times</strong> the headline, and the floor of the model is the percentage, not the fee.</p>
+<h2>When the $499 plan makes sense</h2>
+<p>Scale is $499/mo, which is $350 more than Starter. If its processing rate were the same, it would never pay back. Recharge does not publish Scale's rates, so the honest answer is: ask them for the rate before assuming the bigger plan is cheaper, and compare against the table above rather than against the plan fee.</p>
+<h2>What this means for a stack</h2>
+<p>Because the fee scales with revenue, a subscription app is usually the single largest line in a Shopify app bill. In our calculator's default scenario (1,000 orders, $60 average order, plus Klaviyo, Tidio, Gorgias and Judge.me) the stack came to $1,623 a month, and Recharge was $1,249 of it &mdash; 77%.</p>
+<p class="muted">Sources: <a href="https://rechargepayments.com/pricing" rel="nofollow noopener" target="_blank">rechargepayments.com/pricing</a>, read __DATE__. Found a rate change? Tell us and it goes in the <a href="__P__corrections/">corrections log</a>. Try your own numbers in the <a href="__P__calculator/">cost calculator</a>.</p>"""
+rc_body = rc_body.replace("__ROWS__", rc_table).replace("__DATE__", checked).replace("__P__", "../../")
+page("guides/recharge-cost-at-volume/index.html",
+     "Recharge cost at 100 to 5,000 orders a month, calculated (%s)" % checked,
+     "Recharge is $149/mo plus 1.50% plus 20c per order: what that comes to at 100 to 5,000 subscription orders, and why the effective rate is 4.3% of revenue at low volume.",
+     rc_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9"), ("guides/uninstalled-app-still-charged/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9"), ("guides/uninstalled-app-still-charged/", "0.9"), ("guides/recharge-cost-at-volume/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

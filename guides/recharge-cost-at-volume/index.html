@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recharge cost at 100 to 5,000 orders a month, calculated (2026-11-27)</title>
+<meta name="description" content="Recharge is $149/mo plus 1.50% plus 20c per order: what that comes to at 100 to 5,000 subscription orders, and why the effective rate is 4.3% of revenue at low volume.">
+<link rel="canonical" href="https://apppricedb.com/guides/recharge-cost-at-volume/">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="../../index.html">AppPriceDB</a>
+  <a href="../../calculator/">Calculator</a>
+  <a href="../../pricing-index/">Pricing index</a>
+  <a href="../../methodology.html">Method</a>
+  <a href="../../changelog.html">Changelog</a>
+  <a href="../../about.html">About</a>
+</header>
+<main>
+<h1>Recharge cost at 100 to 5,000 orders a month: the percentage, not the plan fee</h1>
+<p class="lede">Recharge's headline is $149/mo. The part that actually sets your bill is 1.50% of the transaction value plus 20 cents per order. Here is what the two together cost at real volumes.</p>
+<div class="verified">Read from <a href="https://rechargepayments.com/pricing" rel="nofollow noopener" target="_blank">rechargepayments.com/pricing</a> on 2026-11-27: Starter "$149/mo", with "Processing fees at: 1.50% + 20¢ per transaction". The table is our arithmetic from those three published numbers, at a $60 average order value. Recharge also sells a Scale plan at $499/mo but its pricing page does not quote processing rates for it, so we do not guess them.</div>
+<h2>What it costs, at a $60 average order</h2>
+<table><thead><tr><th>Orders / month</th><th>Revenue</th><th>Recharge total</th><th>of which the 1.50%</th><th>of which 20¢/order</th><th>Effective % of revenue</th></tr></thead><tbody>
+<tr><td>100</td><td>$6,000</td><td>$259</td><td>$90</td><td>$20</td><td>4.32%</td></tr>
+<tr><td>500</td><td>$30,000</td><td>$699</td><td>$450</td><td>$100</td><td>2.33%</td></tr>
+<tr><td>1,000</td><td>$60,000</td><td>$1,249</td><td>$900</td><td>$200</td><td>2.08%</td></tr>
+<tr><td>2,500</td><td>$150,000</td><td>$2,899</td><td>$2,250</td><td>$500</td><td>1.93%</td></tr>
+<tr><td>5,000</td><td>$300,000</td><td>$5,649</td><td>$4,500</td><td>$1,000</td><td>1.88%</td></tr>
+</tbody></table>
+<h2>The number that matters is the last column</h2>
+<p>The plan fee is fixed, so it dominates at small volume and disappears at large volume:</p>
+<ul>
+<li>At <strong>100 orders</strong> you pay $259, which is <strong>4.32%</strong> of revenue. The $149 plan fee alone is more than the percentage.</li>
+<li>At <strong>1,000 orders</strong> it is $1,249, or <strong>2.08%</strong> of revenue.</li>
+<li>At <strong>5,000 orders</strong> it is $5,649, or <strong>1.88%</strong> &mdash; and it never falls below about 1.83%, which is 1.50% plus the 20 cents expressed against a $60 order.</li>
+</ul>
+<p>So "Recharge costs $149" is true only for a store with almost no subscriptions. A store doing 1,000 subscription orders a month pays roughly <strong>eight times</strong> the headline, and the floor of the model is the percentage, not the fee.</p>
+<h2>When the $499 plan makes sense</h2>
+<p>Scale is $499/mo, which is $350 more than Starter. If its processing rate were the same, it would never pay back. Recharge does not publish Scale's rates, so the honest answer is: ask them for the rate before assuming the bigger plan is cheaper, and compare against the table above rather than against the plan fee.</p>
+<h2>What this means for a stack</h2>
+<p>Because the fee scales with revenue, a subscription app is usually the single largest line in a Shopify app bill. In our calculator's default scenario (1,000 orders, $60 average order, plus Klaviyo, Tidio, Gorgias and Judge.me) the stack came to $1,623 a month, and Recharge was $1,249 of it &mdash; 77%.</p>
+<p class="muted">Sources: <a href="https://rechargepayments.com/pricing" rel="nofollow noopener" target="_blank">rechargepayments.com/pricing</a>, read 2026-11-27. Found a rate change? Tell us and it goes in the <a href="../../corrections/">corrections log</a>. Try your own numbers in the <a href="../../calculator/">cost calculator</a>.</p>
+</main>
+<footer>Prices checked 2026-11-27. Some outbound links may be affiliate links, disclosed on the page. Visits are counted anonymously: no cookies, no personal data. © AppPriceDB</footer>
+<script>
+(function(){
+var H="https://abacus.jasoncameron.dev/hit/apppricedb/";
+function hit(k){try{(new Image()).src=H+k+"?r="+Date.now()+Math.random().toString(36).slice(2,7);}catch(e){}}
+function host(u){var m=/^https?:\/\/([^\/?#]+)/i.exec(u||"");return m?m[1].toLowerCase().replace(/^www\./,"").replace(/:\d+$/,""):"";}
+try{
+ var ua=navigator.userAgent||"";
+ var d=new Date(Date.now()+28800000).toISOString().slice(0,10);
+ var bm=/googlebot|bingbot|yandexbot|duckduckbot|baiduspider|applebot|petalbot|gptbot|ccbot/i.exec(ua);
+ if(bm){hit("b-"+d+"-"+bm[0].toLowerCase());return;}
+ if(/bot|crawl|spider|slurp|headless|monitor|lighthouse|preview/i.test(ua))return;
+ var dnt=navigator.doNotTrack||window.doNotTrack;if(dnt===1||dnt==="1"||dnt==="yes")return;
+ hit("v-"+d);
+ var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");
+ hit("p-"+d+"-"+(p?p.replace(/[^a-zA-Z0-9]+/g,"-").slice(0,40):"home"));
+ var b="direct";
+ try{
+  var r=host(document.referrer);
+  var me=host("https://"+location.hostname);
+  if(r&&r.indexOf(me)<0){
+   var M=[["google","google"],["bing","bing"],["duckduckgo","duckduckgo"],["yahoo","yahoo"],["yandex","yandex"],["baidu","baidu"],["ecosia","ecosia"],["search.brave","brave"],["startpage","startpage"],["reddit","reddit"],["facebook","facebook"],["linkedin","linkedin"],["pinterest","pinterest"],["x.com","x"],["twitter","x"],["t.co","x"],["quora","quora"],["youtube","youtube"],["medium","medium"],["shopify","shopify"],["googlemail","email"],["mail.","email"]];
+   b="other";
+   for(var i=0;i<M.length;i++){if(r.indexOf(M[i][0])>=0){b=M[i][1];break;}}
+  }
+ }catch(e){}
+ hit("s-"+d+"-"+b);
+ document.addEventListener("click",function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[rel~="sponsored"]'):null;
+  if(!a)return;
+  var h="unknown";
+  h=host(a.href).replace(/[^a-z0-9.]/g,"")||"unknown";
+  hit("a-"+d+"-"+h);
+ },true);
+}catch(e){}
+})();
+</script>
+</body>
+</html>
