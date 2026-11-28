@@ -702,9 +702,11 @@ page("guides/all-in-one-vs-single-apps/index.html",
      "Vitals at $29.99 against a $62 four-app stack, computed at 200 and 1,000 monthly orders, with the caveats bundles hide.",
      aio_body, "../../")
 
+app_count = len(apps)
+app_names = ", ".join(a["name"] for a in apps.values())
 body = f"""<h1>What Shopify apps actually cost</h1>
 <p class="lede">Every plan, billing unit and overage rate, read from the vendor's own pricing page. Each figure carries the date we checked it.</p>
-<div class="verified">Ten verified: Klaviyo, Gorgias, Vitals, Judge.me, Upsell.com, Weglot, Postscript, Yotpo, Help Scout, Fera. Last checked {checked}.</div>
+<div class="verified">{app_count} verified: {app_names}. Last checked {checked}.</div>
 <h2>Start here</h2>
 <ul>
 <li><a href="apps/klaviyo/">Klaviyo pricing</a> — billed by active profiles, not seats</li>
