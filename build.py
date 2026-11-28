@@ -1170,11 +1170,73 @@ page("guides/weglot-cost-by-words/index.html",
      "All six Weglot tiers with total word limits, languages and seats, read from the vendor page on %s, plus the reason a lifetime word cap changes how you size the plan." % checked,
      wg_body, "../../")
 
+
+# --- Searchanise: product-tier ladder (read 2026-11-27) ---
+san = [(0, 0, 0), (1500, 19, 16), (7500, 39, 33), (15000, 89, 74), (30000, 139, 116), (50000, 209, 174), (300000, 349, 291)]
+san_rows = []
+prev = None
+for cap, monthly, annual in san:
+    if cap == 0:
+        san_rows.append('<tr><td>Free</td><td>$0</td><td>$0</td><td>development stores</td><td>-</td><td>-</td></tr>')
+        continue
+    per_k = monthly / (cap / 1000)
+    disc = (1 - annual / monthly) * 100
+    marg = '-'
+    if prev:
+        pc, pm, _pa = prev
+        marg = '$%.2f' % ((monthly - pm) / ((cap - pc) / 1000))
+    san_rows.append(
+        '<tr><td>up to ' + format(cap, ',') + '</td><td>$' + str(monthly) + '</td><td>$' + str(annual) +
+        '</td><td>$%.2f' % per_k + '</td><td>' + '%.1f%%' % disc + '</td><td>' + marg + '</td></tr>')
+    prev = (cap, monthly, annual)
+san_table = "\n".join(san_rows)
+
+san_faq = [
+    ("How much does Searchanise cost for 7,500 products?",
+     "$39 per month billed monthly, or $33 if billed annually. That is the Essential tier, which covers up to 7,500 products."),
+    ("Is Searchanise cheaper by the year?",
+     "Yes. Annual billing is roughly 16-17% below monthly on every paid tier: Basic $16 against $19, Essential $33 against $39, Advanced $74 against $89, Growth $116 against $139, Pro $174 against $209, Premium $291 against $349."),
+    ("Which Searchanise step is the worst value?",
+     "Moving from 7,500 to 15,000 products. It adds $50 a month for 7,500 more products, about $6.67 per 1,000 more products, while the step below adds products at $3.33 per 1,000 and the step above at $3.33 as well."),
+    ("Does Searchanise charge by products or by searches?",
+     "By the number of active products in the catalogue, not by searches or traffic."),
+]
+san_faq_html = "\n".join(f"<h3>{html.escape(q)}</h3>\n<p>{html.escape(a)}</p>" for q, a in san_faq)
+san_ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in san_faq]}
+san_script = f'<script type="application/ld+json">{_j.dumps(san_ld, ensure_ascii=False)}</script>'
+
+san_body = san_script + f"""<h1>Searchanise cost by catalogue size: six tiers, and the one step that costs too much</h1>
+<p class="lede">Searchanise prices on the number of active products, not on traffic or searches. Here is every tier, both billing modes, and the cost per 1,000 products so you can see which step is worth taking.</p>
+<div class="verified">All six paid tiers were read from <a href="https://searchanise.io/pricing/" rel="nofollow noopener" target="_blank">searchanise.io/pricing</a> on {checked}. Monthly and annual figures are the vendor's own two prices, not a computed discount. The per-1,000 and marginal columns are our arithmetic from those figures.</div>
+<h2>The ladder</h2>
+<table><thead><tr><th>Products</th><th>Monthly billing</th><th>Annual billing (per month)</th><th>$ per 1,000 products</th><th>Annual discount</th><th>Marginal $ per extra 1,000</th></tr></thead><tbody>
+{san_table}
+</tbody></table>
+<h2>The step that is out of line</h2>
+<p>Pricing ladders usually get cheaper per unit as you climb. This one has a bump in the middle:</p>
+<ul>
+<li>Basic to Essential (1,500 to 7,500 products) costs $20 more for 6,000 more products, about <strong>$3.33</strong> per 1,000. That is the best step on the ladder.</li>
+<li>Essential to Advanced (7,500 to 15,000) costs $50 more for 7,500 more products, about <strong>$6.67</strong> per 1,000. That is double the step below it, and the worst on the ladder.</li>
+<li>Above that the curve settles again: $3.33 per 1,000 to 30,000, $3.50 to 50,000, and then $0.56 per 1,000 all the way to 300,000.</li>
+</ul>
+<p>Practical consequence: if you are on Essential and about to cross 7,500 products, either stay under it by trimming inactive products, or jump straight past Advanced if you expect growth, because the Advanced step buys the next 7,500 at the worst rate in the table.</p>
+<h2>Annual billing, plainly</h2>
+<p>Every paid tier gives the same discount for paying yearly: between 15.4% and 16.9%, which is two months free. There is no tier where annual is a worse deal, so the only question is cash flow.</p>
+<p class="muted">Sources: <a href="https://searchanise.io/pricing/" rel="nofollow noopener" target="_blank">searchanise.io/pricing</a>, read {checked}. Found a tier change? Tell us and it goes in the <a href="{p}corrections/">corrections log</a>.</p>
+<h2>Questions people ask</h2>
+{san_faq_html}"""
+
+page("guides/searchanise-cost-by-products/index.html",
+     "Searchanise cost by number of products: all six tiers (%s)" % checked,
+     "Every Searchanise tier from 1,500 to 300,000 products, monthly and annual prices, cost per 1,000 products, and the one step in the middle that costs double the step below it.",
+     san_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
