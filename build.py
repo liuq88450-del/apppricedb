@@ -1232,11 +1232,44 @@ page("guides/searchanise-cost-by-products/index.html",
      "Every Searchanise tier from 1,500 to 300,000 products, monthly and annual prices, cost per 1,000 products, and the one step in the middle that costs double the step below it.",
      san_body, "../../")
 
+
+# --- closing the books: app billing cycles (question taken from the merchant forum) ---
+bk_body = """<h1>Why a Shopify month never closes cleanly: the app billing cycle problem</h1>
+<p class="lede">Books close on calendar months. Shopify app charges do not. Every app runs its own recurring cycle from the day you installed it, so a month-end invoice contains charges from several different cycles, and some usage charges land after the month is closed.</p>
+<div class="verified">The mechanics below are taken from the vendors' own billing documentation, read on __DATE__. Nothing here is inferred from our own invoices.</div>
+<h2>Four things that do not line up with your month</h2>
+<ol>
+<li><strong>Each app has its own 30-day cycle.</strong> A subscription created on the 12th renews on the 12th, not on your Shopify plan's anniversary and not at month end. Ten apps means ten different dates.</li>
+<li><strong>Volume-priced apps bill at the step your account is on when the cycle closes.</strong> Klaviyo is the clearest case: 10,000 active profiles is $150/mo, 10,500 is $175/mo. A contact spike in the last week of the cycle changes what the cycle costs, and the invoice arrives after you thought the month was done.</li>
+<li><strong>Usage charges post separately from the plan fee.</strong> Apps that charge a percentage or a per-transaction fee (Recharge: $149/mo plus 1.50% plus 20c per transaction) add those amounts as usage, on their own schedule.</li>
+<li><strong>Some quotas reset every 30 days, not monthly.</strong> Tidio states its limits renew "every 30 days for Shopify-billed accounts", which drifts against a calendar month over the year.</li>
+</ol>
+<h2>What to do instead of forcing a calendar month</h2>
+<ul>
+<li><strong>Close on the billing period, then accrue.</strong> Book the Shopify invoice you have, and carry an accrual line for cycles that started but have not closed. That is what keeps the P&amp;L stable month to month.</li>
+<li><strong>Track the meter, not the invoice.</strong> The number that predicts next month's charge is the size of the account at cycle end (active profiles, orders in the cycle, tickets, products), not last month's invoice.</li>
+<li><strong>Keep a fixed list of cycle dates.</strong> One line per app: install date, renewal date, what the price depends on. It turns a surprise into a scheduled item.</li>
+<li><strong>Reconcile by app, not by total.</strong> A total that matches your bank feed can still be two apps wrong in opposite directions.</li>
+</ul>
+<h2>Where the money actually goes</h2>
+<p>Three worked examples from vendor price lists, so the accrual is not abstract:</p>
+<ul>
+<li>A store at 10,000 contacts pays Klaviyo <strong>$150</strong> for the cycle; at 10,500 it pays <strong>$175</strong>. Crossing the boundary mid-cycle is a 16.7% increase that shows up a month later.</li>
+<li>At 1,000 orders and a $60 average order, Recharge charges <strong>$1,249</strong> in one cycle: $149 plan, $900 in percentage fees, $200 in per-transaction fees. Roughly three quarters of a typical app bill can sit in one line like this.</li>
+<li>A store at 400 support tickets pays Gorgias <strong>$100</strong> on its Basic tier (300 tickets included, $0.40 per ticket after), not the $10 starter headline.</li>
+</ul>
+<p class="muted">Sources: vendor billing documentation and pricing pages, read __DATE__. The Klaviyo mechanics are from its billing help page; the 30-day renewal wording is Tidio's own pricing FAQ. Found something that no longer matches? Tell us and it goes in the <a href="__P__corrections/">corrections log</a>.</p>"""
+bk_body = bk_body.replace("__DATE__", checked).replace("__P__", "../../")
+page("guides/why-shopify-months-dont-close/index.html",
+     "Why your Shopify app bill never matches the calendar month (%s)" % checked,
+     "Every app runs its own 30-day billing cycle from install day, so month-end never reconciles: the mechanics, the accrual to use instead, and three worked examples from vendor price lists.",
+     bk_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
