@@ -162,13 +162,6 @@ page("pricing-index/index.html",
 
 changelog_body = """<h1>Changelog</h1>
 <p class="lede">What changed on this site, and what changed in the vendors' prices. Newest first.</p>
-<h2>2026-11-28</h2>
-<ul>
-<li><b>Yotpo cost guide — a wrong headline, caught by an outside reviewer.</b> The first version said a store at 1,001 orders "is on Pro whether it picked it or not", and that one extra order costs $170 a month. Yotpo's own documentation shows a third route we missed: <b>Reviews Booster</b>, available on Starter and Pro, which charges the plan fee plus a per-order rate for orders over the limit (up to a cap you set). The $170 step is the cost of upgrading, not a charge forced on you. The page now states all three routes.</li>
-<li><b>Yotpo — "no annual price" was wrong.</b> The page said Yotpo publishes no annual price for reviews. Its Shopify App Store listing offers annual billing at 20% off Starter and 25% off Pro. Corrected, and the listing is now cited.</li>
-<li><b>Yotpo — free plan missing.</b> The App Store listing says a free plan is available; the page now says so instead of starting at $15.</li>
-<li><b>Why this happened:</b> the draft was built from the pricing page's embedded data, which covers published plan bands only. It did not cover the Booster option, annual billing, or the free plan, because none of them live in that data. Lesson applied: every price page now gets cross-checked against the vendor's help documentation and app listing, not just the pricing page.</li>
-</ul>
 <h2>2026-11-09</h2>
 <ul>
 <li><b>New page</b> — app bill reconciliation report: the template, with a worked example computed from verified prices.</li>
@@ -401,6 +394,13 @@ page("guides/hidden-app-fees/index.html",
 # --- corrections log (public honesty page) ---
 corr_body = """<h1>Corrections</h1>
 <p class="lede">Pages get things wrong. This is the record of what we got wrong on this site and when we fixed it.</p>
+<h2>2026-11-28</h2>
+<ul>
+<li><b>Yotpo cost guide — a wrong headline, caught by an outside reviewer.</b> The first version said a store at 1,001 orders "is on Pro whether it picked it or not", and that one extra order costs $170 a month. Yotpo's own documentation shows a third route we missed: <b>Reviews Booster</b>, available on Starter and Pro, which charges the plan fee plus a per-order rate for orders over the limit (up to a cap you set). The $170 step is the cost of upgrading, not a charge forced on you. The page now states all three routes.</li>
+<li><b>Yotpo — "no annual price" was wrong.</b> The page said Yotpo publishes no annual price for reviews. Its Shopify App Store listing offers annual billing at 20% off Starter and 25% off Pro. Corrected, and the listing is now cited.</li>
+<li><b>Yotpo — free plan missing.</b> The App Store listing says a free plan is available; the page now says so instead of starting at $15.</li>
+<li><b>Why this happened:</b> the draft was built from the pricing page's embedded data, which covers published plan bands only. It did not cover the Booster option, annual billing, or the free plan, because none of them live in that data. Lesson applied: every price page now gets cross-checked against the vendor's help documentation and app listing, not just the pricing page.</li>
+</ul>
 <h2>2026-11-09</h2>
 <ul>
 <li><b>Gorgias vs Help Scout</b> — the summary bullet said Help Scout wins at 3 and 5 seats "from 500 tickets upward". The computed matrix gives Help Scout 3 seats from 500 tickets and 5 seats from 1,000; at 500 tickets with 5 seats, Gorgias is cheaper ($140 against $225). Sentence fixed to match the table.</li>
