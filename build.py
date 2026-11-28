@@ -75,12 +75,28 @@ TEMPLATE = """<!doctype html>
 </html>
 """
 
+GUIDE_APP_LINKS = {
+    "guides/recharge-cost-at-volume/index.html": [("recharge", "Recharge")],
+    "guides/yotpo-cost-by-orders/index.html": [("yotpo", "Yotpo")],
+    "guides/loyaltylion-cost-by-orders/index.html": [("loyaltylion", "LoyaltyLion")],
+    "guides/postscript-cost-at-volume/index.html": [("postscript", "Postscript")],
+    "guides/searchanise-cost-by-products/index.html": [("searchanise", "Searchanise")],
+    "guides/weglot-cost-by-words/index.html": [("weglot", "Weglot")],
+    "guides/klaviyo-cost-at-volume/index.html": [("klaviyo", "Klaviyo")],
+    "guides/tidio-cost-at-volume/index.html": [("tidio", "Tidio")],
+    "guides/gorgias-cost-at-volume/index.html": [("gorgias", "Gorgias")],
+}
+
 def page(path, title, desc, body, p=""):
     out = root/path
     out.parent.mkdir(parents=True, exist_ok=True)
     canon = BASE + "/" + (path[:-len("index.html")] if path.endswith("index.html") else path)
     rendered = TEMPLATE.format(title=html.escape(title), desc=html.escape(desc),
                                body=body, checked=checked, p=p, canon=canon)
+    links = GUIDE_APP_LINKS.get(path)
+    if links:
+        items = ", ".join(f'<a href="{p}apps/{slug}/">{name} pricing and plans</a>' for slug, name in links)
+        rendered = rendered.replace("</main>", f'<p class="muted">See also: {items} &mdash; the published plans and what each one includes, with the date checked.</p>\n</main>', 1)
     rendered = rendered.replace("</body>", ANALYTICS_TAG + "\n</body>", 1)
     out.write_text(rendered, encoding="utf-8")
     print("wrote", path)
