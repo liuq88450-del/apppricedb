@@ -1265,11 +1265,50 @@ page("guides/why-shopify-months-dont-close/index.html",
      "Every app runs its own 30-day billing cycle from install day, so month-end never reconciles: the mechanics, the accrual to use instead, and three worked examples from vendor price lists.",
      bk_body, "../../")
 
+
+# --- "I uninstalled it and still got charged" (question mined from the merchant forum) ---
+u_body = """<h1>You uninstalled the app and still got charged. Shopify's own rules explain why</h1>
+<p class="lede">Three different mechanisms produce the same surprise, and only one of them is a mistake. Here is what Shopify's own billing documentation says, in its own words.</p>
+<div class="verified">The quotes below are from <a href="https://help.shopify.com/en/manual/your-account/manage-billing/billing-charges/types-of-charges/third-party-charges/app-charges" rel="nofollow noopener" target="_blank">Shopify's help page on app charges</a>, read on __DATE__. The arithmetic examples use vendor pricing pages we checked the same day.</div>
+<h2>1. A charge that already exists keeps existing</h2>
+<p>Shopify's exact wording:</p>
+<blockquote>Uninstalling the app stops future billing cycles, but a pending charge that has already been generated might still be displayed on the next invoice. To request a refund, contact the app developer.</blockquote>
+<p>So there are two different states, and they behave differently:</p>
+<ul>
+<li><strong>Pending charge</strong> &mdash; listed under "View current charges", not yet invoiced. Uninstalling stops future cycles, but this one can still appear on the next invoice. Refund: ask the app developer, not Shopify.</li>
+<li><strong>Paid charge</strong> &mdash; already invoiced. The app is gone, the money is not. Refund: the developer again.</li>
+</ul>
+<h2>2. Your app has its own 30-day cycle, separate from your Shopify billing cycle</h2>
+<blockquote>You're billed for your app subscriptions and app usage as part of Shopify's 30-day subscription billing period. However, your app has a separate 30-day billing cycle, which impacts the charges that are displayed on your Shopify bill.</blockquote>
+<p>In practice: install an app on the 12th, and its cycle closes on the 12th. Uninstall it on the 8th of the following month and the cycle that ran from the 12th to the 8th still bills &mdash; you used the app for most of that period. This is why "I cancelled it on the 1st" and "it was charged on the 3rd" can both be true.</p>
+<h2>3. External charges never show up on your Shopify bill at all</h2>
+<blockquote>Some third-party apps charge you directly outside of Shopify. These external charges aren't displayed on your Shopify bill. If you uninstall an app that charges externally, then you also need to cancel the subscription or payment directly with the app developer.</blockquote>
+<p>This is the one that causes real damage, because there is no bill to remind you. Uninstalling removes the app from your store and cancels nothing with the vendor.</p>
+<h2>What the charge actually is, in three real examples</h2>
+<ul>
+<li><strong>Usage-based:</strong> Recharge bills $149/mo plus 1.50% plus 20c per transaction. At 1,000 orders and a $60 average order, one cycle is about $1,249 &mdash; a number big enough that a refund request is worth writing.</li>
+<li><strong>Tier-based:</strong> Klaviyo bills on active profiles at cycle end (10,000 profiles $150/mo, 10,500 $175/mo). Uninstalling mid-cycle does not change the count that has already been recorded for that cycle.</li>
+<li><strong>Flat:</strong> Judge.me is $15/mo flat. A mistaken cycle here costs $15, which is why nobody disputes it &mdash; and why the same mistake on a usage app costs a hundred times more.</li>
+</ul>
+<h2>What to do, in order</h2>
+<ol>
+<li>In the Shopify admin, open <strong>Settings &gt; Apps</strong> and look at current charges. Decide whether the charge is pending or paid &mdash; the remedy differs.</li>
+<li>Email the app developer, not Shopify, with the install date, uninstall date and the charge amount. Refunds for app charges are the developer's decision and Shopify's own documentation points you there.</li>
+<li>For any app that bills outside Shopify, cancel with the vendor explicitly and keep the cancellation email. That is the only record that will exist.</li>
+<li>Before reinstalling to "test" something, check the trial terms &mdash; a reinstall can start a new paid cycle immediately if the trial was already used.</li>
+</ol>
+<p class="muted">Sources: Shopify's app charges help page, read __DATE__; vendor pricing pages for the arithmetic. Found a rule that has changed? Tell us and it goes in the <a href="__P__corrections/">corrections log</a>.</p>"""
+u_body = u_body.replace("__DATE__", checked).replace("__P__", "../../")
+page("guides/uninstalled-app-still-charged/index.html",
+     "Uninstalled the app and still got charged? Shopify's own rules explain it (%s)" % checked,
+     "Three separate mechanisms behind one surprise: a pending charge that already exists, the app's own 30-day cycle, and external charges that never appear on your Shopify bill, quoted from Shopify's documentation.",
+     u_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9"), ("guides/uninstalled-app-still-charged/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
