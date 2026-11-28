@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yotpo Reviews cost by order volume: every published band (2026-11-27)</title>
+<meta name="description" content="Yotpo prices reviews by monthly order volume, and the price table is hidden behind a slider: here are all 12 published bands, and the 1,001-order boundary where one more order costs $170 more a month.">
+<link rel="canonical" href="https://apppricedb.com/guides/yotpo-cost-by-orders/">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="../../index.html">AppPriceDB</a>
+  <a href="../../calculator/">Calculator</a>
+  <a href="../../pricing-index/">Pricing index</a>
+  <a href="../../methodology.html">Method</a>
+  <a href="../../changelog.html">Changelog</a>
+  <a href="../../about.html">About</a>
+</header>
+<main>
+<h1>Yotpo Reviews cost by order volume: the 1,001-order cliff</h1>
+<p class="lede">Yotpo prices reviews on monthly order volume. The price table is not on the page as a table; it is embedded in the page as data and drawn by a slider. We rendered the page and read every band, so you can see what a single order over a boundary actually costs.</p>
+<div class="verified">All 12 published bands below were read from the rendered <a href="https://www.yotpo.com/pricing/" rel="nofollow noopener" target="_blank">yotpo.com/pricing</a> page on 2026-11-27, from the pricing data the page itself ships. The Starter band 501&ndash;1,000 is marked $129; the band above it is marked disabled, which is what forces the jump. Premium and Enterprise are custom quotes and we do not guess them. Yotpo publishes no annual price for reviews, so every figure here is monthly.</div>
+<h2>The two plans that carry published prices</h2>
+<table><thead><tr><th>Plan</th><th>Orders / month</th><th>Monthly price</th></tr></thead><tbody>
+<tr><td>Starter</td><td>0&ndash;50</td><td>$15</td></tr>
+<tr><td>Starter</td><td>51&ndash;100</td><td>$24</td></tr>
+<tr><td>Starter</td><td>101&ndash;250</td><td>$59</td></tr>
+<tr><td>Starter</td><td>251&ndash;500</td><td>$89</td></tr>
+<tr><td>Starter</td><td>501&ndash;1000</td><td>$129</td></tr><tr><td>Starter</td><td>1,001+</td><td class="muted">not available on Starter</td></tr>
+<tr><td>Pro</td><td>0&ndash;250</td><td>$119</td></tr>
+<tr><td>Pro</td><td>251&ndash;500</td><td>$169</td></tr>
+<tr><td>Pro</td><td>501&ndash;1000</td><td>$269</td></tr>
+<tr><td>Pro</td><td>1001&ndash;2000</td><td>$299</td></tr>
+<tr><td>Pro</td><td>2001&ndash;3000</td><td>$329</td></tr>
+<tr><td>Pro</td><td>3001&ndash;5000</td><td>$379</td></tr>
+<tr><td>Pro</td><td>5001&ndash;5999</td><td>$429</td></tr><tr><td>Pro</td><td>6,000+</td><td class="muted">moves to Premium, custom quote</td></tr>
+</tbody></table>
+<h2>The cliff, in numbers</h2>
+<ul>
+<li>At <strong>1,000 orders</strong> the cheapest published option is Starter at <strong>$129</strong>.</li>
+<li>At <strong>1,001 orders</strong> Starter is no longer available. The cheapest published option is Pro at <strong>$299</strong>.</li>
+<li>One extra order costs <strong>$170 a month</strong>, a <strong>132%</strong> increase &mdash; and $2,040 a year.</li>
+</ul>
+<p>For scale: 1,001 orders and 2,000 orders both cost $299 on Pro. So the store that just crossed the line pays the same as a store doing nearly double the volume, while the store one order below the line pays 57% less. This is the single most expensive boundary in the whole app stack we track.</p>
+<h2>Why the table is not on the page</h2>
+<p>Yotpo shows one price at a time through a volume slider, and the bands exist only as data behind it. That is why most articles quote "from $15" &mdash; true for a store with 50 orders, meaningless for anyone deciding whether they can afford reviews at 1,500 orders. We publish the bands because the decision is made at a boundary, not at the entry price.</p>
+<h2>How to read your own number</h2>
+<ol>
+<li>Find your monthly order count, not your yearly one. Yotpo charges on the monthly figure.</li>
+<li>Locate the band. If you are under 1,000, Starter is available; if you are at 1,001 or above, you are on Pro whether you picked it or not.</li>
+<li>If you are within about 50 orders of 1,000 and your volume is seasonal, the cheapest move is often to keep a month under the line rather than absorb a $170 step &mdash; but check whether the review features you actually use exist on Starter at all.</li>
+</ol>
+<p class="muted">Sources: <a href="https://www.yotpo.com/pricing/" rel="nofollow noopener" target="_blank">yotpo.com/pricing</a>, rendered and read 2026-11-27. Yotpo's own FAQ says pricing "scales with your store's monthly order volume". Found a band that has changed? Tell us and it goes in the <a href="../../corrections/">corrections log</a>.</p>
+</main>
+<footer>Prices checked 2026-11-27. Some outbound links may be affiliate links, disclosed on the page. Visits are counted anonymously: no cookies, no personal data. © AppPriceDB</footer>
+<script>
+(function(){
+var H="https://abacus.jasoncameron.dev/hit/apppricedb/";
+function hit(k){try{(new Image()).src=H+k+"?r="+Date.now()+Math.random().toString(36).slice(2,7);}catch(e){}}
+function host(u){var m=/^https?:\/\/([^\/?#]+)/i.exec(u||"");return m?m[1].toLowerCase().replace(/^www\./,"").replace(/:\d+$/,""):"";}
+try{
+ var ua=navigator.userAgent||"";
+ var d=new Date(Date.now()+28800000).toISOString().slice(0,10);
+ var bm=/googlebot|bingbot|yandexbot|duckduckbot|baiduspider|applebot|petalbot|gptbot|ccbot/i.exec(ua);
+ if(bm){hit("b-"+d+"-"+bm[0].toLowerCase());return;}
+ if(/bot|crawl|spider|slurp|headless|monitor|lighthouse|preview/i.test(ua))return;
+ var dnt=navigator.doNotTrack||window.doNotTrack;if(dnt===1||dnt==="1"||dnt==="yes")return;
+ hit("v-"+d);
+ var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");
+ hit("p-"+d+"-"+(p?p.replace(/[^a-zA-Z0-9]+/g,"-").slice(0,40):"home"));
+ var b="direct";
+ try{
+  var r=host(document.referrer);
+  var me=host("https://"+location.hostname);
+  if(r&&r.indexOf(me)<0){
+   var M=[["google","google"],["bing","bing"],["duckduckgo","duckduckgo"],["yahoo","yahoo"],["yandex","yandex"],["baidu","baidu"],["ecosia","ecosia"],["search.brave","brave"],["startpage","startpage"],["reddit","reddit"],["facebook","facebook"],["linkedin","linkedin"],["pinterest","pinterest"],["x.com","x"],["twitter","x"],["t.co","x"],["quora","quora"],["youtube","youtube"],["medium","medium"],["shopify","shopify"],["googlemail","email"],["mail.","email"]];
+   b="other";
+   for(var i=0;i<M.length;i++){if(r.indexOf(M[i][0])>=0){b=M[i][1];break;}}
+  }
+ }catch(e){}
+ hit("s-"+d+"-"+b);
+ document.addEventListener("click",function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[rel~="sponsored"]'):null;
+  if(!a)return;
+  var h="unknown";
+  h=host(a.href).replace(/[^a-z0-9.]/g,"")||"unknown";
+  hit("a-"+d+"-"+h);
+ },true);
+}catch(e){}
+})();
+</script>
+</body>
+</html>

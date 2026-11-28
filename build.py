@@ -1346,11 +1346,57 @@ page("guides/recharge-cost-at-volume/index.html",
      "Recharge is $149/mo plus 1.50% plus 20c per order: what that comes to at 100 to 5,000 subscription orders, and why the effective rate is 4.3% of revenue at low volume.",
      rc_body, "../../")
 
+
+# --- Yotpo Reviews: order-volume tiers (verified by render, 2026-11-28) ---
+yotpo_starter = [(0,50,15),(51,100,24),(101,250,59),(251,500,89),(501,1000,129)]
+yotpo_pro = [(0,250,119),(251,500,169),(501,1000,269),(1001,2000,299),(2001,3000,329),(3001,5000,379),(5001,5999,429)]
+
+def band(a, b):
+    return f"{a}&ndash;{b}" if b else f"{a}+"
+
+ys_rows = "\n".join(
+    f"<tr><td>Starter</td><td>{band(a,b)}</td><td>${pr}</td></tr>" for a,b,pr in yotpo_starter)
+ys_rows += '<tr><td>Starter</td><td>1,001+</td><td class="muted">not available on Starter</td></tr>'
+yp_rows = "\n".join(
+    f"<tr><td>Pro</td><td>{band(a,b)}</td><td>${pr}</td></tr>" for a,b,pr in yotpo_pro)
+yp_rows += '<tr><td>Pro</td><td>6,000+</td><td class="muted">moves to Premium, custom quote</td></tr>'
+
+yotpo_body = """<h1>Yotpo Reviews cost by order volume: the 1,001-order cliff</h1>
+<p class="lede">Yotpo prices reviews on monthly order volume. The price table is not on the page as a table; it is embedded in the page as data and drawn by a slider. We rendered the page and read every band, so you can see what a single order over a boundary actually costs.</p>
+<div class="verified">All 12 published bands below were read from the rendered <a href="https://www.yotpo.com/pricing/" rel="nofollow noopener" target="_blank">yotpo.com/pricing</a> page on __DATE__, from the pricing data the page itself ships. The Starter band 501&ndash;1,000 is marked $129; the band above it is marked disabled, which is what forces the jump. Premium and Enterprise are custom quotes and we do not guess them. Yotpo publishes no annual price for reviews, so every figure here is monthly.</div>
+<h2>The two plans that carry published prices</h2>
+<table><thead><tr><th>Plan</th><th>Orders / month</th><th>Monthly price</th></tr></thead><tbody>
+__STARTER__
+__PRO__
+</tbody></table>
+<h2>The cliff, in numbers</h2>
+<ul>
+<li>At <strong>1,000 orders</strong> the cheapest published option is Starter at <strong>$129</strong>.</li>
+<li>At <strong>1,001 orders</strong> Starter is no longer available. The cheapest published option is Pro at <strong>$299</strong>.</li>
+<li>One extra order costs <strong>$170 a month</strong>, a <strong>132%</strong> increase &mdash; and $2,040 a year.</li>
+</ul>
+<p>For scale: 1,001 orders and 2,000 orders both cost $299 on Pro. So the store that just crossed the line pays the same as a store doing nearly double the volume, while the store one order below the line pays 57% less. This is the single most expensive boundary in the whole app stack we track.</p>
+<h2>Why the table is not on the page</h2>
+<p>Yotpo shows one price at a time through a volume slider, and the bands exist only as data behind it. That is why most articles quote "from $15" &mdash; true for a store with 50 orders, meaningless for anyone deciding whether they can afford reviews at 1,500 orders. We publish the bands because the decision is made at a boundary, not at the entry price.</p>
+<h2>How to read your own number</h2>
+<ol>
+<li>Find your monthly order count, not your yearly one. Yotpo charges on the monthly figure.</li>
+<li>Locate the band. If you are under 1,000, Starter is available; if you are at 1,001 or above, you are on Pro whether you picked it or not.</li>
+<li>If you are within about 50 orders of 1,000 and your volume is seasonal, the cheapest move is often to keep a month under the line rather than absorb a $170 step &mdash; but check whether the review features you actually use exist on Starter at all.</li>
+</ol>
+<p class="muted">Sources: <a href="https://www.yotpo.com/pricing/" rel="nofollow noopener" target="_blank">yotpo.com/pricing</a>, rendered and read __DATE__. Yotpo's own FAQ says pricing "scales with your store's monthly order volume". Found a band that has changed? Tell us and it goes in the <a href="__P__corrections/">corrections log</a>.</p>"""
+yotpo_body = (yotpo_body.replace("__STARTER__", ys_rows).replace("__PRO__", yp_rows)
+              .replace("__DATE__", checked).replace("__P__", "../../"))
+page("guides/yotpo-cost-by-orders/index.html",
+     "Yotpo Reviews cost by order volume: every published band (%s)" % checked,
+     "Yotpo prices reviews by monthly order volume, and the price table is hidden behind a slider: here are all 12 published bands, and the 1,001-order boundary where one more order costs $170 more a month.",
+     yotpo_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9"), ("guides/uninstalled-app-still-charged/", "0.9"), ("guides/recharge-cost-at-volume/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9"), ("guides/uninstalled-app-still-charged/", "0.9"), ("guides/recharge-cost-at-volume/", "0.9"), ("guides/yotpo-cost-by-orders/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
