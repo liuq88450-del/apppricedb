@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gorgias vs Tidio vs Help Scout: cost at the same ticket volume (2026-11-27)</title>
+<meta name="description" content="Three support apps, three pricing units: what Gorgias, Tidio and Help Scout cost at 100 to 2,000 tickets a month, plus how many Help Scout seats it takes to match a Gorgias bill.">
+<link rel="canonical" href="https://apppricedb.com/guides/support-app-comparison/">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="../../index.html">AppPriceDB</a>
+  <a href="../../calculator/">Calculator</a>
+  <a href="../../pricing-index/">Pricing index</a>
+  <a href="../../methodology.html">Method</a>
+  <a href="../../changelog.html">Changelog</a>
+  <a href="../../about.html">About</a>
+</header>
+<main>
+<h1>Gorgias vs Tidio vs Help Scout: the same support volume, three pricing models</h1>
+<p class="lede">These three are not priced on the same unit, so the comparison most articles make &mdash; entry price against entry price &mdash; is meaningless. Gorgias bills per ticket with overage, Tidio bills per conversation quota, Help Scout bills per seat regardless of volume. Here is what each costs at the volume you actually have.</p>
+<div class="verified">All figures read from the vendors' own pricing pages on 2026-11-27: Gorgias Starter $10 (50 tickets, $0.40 overage), Basic $60 (300, $0.40), Pro $360 (2,000, $0.36); Tidio human-only quota $29 at 100 conversations, $69 at 300, $109 at 500, $199 at 1,000, quote above that; Help Scout Standard $25 per seat per month. We assume 2 agents on Help Scout and monthly billing everywhere. Gorgias AI interactions cost extra ($0.90&ndash;$1.00 each) and also count against ticket volume.</div>
+<h2>Cost at the same ticket volume</h2>
+<table><thead><tr><th>Tickets / month</th><th>Gorgias</th><th>Tidio (human only)</th><th>Help Scout (2 seats)</th><th>Help Scout seats to match Gorgias</th></tr></thead><tbody>
+<tr><td>100</td><td>$30</td><td>$29 &larr;</td><td>$50</td><td class="muted">1.2 seats to match Gorgias</td></tr>
+<tr><td>300</td><td>$60</td><td>$69</td><td>$50 &larr;</td><td class="muted">2.4 seats to match Gorgias</td></tr>
+<tr><td>500</td><td>$140</td><td>$109</td><td>$50 &larr;</td><td class="muted">5.6 seats to match Gorgias</td></tr>
+<tr><td>1,000</td><td>$340</td><td>$199</td><td>$50 &larr;</td><td class="muted">13.6 seats to match Gorgias</td></tr>
+<tr><td>2,000</td><td>$360</td><td class="muted">quote</td><td>$50 &larr;</td><td class="muted">14.4 seats to match Gorgias</td></tr>
+</tbody></table>
+<h2>The three models, plainly</h2>
+<ul>
+<li><strong>Gorgias charges for volume.</strong> $10&ndash;$360 for the plan plus overage, so a busy month is a bigger bill. AI replies cost $0.90&ndash;$1.00 each on top and also consume ticket volume &mdash; they count twice.</li>
+<li><strong>Tidio charges for a quota of conversations.</strong> A conversation is one unit however long it runs, and it only counts once someone replies. Above 1,000 conversations a month the page stops publishing a price.</li>
+<li><strong>Help Scout charges for people, not tickets.</strong> Two agents on Standard is $50 whether you handle 100 tickets or 2,000. That is why it looks expensive at low volume and unbeatable at high volume with a small team.</li>
+</ul>
+<h2>What that means for the decision</h2>
+<p>The last column is the useful one. At 1,000 tickets a month Gorgias costs about $340, which is the same as Help Scout with <strong>about 13.6 Standard seats</strong>. So:</p>
+<ul>
+<li><strong>Small team, high volume:</strong> Help Scout wins on price, by a lot. A three-agent store doing 1,000 tickets pays $75 there against $340 on Gorgias.</li>
+<li><strong>Big team, low volume:</strong> the seat model gets expensive fast &mdash; ten agents on Help Scout is $250 before add-ons (extra inboxes $10 each, extra docs sites $20 each).</li>
+<li><strong>Chat-first rather than ticket-first:</strong> Tidio's quota is the cheapest of the three up to about 300 conversations and stays competitive to 1,000, but its ceiling is the 1,000-conversation quota.</li>
+</ul>
+<p class="muted">Sources: gorgias.com/pricing, tidio.com/pricing, helpscout.com/pricing, all read 2026-11-27. Annual billing changes each of these figures (Gorgias Basic is $50/yr, Help Scout is about 16% off annually, Tidio's annual price is ten months). Found a plan change? Tell us and it goes in the <a href="../../corrections/">corrections log</a>.</p>
+</main>
+<footer>Prices checked 2026-11-27. Some outbound links may be affiliate links, disclosed on the page. Visits are counted anonymously: no cookies, no personal data. © AppPriceDB</footer>
+<script>
+(function(){
+var H="https://abacus.jasoncameron.dev/hit/apppricedb/";
+function hit(k){try{(new Image()).src=H+k+"?r="+Date.now()+Math.random().toString(36).slice(2,7);}catch(e){}}
+function host(u){var m=/^https?:\/\/([^\/?#]+)/i.exec(u||"");return m?m[1].toLowerCase().replace(/^www\./,"").replace(/:\d+$/,""):"";}
+try{
+ var ua=navigator.userAgent||"";
+ var d=new Date(Date.now()+28800000).toISOString().slice(0,10);
+ var bm=/googlebot|bingbot|yandexbot|duckduckbot|baiduspider|applebot|petalbot|gptbot|ccbot/i.exec(ua);
+ if(bm){hit("b-"+d+"-"+bm[0].toLowerCase());return;}
+ if(/bot|crawl|spider|slurp|headless|monitor|lighthouse|preview/i.test(ua))return;
+ var dnt=navigator.doNotTrack||window.doNotTrack;if(dnt===1||dnt==="1"||dnt==="yes")return;
+ hit("v-"+d);
+ var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");
+ hit("p-"+d+"-"+(p?p.replace(/[^a-zA-Z0-9]+/g,"-").slice(0,40):"home"));
+ var b="direct";
+ try{
+  var r=host(document.referrer);
+  var me=host("https://"+location.hostname);
+  if(r&&r.indexOf(me)<0){
+   var M=[["google","google"],["bing","bing"],["duckduckgo","duckduckgo"],["yahoo","yahoo"],["yandex","yandex"],["baidu","baidu"],["ecosia","ecosia"],["search.brave","brave"],["startpage","startpage"],["reddit","reddit"],["facebook","facebook"],["linkedin","linkedin"],["pinterest","pinterest"],["x.com","x"],["twitter","x"],["t.co","x"],["quora","quora"],["youtube","youtube"],["medium","medium"],["shopify","shopify"],["googlemail","email"],["mail.","email"]];
+   b="other";
+   for(var i=0;i<M.length;i++){if(r.indexOf(M[i][0])>=0){b=M[i][1];break;}}
+  }
+ }catch(e){}
+ hit("s-"+d+"-"+b);
+ document.addEventListener("click",function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[rel~="sponsored"]'):null;
+  if(!a)return;
+  var h="unknown";
+  h=host(a.href).replace(/[^a-z0-9.]/g,"")||"unknown";
+  hit("a-"+d+"-"+h);
+ },true);
+}catch(e){}
+})();
+</script>
+</body>
+</html>

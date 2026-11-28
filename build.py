@@ -1439,11 +1439,71 @@ page("guides/loyaltylion-cost-by-orders/index.html",
      "LoyaltyLion Classic is $199 for 500 orders then $50 per additional 500, up to $549 at 4,000 orders: every published band, the per-1,000 cost, and why the $199 is a floor rather than a small-store price.",
      ll_body, "../../")
 
+
+# --- Support stack comparison: Gorgias vs Tidio vs Help Scout (verified 2026-11-28) ---
+def gorgias_best(t):
+    best = None
+    for price, incl, over in ((10, 50, 0.40), (60, 300, 0.40), (360, 2000, 0.36)):
+        c = price + max(0, t - incl) * over
+        if best is None or c < best:
+            best = c
+    return best
+
+def tidio_human(t):
+    grid = [(50, 0), (100, 29), (200, 49), (300, 69), (500, 109), (750, 159), (1000, 199)]
+    for q, price in grid:
+        if t <= q:
+            return price
+    return None  # above 1,000 conversations is a quote
+
+sup_rows = []
+for t in (100, 300, 500, 1000, 2000):
+    g = gorgias_best(t)
+    ti = tidio_human(t)
+    hs = 2 * 25  # 2 seats on Standard
+    vals = {"Gorgias": g, "Tidio (human only)": ti, "Help Scout (2 seats)": hs}
+    cheapest = min((v for v in vals.values() if v is not None))
+    def cell(name):
+        v = vals[name]
+        if v is None:
+            return '<td class="muted">quote</td>'
+        mark = ' &larr;' if v == cheapest else ''
+        return f'<td>${v:,.0f}{mark}</td>'
+    sup_rows.append(f"<tr><td>{t:,}</td>{cell('Gorgias')}{cell('Tidio (human only)')}{cell('Help Scout (2 seats)')}<td class=\"muted\">{g / 25:.1f} seats to match Gorgias</td></tr>")
+sup_table = "\n".join(sup_rows)
+
+sup_body = """<h1>Gorgias vs Tidio vs Help Scout: the same support volume, three pricing models</h1>
+<p class="lede">These three are not priced on the same unit, so the comparison most articles make &mdash; entry price against entry price &mdash; is meaningless. Gorgias bills per ticket with overage, Tidio bills per conversation quota, Help Scout bills per seat regardless of volume. Here is what each costs at the volume you actually have.</p>
+<div class="verified">All figures read from the vendors' own pricing pages on __DATE__: Gorgias Starter $10 (50 tickets, $0.40 overage), Basic $60 (300, $0.40), Pro $360 (2,000, $0.36); Tidio human-only quota $29 at 100 conversations, $69 at 300, $109 at 500, $199 at 1,000, quote above that; Help Scout Standard $25 per seat per month. We assume 2 agents on Help Scout and monthly billing everywhere. Gorgias AI interactions cost extra ($0.90&ndash;$1.00 each) and also count against ticket volume.</div>
+<h2>Cost at the same ticket volume</h2>
+<table><thead><tr><th>Tickets / month</th><th>Gorgias</th><th>Tidio (human only)</th><th>Help Scout (2 seats)</th><th>Help Scout seats to match Gorgias</th></tr></thead><tbody>
+__ROWS__
+</tbody></table>
+<h2>The three models, plainly</h2>
+<ul>
+<li><strong>Gorgias charges for volume.</strong> $10&ndash;$360 for the plan plus overage, so a busy month is a bigger bill. AI replies cost $0.90&ndash;$1.00 each on top and also consume ticket volume &mdash; they count twice.</li>
+<li><strong>Tidio charges for a quota of conversations.</strong> A conversation is one unit however long it runs, and it only counts once someone replies. Above 1,000 conversations a month the page stops publishing a price.</li>
+<li><strong>Help Scout charges for people, not tickets.</strong> Two agents on Standard is $50 whether you handle 100 tickets or 2,000. That is why it looks expensive at low volume and unbeatable at high volume with a small team.</li>
+</ul>
+<h2>What that means for the decision</h2>
+<p>The last column is the useful one. At 1,000 tickets a month Gorgias costs about $340, which is the same as Help Scout with <strong>about 13.6 Standard seats</strong>. So:</p>
+<ul>
+<li><strong>Small team, high volume:</strong> Help Scout wins on price, by a lot. A three-agent store doing 1,000 tickets pays $75 there against $340 on Gorgias.</li>
+<li><strong>Big team, low volume:</strong> the seat model gets expensive fast &mdash; ten agents on Help Scout is $250 before add-ons (extra inboxes $10 each, extra docs sites $20 each).</li>
+<li><strong>Chat-first rather than ticket-first:</strong> Tidio's quota is the cheapest of the three up to about 300 conversations and stays competitive to 1,000, but its ceiling is the 1,000-conversation quota.</li>
+</ul>
+<p class="muted">Sources: gorgias.com/pricing, tidio.com/pricing, helpscout.com/pricing, all read __DATE__. Annual billing changes each of these figures (Gorgias Basic is $50/yr, Help Scout is about 16% off annually, Tidio's annual price is ten months). Found a plan change? Tell us and it goes in the <a href="__P__corrections/">corrections log</a>.</p>"""
+sup_body = (sup_body.replace("__ROWS__", sup_table).replace("__DATE__", checked).replace("__P__", "../../"))
+page("guides/support-app-comparison/index.html",
+     "Gorgias vs Tidio vs Help Scout: cost at the same ticket volume (%s)" % checked,
+     "Three support apps, three pricing units: what Gorgias, Tidio and Help Scout cost at 100 to 2,000 tickets a month, plus how many Help Scout seats it takes to match a Gorgias bill.",
+     sup_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9"), ("guides/uninstalled-app-still-charged/", "0.9"), ("guides/recharge-cost-at-volume/", "0.9"), ("guides/yotpo-cost-by-orders/", "0.9"), ("guides/loyaltylion-cost-by-orders/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9"), ("guides/uninstalled-app-still-charged/", "0.9"), ("guides/recharge-cost-at-volume/", "0.9"), ("guides/yotpo-cost-by-orders/", "0.9"), ("guides/loyaltylion-cost-by-orders/", "0.9"), ("guides/support-app-comparison/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
