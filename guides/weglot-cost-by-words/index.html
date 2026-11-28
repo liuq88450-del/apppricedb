@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weglot cost by number of words: the ladder, and why the limit never renews (2026-11-27)</title>
+<meta name="description" content="All six Weglot tiers with total word limits, languages and seats, read from the vendor page on 2026-11-27, plus the reason a lifetime word cap changes how you size the plan.">
+<link rel="canonical" href="https://apppricedb.com/guides/weglot-cost-by-words/">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="../../index.html">AppPriceDB</a>
+  <a href="../../calculator/">Calculator</a>
+  <a href="../../pricing-index/">Pricing index</a>
+  <a href="../../methodology.html">Method</a>
+  <a href="../../changelog.html">Changelog</a>
+  <a href="../../about.html">About</a>
+</header>
+<main>
+<h1>Weglot cost by number of words, and why the word count never renews</h1>
+<p class="lede">Weglot's plans are not monthly allowances. Each plan includes a total number of unique words, and that limit is fixed for the life of the plan: it does not reset next month. That single fact changes how you should size the plan.</p>
+<div class="verified">All six tiers were read from <a href="https://www.weglot.com/pricing" rel="nofollow noopener" target="_blank">weglot.com/pricing</a> on 2026-11-27, in US dollars (the page also quotes euros). The word limits are the vendor's own wording: "Total unique words translated across all your languages. This is a fixed limit and does not renew."</div>
+<h2>The ladder</h2>
+<table><thead><tr><th>Plan</th><th>USD / month</th><th>USD / year</th><th>Total words</th><th>$ per 1,000 words</th><th>Languages</th><th>Team seats</th></tr></thead><tbody>
+<tr><td>Free</td><td>$0</td><td>-</td><td>2,000</td><td>-</td><td>1</td><td>5</td></tr>
+<tr><td>Starter</td><td>$17</td><td>$170</td><td>10,000</td><td>$1.70</td><td>1</td><td>5</td></tr>
+<tr><td>Business</td><td>$32</td><td>$320</td><td>50,000</td><td>$0.64</td><td>3</td><td>5</td></tr>
+<tr><td>Pro</td><td>$87</td><td>$870</td><td>200,000</td><td>$0.43</td><td>5</td><td>10</td></tr>
+<tr><td>Advanced</td><td>$329</td><td>$3,290</td><td>1,000,000</td><td>$0.33</td><td>10</td><td>25</td></tr>
+<tr><td>Extended</td><td>$769</td><td>$7,690</td><td>5,000,000</td><td>$0.15</td><td>20</td><td>50</td></tr>
+</tbody></table>
+<h2>The trap in a lifetime word count</h2>
+<p>Every other tier is priced against a monthly meter. Weglot's meter never resets, which means the plan you buy is really a ceiling on how much site you can ever translate before paying again:</p>
+<ul>
+<li><strong>Starter (10,000 words, $17)</strong> suits a brochure site that will not change. A store that adds 5,000 words a year exhausts it in two years.</li>
+<li><strong>Business (50,000 words, $32)</strong> is the real entry point for a working catalogue, because product pages and collection pages both count.</li>
+<li><strong>The price per 1,000 words falls hard</strong>: $1.70 on Starter, $0.64 on Business, $0.44 on Pro, $0.33 on Advanced, $0.15 on Extended. Buying a tier above your need is often cheaper per word than upgrading later, but only if you actually use the words.</li>
+<li><strong>Languages are bundled, not free</strong>: 1 on Starter, 3 on Business, 5 on Pro, 10 on Advanced, 20 on Extended. If you need five languages, you cannot stay on Business however few words you have.</li>
+</ul>
+<h2>How to size it</h2>
+<p>Count the unique words on the pages you intend to translate, add what you expect to publish over the next two years, then pick the first tier that covers that number and the language count you need. Because the limit does not renew, undersizing costs a full plan upgrade, not a top-up.</p>
+<p class="muted">Sources: <a href="https://www.weglot.com/pricing" rel="nofollow noopener" target="_blank">weglot.com/pricing</a>, read 2026-11-27. Annual prices are the vendor's own yearly figures, not a computed discount. Spotted a tier change? Tell us and it goes in the <a href="../../corrections/">corrections log</a>.</p>
+</main>
+<footer>Prices checked 2026-11-27. Some outbound links may be affiliate links, disclosed on the page. Visits are counted anonymously: no cookies, no personal data. © AppPriceDB</footer>
+<script>
+(function(){
+var H="https://abacus.jasoncameron.dev/hit/apppricedb/";
+function hit(k){try{(new Image()).src=H+k+"?r="+Date.now()+Math.random().toString(36).slice(2,7);}catch(e){}}
+function host(u){var m=/^https?:\/\/([^\/?#]+)/i.exec(u||"");return m?m[1].toLowerCase().replace(/^www\./,"").replace(/:\d+$/,""):"";}
+try{
+ var ua=navigator.userAgent||"";
+ var d=new Date(Date.now()+28800000).toISOString().slice(0,10);
+ var bm=/googlebot|bingbot|yandexbot|duckduckbot|baiduspider|applebot|petalbot|gptbot|ccbot/i.exec(ua);
+ if(bm){hit("b-"+d+"-"+bm[0].toLowerCase());return;}
+ if(/bot|crawl|spider|slurp|headless|monitor|lighthouse|preview/i.test(ua))return;
+ var dnt=navigator.doNotTrack||window.doNotTrack;if(dnt===1||dnt==="1"||dnt==="yes")return;
+ hit("v-"+d);
+ var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");
+ hit("p-"+d+"-"+(p?p.replace(/[^a-zA-Z0-9]+/g,"-").slice(0,40):"home"));
+ var b="direct";
+ try{
+  var r=host(document.referrer);
+  var me=host("https://"+location.hostname);
+  if(r&&r.indexOf(me)<0){
+   var M=[["google","google"],["bing","bing"],["duckduckgo","duckduckgo"],["yahoo","yahoo"],["yandex","yandex"],["baidu","baidu"],["ecosia","ecosia"],["search.brave","brave"],["startpage","startpage"],["reddit","reddit"],["facebook","facebook"],["linkedin","linkedin"],["pinterest","pinterest"],["x.com","x"],["twitter","x"],["t.co","x"],["quora","quora"],["youtube","youtube"],["medium","medium"],["shopify","shopify"],["googlemail","email"],["mail.","email"]];
+   b="other";
+   for(var i=0;i<M.length;i++){if(r.indexOf(M[i][0])>=0){b=M[i][1];break;}}
+  }
+ }catch(e){}
+ hit("s-"+d+"-"+b);
+ document.addEventListener("click",function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[rel~="sponsored"]'):null;
+  if(!a)return;
+  var h="unknown";
+  h=host(a.href).replace(/[^a-z0-9.]/g,"")||"unknown";
+  hit("a-"+d+"-"+h);
+ },true);
+}catch(e){}
+})();
+</script>
+</body>
+</html>

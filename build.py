@@ -1067,11 +1067,114 @@ page("calculator/index.html",
      "Enter orders, contacts, tickets and catalogue size: this adds up what eleven Shopify apps charge at that volume, from each vendor's published formula, and shows the next step boundary.",
      calc_body, "../../")
 
+
+# --- Postscript: per-message rates vs plan fee (read 2026-11-28) ---
+PS_CARRIER = 0.00435   # average US carrier fee per SMS, stated on the pricing page
+def ps_cost(plan, n):
+    if plan == 'Starter':
+        return max(49.0, n * 0.009) + n * PS_CARRIER
+    if plan == 'Growth':
+        return 100.0 + n * 0.008 + n * PS_CARRIER
+    return 500.0 + n * 0.007 + n * PS_CARRIER
+
+ps_volumes = [1000, 5000, 10000, 25000, 50000, 100000, 250000, 500000]
+def money(x):
+    return "${:,.0f}".format(x) if x >= 100 else "${:,.2f}".format(x)
+def ps_cell(pl, best, cost):
+    cls = ' class="best"' if pl == best else ''
+    arrow = ' &larr;' if pl == best else ''
+    return '<td' + cls + '>' + money(cost) + arrow + '</td>'
+
+ps_rows = []
+for n in ps_volumes:
+    costs = {pl: ps_cost(pl, n) for pl in ('Starter', 'Growth', 'Professional')}
+    best = min(costs, key=costs.get)
+    cells = ''.join(ps_cell(pl, best, costs[pl]) for pl in ('Starter', 'Growth', 'Professional'))
+    ps_rows.append('<tr><td>' + format(n, ',') + '</td>' + cells + '</tr>')
+ps_table = "\n".join(ps_rows)
+
+ps_faq = [
+    ("How much does Postscript cost for 10,000 texts a month?",
+     "About $133 with the Starter plan at 10,000 SMS: the $49 monthly minimum is exceeded, so it is 10,000 x $0.009 message rate plus 10,000 x $0.00435 average US carrier fee. The $100 Growth plan would cost about $223 at that volume, because its lower per-message rate only pays back above 100,000 messages a month."),
+    ("When is Postscript Growth cheaper than Starter?",
+     "At 100,000 SMS a month and above. Starter charges no plan fee but $0.009 per SMS; Growth charges $100 a month and $0.008 per SMS. The $100 fee is recovered only after 100,000 messages."),
+    ("What is the Postscript monthly minimum spend?",
+     "The Starter plan has a $49 monthly minimum spend. Below roughly 5,400 messages the message fees do not reach $49, so you pay $49 regardless. Carrier fees are charged on top."),
+    ("Does Postscript charge carrier fees separately?",
+     "Yes. The pricing page lists average US carrier fees of $0.00435 per SMS and $0.00832 per MMS, on top of the per-message platform rate."),
+]
+ps_faq_html = "\n".join(f"<h3>{html.escape(q)}</h3>\n<p>{html.escape(a)}</p>" for q, a in ps_faq)
+ps_ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in ps_faq]}
+ps_script = f'<script type="application/ld+json">{_j.dumps(ps_ld, ensure_ascii=False)}</script>'
+
+ps_body = ps_script + f"""<h1>Postscript cost at 1,000 to 500,000 texts a month</h1>
+<p class="lede">Postscript has no message allowance: every text costs the same per-message rate plus a carrier fee, and the plan fee buys a lower rate. Here is which plan is actually cheapest at your volume.</p>
+<div class="verified">Plan fees and per-message rates were read from <a href="https://www.postscript.io/pricing" rel="nofollow noopener" target="_blank">postscript.io/pricing</a> on {checked}. Carrier fee: the page states an average US rate of $0.00435 per SMS and $0.00832 per MMS, which we add on top. Assumption stated plainly: we treat the $49 Starter minimum as a floor on platform message fees, with carrier fees added after. If your invoice splits them differently the crossover points do not move, because carrier fees are identical on every plan.</div>
+<h2>Cost by volume</h2>
+<table><thead><tr><th>SMS per month</th><th>Starter</th><th>Growth</th><th>Professional</th></tr></thead><tbody>
+{ps_table}
+</tbody></table>
+<p>Arrow marks the cheapest of the three. The rates are $0.009 / $0.008 / $0.007 per SMS on Starter / Growth / Professional.</p>
+<h2>Where the plans actually cross</h2>
+<ul>
+<li><strong>Starter to Growth: 100,000 texts a month.</strong> Growth costs $100 more per month but saves $0.001 per message. $100 / $0.001 = 100,000 messages before the lower rate repays the fee.</li>
+<li><strong>Growth to Professional: 400,000 texts a month.</strong> $400 more per month at $0.001 saved per message.</li>
+<li><strong>Below ~5,400 texts the Starter minimum is dead money.</strong> 5,400 x $0.009 is $48.60, so anything under that pays the $49 floor anyway. At 1,000 texts the real cost is $53: the floor plus carrier fees, not $9.</li>
+</ul>
+<p>This is the opposite of most SaaS pricing, where the bigger plan is cheaper from a low volume. Here the entry plan has no fee at all, so it stays cheapest for a long way up, and the discounts only start to matter at six-figure sending.</p>
+<h2>What the per-message rate hides</h2>
+<ul>
+<li>Carrier fees are on top of the advertised rate and are quoted as an average, so your bill varies by destination and message type.</li>
+<li>MMS costs five times SMS on Starter ($0.045 against $0.009), and media RCS is $0.0087 in carrier fees alone.</li>
+<li>RCS is an add-on on the Enterprise plan, not a different rate you can pick from the table.</li>
+</ul>
+<p class="muted">Sources: <a href="https://www.postscript.io/pricing" rel="nofollow noopener" target="_blank">postscript.io/pricing</a>, read {checked}. Found a rate that no longer matches? Tell us and it goes in the <a href="{p}corrections/">corrections log</a>.</p>
+<h2>Questions people ask</h2>
+{ps_faq_html}"""
+
+page("guides/postscript-cost-at-volume/index.html",
+     "Postscript cost at 1,000 to 500,000 texts a month (%s)" % checked,
+     "Which Postscript plan is cheapest at your SMS volume, calculated from its per-message rates and carrier fees, with the exact crossover points: Growth only wins above 100,000 texts a month.",
+     ps_body, "../../")
+
+# --- Weglot: word tiers are a lifetime cap (read 2026-11-28) ---
+wg = [("Free", 0, 0, 2000, 1, 5), ("Starter", 17, 170, 10000, 1, 5),
+      ("Business", 32, 320, 50000, 3, 5), ("Pro", 87, 870, 200000, 5, 10),
+      ("Advanced", 329, 3290, 1000000, 10, 25), ("Extended", 769, 7690, 5000000, 20, 50)]
+wg_rows = "\n".join(
+    f"<tr><td>{name}</td><td>{('$0' if m == 0 else '$%d' % m)}</td><td>{('-' if y == 0 else '$%s' % format(y, ','))}</td>"
+    f"<td>{w:,}</td><td>{('-' if m == 0 else '$%.2f' % (m / (w / 1000)))}</td><td>{langs}</td><td>{seats}</td></tr>"
+    for name, m, y, w, langs, seats in wg)
+wg_body = f"""<h1>Weglot cost by number of words, and why the word count never renews</h1>
+<p class="lede">Weglot's plans are not monthly allowances. Each plan includes a total number of unique words, and that limit is fixed for the life of the plan: it does not reset next month. That single fact changes how you should size the plan.</p>
+<div class="verified">All six tiers were read from <a href="https://www.weglot.com/pricing" rel="nofollow noopener" target="_blank">weglot.com/pricing</a> on {checked}, in US dollars (the page also quotes euros). The word limits are the vendor's own wording: "Total unique words translated across all your languages. This is a fixed limit and does not renew."</div>
+<h2>The ladder</h2>
+<table><thead><tr><th>Plan</th><th>USD / month</th><th>USD / year</th><th>Total words</th><th>$ per 1,000 words</th><th>Languages</th><th>Team seats</th></tr></thead><tbody>
+{wg_rows}
+</tbody></table>
+<h2>The trap in a lifetime word count</h2>
+<p>Every other tier is priced against a monthly meter. Weglot's meter never resets, which means the plan you buy is really a ceiling on how much site you can ever translate before paying again:</p>
+<ul>
+<li><strong>Starter (10,000 words, $17)</strong> suits a brochure site that will not change. A store that adds 5,000 words a year exhausts it in two years.</li>
+<li><strong>Business (50,000 words, $32)</strong> is the real entry point for a working catalogue, because product pages and collection pages both count.</li>
+<li><strong>The price per 1,000 words falls hard</strong>: $1.70 on Starter, $0.64 on Business, $0.44 on Pro, $0.33 on Advanced, $0.15 on Extended. Buying a tier above your need is often cheaper per word than upgrading later, but only if you actually use the words.</li>
+<li><strong>Languages are bundled, not free</strong>: 1 on Starter, 3 on Business, 5 on Pro, 10 on Advanced, 20 on Extended. If you need five languages, you cannot stay on Business however few words you have.</li>
+</ul>
+<h2>How to size it</h2>
+<p>Count the unique words on the pages you intend to translate, add what you expect to publish over the next two years, then pick the first tier that covers that number and the language count you need. Because the limit does not renew, undersizing costs a full plan upgrade, not a top-up.</p>
+<p class="muted">Sources: <a href="https://www.weglot.com/pricing" rel="nofollow noopener" target="_blank">weglot.com/pricing</a>, read {checked}. Annual prices are the vendor's own yearly figures, not a computed discount. Spotted a tier change? Tell us and it goes in the <a href="{p}corrections/">corrections log</a>.</p>"""
+
+page("guides/weglot-cost-by-words/index.html",
+     "Weglot cost by number of words: the ladder, and why the limit never renews (%s)" % checked,
+     "All six Weglot tiers with total word limits, languages and seats, read from the vendor page on %s, plus the reason a lifetime word cap changes how you size the plan." % checked,
+     wg_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

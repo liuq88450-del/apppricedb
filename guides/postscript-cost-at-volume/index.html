@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Postscript cost at 1,000 to 500,000 texts a month (2026-11-27)</title>
+<meta name="description" content="Which Postscript plan is cheapest at your SMS volume, calculated from its per-message rates and carrier fees, with the exact crossover points: Growth only wins above 100,000 texts a month.">
+<link rel="canonical" href="https://apppricedb.com/guides/postscript-cost-at-volume/">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="../../index.html">AppPriceDB</a>
+  <a href="../../calculator/">Calculator</a>
+  <a href="../../pricing-index/">Pricing index</a>
+  <a href="../../methodology.html">Method</a>
+  <a href="../../changelog.html">Changelog</a>
+  <a href="../../about.html">About</a>
+</header>
+<main>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does Postscript cost for 10,000 texts a month?", "acceptedAnswer": {"@type": "Answer", "text": "About $133 with the Starter plan at 10,000 SMS: the $49 monthly minimum is exceeded, so it is 10,000 x $0.009 message rate plus 10,000 x $0.00435 average US carrier fee. The $100 Growth plan would cost about $223 at that volume, because its lower per-message rate only pays back above 100,000 messages a month."}}, {"@type": "Question", "name": "When is Postscript Growth cheaper than Starter?", "acceptedAnswer": {"@type": "Answer", "text": "At 100,000 SMS a month and above. Starter charges no plan fee but $0.009 per SMS; Growth charges $100 a month and $0.008 per SMS. The $100 fee is recovered only after 100,000 messages."}}, {"@type": "Question", "name": "What is the Postscript monthly minimum spend?", "acceptedAnswer": {"@type": "Answer", "text": "The Starter plan has a $49 monthly minimum spend. Below roughly 5,400 messages the message fees do not reach $49, so you pay $49 regardless. Carrier fees are charged on top."}}, {"@type": "Question", "name": "Does Postscript charge carrier fees separately?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The pricing page lists average US carrier fees of $0.00435 per SMS and $0.00832 per MMS, on top of the per-message platform rate."}}]}</script><h1>Postscript cost at 1,000 to 500,000 texts a month</h1>
+<p class="lede">Postscript has no message allowance: every text costs the same per-message rate plus a carrier fee, and the plan fee buys a lower rate. Here is which plan is actually cheapest at your volume.</p>
+<div class="verified">Plan fees and per-message rates were read from <a href="https://www.postscript.io/pricing" rel="nofollow noopener" target="_blank">postscript.io/pricing</a> on 2026-11-27. Carrier fee: the page states an average US rate of $0.00435 per SMS and $0.00832 per MMS, which we add on top. Assumption stated plainly: we treat the $49 Starter minimum as a floor on platform message fees, with carrier fees added after. If your invoice splits them differently the crossover points do not move, because carrier fees are identical on every plan.</div>
+<h2>Cost by volume</h2>
+<table><thead><tr><th>SMS per month</th><th>Starter</th><th>Growth</th><th>Professional</th></tr></thead><tbody>
+<tr><td>1,000</td><td class="best">$53.35 &larr;</td><td>$112</td><td>$511</td></tr>
+<tr><td>5,000</td><td class="best">$70.75 &larr;</td><td>$162</td><td>$557</td></tr>
+<tr><td>10,000</td><td class="best">$134 &larr;</td><td>$224</td><td>$614</td></tr>
+<tr><td>25,000</td><td class="best">$334 &larr;</td><td>$409</td><td>$784</td></tr>
+<tr><td>50,000</td><td class="best">$667 &larr;</td><td>$718</td><td>$1,068</td></tr>
+<tr><td>100,000</td><td class="best">$1,335 &larr;</td><td>$1,335</td><td>$1,635</td></tr>
+<tr><td>250,000</td><td>$3,338</td><td class="best">$3,188 &larr;</td><td>$3,338</td></tr>
+<tr><td>500,000</td><td>$6,675</td><td>$6,275</td><td class="best">$6,175 &larr;</td></tr>
+</tbody></table>
+<p>Arrow marks the cheapest of the three. The rates are $0.009 / $0.008 / $0.007 per SMS on Starter / Growth / Professional.</p>
+<h2>Where the plans actually cross</h2>
+<ul>
+<li><strong>Starter to Growth: 100,000 texts a month.</strong> Growth costs $100 more per month but saves $0.001 per message. $100 / $0.001 = 100,000 messages before the lower rate repays the fee.</li>
+<li><strong>Growth to Professional: 400,000 texts a month.</strong> $400 more per month at $0.001 saved per message.</li>
+<li><strong>Below ~5,400 texts the Starter minimum is dead money.</strong> 5,400 x $0.009 is $48.60, so anything under that pays the $49 floor anyway. At 1,000 texts the real cost is $53: the floor plus carrier fees, not $9.</li>
+</ul>
+<p>This is the opposite of most SaaS pricing, where the bigger plan is cheaper from a low volume. Here the entry plan has no fee at all, so it stays cheapest for a long way up, and the discounts only start to matter at six-figure sending.</p>
+<h2>What the per-message rate hides</h2>
+<ul>
+<li>Carrier fees are on top of the advertised rate and are quoted as an average, so your bill varies by destination and message type.</li>
+<li>MMS costs five times SMS on Starter ($0.045 against $0.009), and media RCS is $0.0087 in carrier fees alone.</li>
+<li>RCS is an add-on on the Enterprise plan, not a different rate you can pick from the table.</li>
+</ul>
+<p class="muted">Sources: <a href="https://www.postscript.io/pricing" rel="nofollow noopener" target="_blank">postscript.io/pricing</a>, read 2026-11-27. Found a rate that no longer matches? Tell us and it goes in the <a href="../../corrections/">corrections log</a>.</p>
+<h2>Questions people ask</h2>
+<h3>How much does Postscript cost for 10,000 texts a month?</h3>
+<p>About $133 with the Starter plan at 10,000 SMS: the $49 monthly minimum is exceeded, so it is 10,000 x $0.009 message rate plus 10,000 x $0.00435 average US carrier fee. The $100 Growth plan would cost about $223 at that volume, because its lower per-message rate only pays back above 100,000 messages a month.</p>
+<h3>When is Postscript Growth cheaper than Starter?</h3>
+<p>At 100,000 SMS a month and above. Starter charges no plan fee but $0.009 per SMS; Growth charges $100 a month and $0.008 per SMS. The $100 fee is recovered only after 100,000 messages.</p>
+<h3>What is the Postscript monthly minimum spend?</h3>
+<p>The Starter plan has a $49 monthly minimum spend. Below roughly 5,400 messages the message fees do not reach $49, so you pay $49 regardless. Carrier fees are charged on top.</p>
+<h3>Does Postscript charge carrier fees separately?</h3>
+<p>Yes. The pricing page lists average US carrier fees of $0.00435 per SMS and $0.00832 per MMS, on top of the per-message platform rate.</p>
+</main>
+<footer>Prices checked 2026-11-27. Some outbound links may be affiliate links, disclosed on the page. Visits are counted anonymously: no cookies, no personal data. © AppPriceDB</footer>
+<script>
+(function(){
+var H="https://abacus.jasoncameron.dev/hit/apppricedb/";
+function hit(k){try{(new Image()).src=H+k+"?r="+Date.now()+Math.random().toString(36).slice(2,7);}catch(e){}}
+function host(u){var m=/^https?:\/\/([^\/?#]+)/i.exec(u||"");return m?m[1].toLowerCase().replace(/^www\./,"").replace(/:\d+$/,""):"";}
+try{
+ var ua=navigator.userAgent||"";
+ var d=new Date(Date.now()+28800000).toISOString().slice(0,10);
+ var bm=/googlebot|bingbot|yandexbot|duckduckbot|baiduspider|applebot|petalbot|gptbot|ccbot/i.exec(ua);
+ if(bm){hit("b-"+d+"-"+bm[0].toLowerCase());return;}
+ if(/bot|crawl|spider|slurp|headless|monitor|lighthouse|preview/i.test(ua))return;
+ var dnt=navigator.doNotTrack||window.doNotTrack;if(dnt===1||dnt==="1"||dnt==="yes")return;
+ hit("v-"+d);
+ var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");
+ hit("p-"+d+"-"+(p?p.replace(/[^a-zA-Z0-9]+/g,"-").slice(0,40):"home"));
+ var b="direct";
+ try{
+  var r=host(document.referrer);
+  var me=host("https://"+location.hostname);
+  if(r&&r.indexOf(me)<0){
+   var M=[["google","google"],["bing","bing"],["duckduckgo","duckduckgo"],["yahoo","yahoo"],["yandex","yandex"],["baidu","baidu"],["ecosia","ecosia"],["search.brave","brave"],["startpage","startpage"],["reddit","reddit"],["facebook","facebook"],["linkedin","linkedin"],["pinterest","pinterest"],["x.com","x"],["twitter","x"],["t.co","x"],["quora","quora"],["youtube","youtube"],["medium","medium"],["shopify","shopify"],["googlemail","email"],["mail.","email"]];
+   b="other";
+   for(var i=0;i<M.length;i++){if(r.indexOf(M[i][0])>=0){b=M[i][1];break;}}
+  }
+ }catch(e){}
+ hit("s-"+d+"-"+b);
+ document.addEventListener("click",function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[rel~="sponsored"]'):null;
+  if(!a)return;
+  var h="unknown";
+  h=host(a.href).replace(/[^a-z0-9.]/g,"")||"unknown";
+  hit("a-"+d+"-"+h);
+ },true);
+}catch(e){}
+})();
+</script>
+</body>
+</html>
