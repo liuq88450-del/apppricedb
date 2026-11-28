@@ -1391,14 +1391,14 @@ __PRO__
 <li>At <strong>1,001 orders</strong> Starter is no longer available. The cheapest published option is Pro at <strong>$299</strong>.</li>
 <li>One extra order costs <strong>$170 a month</strong>, a <strong>132%</strong> increase &mdash; and $2,040 a year.</li>
 </ul>
-<p>For scale: 1,001 orders and 2,000 orders both cost $299 on Pro. So the store that just crossed the line pays the same as a store doing nearly double the volume, while the store one order below the line pays 57% less. This is the single most expensive boundary in the whole app stack we track.</p>
+<p>For scale: 1,001 orders and 2,000 orders both cost $299 on Pro. So the store that just crossed the line pays the same as a store doing nearly double the volume, while the store one order below the line pays 57% less. This is the single most expensive boundary in the whole app stack we track. The same rule applies at every boundary, not just this one: Pro covers 1,001 to 5,999 orders, and above 6,000 the page hands you to Premium, which is a quote.</p>
 <h2>Why the table is not on the page</h2>
 <p>Yotpo shows one price at a time through a volume slider, and the bands exist only as data behind it. That is why most articles quote "from $15" &mdash; true for a store with 50 orders, meaningless for anyone deciding whether they can afford reviews at 1,500 orders. We publish the bands because the decision is made at a boundary, not at the entry price.</p>
 <h2>How to read your own number</h2>
 <ol>
 <li>Find your monthly order count, not your yearly one. Yotpo charges on the monthly figure.</li>
 <li>Locate the band. If you are under 1,000, Starter is available; if you are at 1,001 or above, you are on Pro whether you picked it or not.</li>
-<li>If you are within about 50 orders of 1,000 and your volume is seasonal, the cheapest move is often to keep a month under the line rather than absorb a $170 step &mdash; but check whether the review features you actually use exist on Starter at all.</li>
+<li>If you are within about 50 orders of 1,000 and your volume is seasonal, keeping a month under the line can avoid the $170 step &mdash; but this only works if the cycle that bills you is the quiet month, because Yotpo charges on the order volume in the billing period. And check whether the review features you actually use exist on Starter at all: this page compares prices, not feature sets.</li>
 </ol>
 <p class="muted">Sources: <a href="https://www.yotpo.com/pricing/" rel="nofollow noopener" target="_blank">yotpo.com/pricing</a>, rendered and read __DATE__. Yotpo's own FAQ says pricing "scales with your store's monthly order volume". Found a band that has changed? Tell us and it goes in the <a href="__P__corrections/">corrections log</a>.</p>"""
 yotpo_body = (yotpo_body.replace("__STARTER__", ys_rows).replace("__PRO__", yp_rows)
