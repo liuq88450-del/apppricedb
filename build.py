@@ -1392,11 +1392,42 @@ page("guides/yotpo-cost-by-orders/index.html",
      "Yotpo prices reviews by monthly order volume, and the price table is hidden behind a slider: here are all 12 published bands, and the 1,001-order boundary where one more order costs $170 more a month.",
      yotpo_body, "../../")
 
+
+# --- LoyaltyLion: linear order ladder (verified by render, 2026-11-28) ---
+ll = [(500,199),(1000,249),(1500,299),(2000,349),(2500,399),(3000,449),(3500,499),(4000,549)]
+ll_rows = "\n".join(
+    f"<tr><td>{o:,}</td><td>${p}</td><td>${p / o * 1000:,.2f}</td><td>${50 if o > 500 else 0}</td></tr>"
+    for o, p in ll)
+ll_rows += '<tr><td>4,500+</td><td class="muted">custom quote</td><td class="muted">-</td><td class="muted">-</td></tr>'
+
+ll_body = """<h1>LoyaltyLion cost by order volume: $199 floor, then $50 per 500 orders</h1>
+<p class="lede">LoyaltyLion's Classic plan is a straight line: $199 a month covering 500 orders, then $50 for every additional 500 orders up to 4,000. Above that it becomes a quote. Because the ladder is linear, the cost per order falls the whole way up, and a small store pays a lot per order.</p>
+<div class="verified">The eight price points were read from the price table embedded in <a href="https://loyaltylion.com/pricing" rel="nofollow noopener" target="_blank">loyaltylion.com/pricing</a> on __DATE__ (the page's own selector data: PRICES = 500:$199, 1000:$249, 1500:$299, 2000:$349, 2500:$399, 3000:$449, 3500:$499, 4000:$549). The page's order selector offers bands above 4,000 but publishes no price for them; the code sets those to "Custom", so we do not guess. Advanced and Plus are quote-only.</div>
+<h2>The ladder</h2>
+<table><thead><tr><th>Orders covered / month</th><th>Monthly price</th><th>Per 1,000 orders</th><th>Step increase</th></tr></thead><tbody>
+__ROWS__
+</tbody></table>
+<h2>What the shape tells you</h2>
+<ul>
+<li><strong>The $199 is a floor, not a price for small stores.</strong> A store doing 200 orders a month pays the same $199 as one doing 500. At 500 orders that is $398 per 1,000 orders ($0.40 an order); at 100 orders the same $199 works out to $1,990 per 1,000 orders, because the plan does not scale down.</li>
+<li><strong>Every 500 orders costs exactly $50 more.</strong> That is $0.10 per order in the marginal range, and it is the same at 1,000 orders as at 4,000. There is no volume discount inside the ladder &mdash; only the fixed $199 gets diluted.</li>
+<li><strong>Per-1,000 cost falls from $398 to $137</strong> between the first and last published band. That is the whole benefit of growing on this plan.</li>
+<li><strong>The ceiling is a quote, not a price.</strong> At 4,500 orders the page switches to "Custom". If you are near that line, ask before you plan a budget around it.</li>
+</ul>
+<h2>How this compares to being quoted</h2>
+<p>Because the ladder is linear and predictable, LoyaltyLion is one of the few apps where you can budget a year ahead without a quote: pick your band, add 8% if you expect growth of about 800 orders a month. The moment you cross 4,000, that predictability ends &mdash; which is worth knowing before you build a loyalty programme around the platform.</p>
+<p class="muted">Sources: <a href="https://loyaltylion.com/pricing" rel="nofollow noopener" target="_blank">loyaltylion.com/pricing</a>, rendered and read __DATE__. Per-1,000 and step figures are our arithmetic from the eight published points. Found a band change? Tell us and it goes in the <a href="__P__corrections/">corrections log</a>.</p>"""
+ll_body = ll_body.replace("__ROWS__", ll_rows).replace("__DATE__", checked).replace("__P__", "../../")
+page("guides/loyaltylion-cost-by-orders/index.html",
+     "LoyaltyLion cost by order volume: the full published ladder (%s)" % checked,
+     "LoyaltyLion Classic is $199 for 500 orders then $50 per additional 500, up to $549 at 4,000 orders: every published band, the per-1,000 cost, and why the $199 is a floor rather than a small-store price.",
+     ll_body, "../../")
+
 # --- sitemap ---
 base = BASE
 urls = [("", "1.0"), ("pricing-index/", "0.9"), ("changelog.html", "0.5"),
         ("methodology.html", "0.5"), ("about.html", "0.4"),
-        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9"), ("guides/uninstalled-app-still-charged/", "0.9"), ("guides/recharge-cost-at-volume/", "0.9"), ("guides/yotpo-cost-by-orders/", "0.9")]
+        ("guides/gorgias-cost-at-volume/", "0.8"), ("compare/gorgias-vs-help-scout/", "0.8"), ("guides/how-shopify-apps-bill/", "0.8"), ("compare/judge-me-vs-fera/", "0.8"), ("changes/", "0.8"), ("guides/hidden-app-fees/", "0.8"), ("corrections/", "0.5"), ("data/", "0.6"), ("guides/review-app-cost/", "0.8"), ("guides/vitals-cost-at-volume/", "0.8"), ("guides/fera-cost-at-volume/", "0.8"), ("guides/help-scout-cost-by-seats/", "0.8"), ("guides/starter-stack-cost/", "0.8"), ("guides/billing-rules/", "0.9"), ("guides/apps-that-rise-with-growth/", "0.8"), ("guides/app-audit-checklist/", "0.9"), ("guides/billing-reconciliation-report/", "0.9"), ("guides/all-in-one-vs-single-apps/", "0.8"), ("guides/apps-that-charge-a-percentage/", "0.9"), ("guides/klaviyo-cost-at-volume/", "0.9"), ("guides/tidio-cost-at-volume/", "0.9"), ("calculator/", "1.0"), ("guides/postscript-cost-at-volume/", "0.9"), ("guides/weglot-cost-by-words/", "0.9"), ("guides/searchanise-cost-by-products/", "0.9"), ("guides/why-shopify-months-dont-close/", "0.9"), ("guides/uninstalled-app-still-charged/", "0.9"), ("guides/recharge-cost-at-volume/", "0.9"), ("guides/yotpo-cost-by-orders/", "0.9"), ("guides/loyaltylion-cost-by-orders/", "0.9")]
 for slug in apps:
     urls.append((f"apps/{slug}/", "0.8"))
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
